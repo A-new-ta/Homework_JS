@@ -1,4 +1,4 @@
-N.03 Домашнее задание ANKETA
+***N.03 Домашнее задание ANKETA***
 
 https://a-new-ta.github.io/Homework_JS/anketa/
 
@@ -19,7 +19,7 @@ https://a-new-ta.github.io/Homework_JS/anketa/
 Должен быть контроль корректности вводимых пользователем данных (например, фамилия не должна быть пустой, возраст должен быть корректной цифрой и т.д.). Оператор alert в коде должен использоваться ровно один раз.
 
 
-N.05 Домашнее задание TREESUM
+***N.05 Домашнее задание TREESUM***
 
 https://a-new-ta.github.io/Homework_JS/treesum/
 
