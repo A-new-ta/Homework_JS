@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let surname = null;
+            while (!isNaN(surname) || surname == null || surname == "") {
+                surname = prompt('Введите фамилию');                
+            };
+        let name = null;
+            while (!isNaN(name) || name == null || name == "") {
+                name = prompt('Введите имя');                
+            };
+        let middlename = null;
+            while (!isNaN(middlename) || middlename == null || middlename == "") {
+                middlename = prompt('Введите отчество');                
+            };
+        
+        let age = parseInt(prompt('Введите ваш возраст'));
+            console.log(age);
+            while (isNaN(age) || age <1 || age > 100) {
+                age = parseInt(prompt ('Введите корректный возраст'));
+            };
+
+        let gender = confirm('Ваш пол - мужской?');
+        let pension;
+          if (gender) {
+            gender = 'мужской';
+            pension = 60;          
+          }
+          else {
+            gender = 'женский';
+            pension = 55;
+          };
+        let pensionAge;  
+          if (age >= pension) {
+            pensionAge = 'да';
+          }
+          else pensionAge = 'нет';
+               
+  
+        alert(
+         `
+          ваше ФИО: ${surname} ${name} ${middlename}
+          ваш возраст в годах: ${age}
+          ваш возраст в днях: ${age*365}
+          через пять лет вам будет: ${age+5}
+          ваш пол: ${gender}
+          вы на пенсии: ${pensionAge}
+          `
+          );
+  
+      </script>
+
+
+</body>
+</html>
