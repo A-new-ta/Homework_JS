@@ -18,14 +18,26 @@
             start = i + 1;
             i++;
             }
+            if (start === x.length) {
+                console.log('строка с одними пробелами');
+                return result;
+            }
             i = 0;
             while (x[x.length - 1 - i] === ' ') {
                 finish = x.length - 2 - i;
                 i++;
             }
-            for(let i = start; i <= finish; i++)
-            result = result + x[i];
+            if ((start === 0) && (finish = x.length -1)) {
+                console.log('нет пробелов');
+                return result;
+            }
+            
+            result = x.slice(start, finish+1);
             return result
+            
+            // for(let i = start; i <= finish; i++)
+            // result = result + x[i];
+            
         }
     
     let y = prompt ('Напишите что-нибудь');
