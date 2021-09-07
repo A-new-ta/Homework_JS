@@ -13,9 +13,14 @@
             let i = 0;
             let start = 0;
             let finish = x.length - 1;
-            while ((x[i] === ' ') || (x[x.length - 1 - i] === ' ')) {
-                if (x[i] === ' ') start = i + 1;
-                if (x[x.length - 1 - i] === ' ') finish = x.length - 2 - i;
+            
+            while (x[i] === ' ') {
+            start = i + 1;
+            i++;
+            }
+            i = 0;
+            while (x[x.length - 1 - i] === ' ') {
+                finish = x.length - 2 - i;
                 i++;
             }
             for(let i = start; i <= finish; i++)
