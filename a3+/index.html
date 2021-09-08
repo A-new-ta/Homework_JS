@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+// str1.toLowerCase().replace(...) => "Race car" => "race car" => "racecar"
+// str2.split("") => ["r","a","c","e","c","a","r"] => .reverse().join() => "racecar"
+// str = str.toLowerCase().replace(/[^a-z]+/g,"");
+// function palindrome(str) {
+//   /* remove special characters, spaces and make lowercase*/
+//   var removeChar = str.replace(/[^A-Z0-9]/ig, "").toLowerCase();
+
+//   /* reverse removeChar for comparison*/
+//   var checkPalindrome = removeChar.split('').reverse().join('');
+
+//   /* Check to see if str is a Palindrome*/
+//    return (removeChar === checkPalindrome);
+// }
+
+        function replaceSymbol(line, symb, sub = '') {
+        while (line.indexOf(symb) !== -1) {
+            line = line.replace(symb, sub)
+        }
+        return line;
+}
+        function isPalindrome(line) {
+            line = line.toLowerCase();
+            line = replaceSymbol(line, ' ');
+            line = replaceSymbol(line, '\n');   //
+            line = replaceSymbol(line, '\t');   //
+            line = replaceSymbol(line, '\r');   //
+            line = replaceSymbol(line, '\v');   //
+            line = replaceSymbol(line, 'ё', 'е');
+            line = replaceSymbol(line, 'ь');
+            line = replaceSymbol(line, 'ъ');
+            line = replaceSymbol(line, '.');
+            line = replaceSymbol(line, ',');
+            line = replaceSymbol(line, '!');
+            line = replaceSymbol(line, '?');
+            line = replaceSymbol(line, '-');
+            line = replaceSymbol(line, ':');
+            line = replaceSymbol(line, ';');
+            line = replaceSymbol(line, '(');
+            line = replaceSymbol(line, ')');
+            line = replaceSymbol(line, '"');
+            line = replaceSymbol(line, '/');
+            line = replaceSymbol(line, '{');
+            line = replaceSymbol(line, '}');
+
+            if(line.length===0){return true}
+            if(line[0]!==line[line.length-1]){return false}
+            return isPalindrome(line.slice(1,line.length-1));
+
+
+            }
+        
+        let y = prompt ('введите текст');
+        alert (isPalindrome(y));
+
+    </script>
+    
+</body>
+</html>
