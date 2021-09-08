@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // str1.toLowerCase().replace(...) => "Race car" => "race car" => "racecar"
+// str2.split("") => ["r","a","c","e","c","a","r"] => .reverse().join() => "racecar"
+// str = str.toLowerCase().replace(/[^a-z]+/g,"");
+// function palindrome(str) {
+//   /* remove special characters, spaces and make lowercase*/
+//   var removeChar = str.replace(/[^A-Z0-9]/ig, "").toLowerCase();
+
+//   /* reverse removeChar for comparison*/
+//   var checkPalindrome = removeChar.split('').reverse().join('');
+
+//   /* Check to see if str is a Palindrome*/
+//    return (removeChar === checkPalindrome);
+// }
+
+        function isPalindrome(x) {
+           
+            let y = x.replace(/[^a-zа-яё]/ig, "").replace(/\ё/ig, 'е').replace(/\ь/ig, '').replace(/\ъ/ig, '').toLowerCase();
+            
+            // if(y.length===0) return true;
+            // if(y[0] !== y[y.length-1]) return false;
+            // return isPalindrome(y.slice(1, y.length-1));
+
+            while ((y.length > 0)) {
+            if(y[0] !== y[y.length-1]) return false;
+            else y  = (y.slice(1, y.length-1));
+            }
+            return true;
+        }
+        
+        let a = prompt ('введите текст');
+        if (isPalindrome(a) === true)
+        alert (`${a} - это палиндром`);
+        else
+        alert (`${a} - это не палиндром`);
+        
+    </script>
+</body>
+</html>
