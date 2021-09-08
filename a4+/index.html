@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function transformStr(b) {
+            let y = b.replace(/[^a-zа-яё]/ig, "").replace(/\ё/ig, 'е').replace(/\ь/ig, '').replace(/\ъ/ig, '').toLowerCase();
+            return y;
+        };
+        
+        
+        function isPalindrome(text, start = 0, end = text.length - 1 ) {
+           
+        //    if(y.length===0) return true;
+        //    if(y[0] !== y[y.length-1]) return false;
+        //    return isPalindrome(y.slice(1, y.length-1));
+
+           if (start >= end) {
+               return true;
+           }
+           else {
+               if (text[start] === text[end]) {
+                   return isPalindrome(text, (start + 1), (end - 1));
+               }
+               else {
+                   return false;
+               }
+           }
+        }
+    
+       
+       let a = prompt ('введите текст');
+       let text = transformStr(a);
+       if (isPalindrome(text) === true)
+       alert (`${a} - это палиндром`);
+       else
+       alert (`${a} - это не палиндром`);
+       
+    </script>
+</body>
+</html>
