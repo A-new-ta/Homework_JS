@@ -8,39 +8,31 @@
 </head>
 <body>
     <script>
-        function transformStr(b) {
-            let y = b.replace(/[^a-zа-яё]/ig, "").replace(/\ё/ig, 'е').replace(/\ь/ig, '').replace(/\ъ/ig, '').toLowerCase();
-            return y;
-        };
-        
-        
-        function isPalindrome(text, start = 0, end = text.length - 1 ) {
-           
-        //    if(y.length===0) return true;
-        //    if(y[0] !== y[y.length-1]) return false;
-        //    return isPalindrome(y.slice(1, y.length-1));
 
-           if (start >= end) {
-               return true;
-           }
-           else {
-               if (text[start] === text[end]) {
-                   return isPalindrome(text, (start + 1), (end - 1));
-               }
-               else {
-                   return false;
-               }
-           }
-        }
-    
-       
+        // function transformStr(b) {
+        //     let y = b.replace(/[^a-zа-яё]/ig, "").replace(/\ё/ig, 'е').replace(/\ь/ig, '').replace(/\ъ/ig, '').toLowerCase();
+        //     return y;
+        // };
+        
+        function isPalindromeOutside(x) {
+            let y = x.replace(/[^a-zа-яё]/ig, "").replace(/\ё/ig, 'е').replace(/\ь/ig, '').replace(/\ъ/ig, '').toLowerCase();
+        
+            function isPalindromeInside(y) {
+                      
+                if(y.length < 2) return true;
+                if(y[0] === y[y.length-1]) {
+                    return isPalindromeInside(y.slice(1, y.length-1));
+                } else return false;
+            }
+            return isPalindromeInside(y);
+        }    
+
        let a = prompt ('введите текст');
-       let text = transformStr(a);
-       if (isPalindrome(text) === true)
+       if (isPalindromeOutside(a) === true)
        alert (`${a} - это палиндром`);
        else
        alert (`${a} - это не палиндром`);
-       
+
     </script>
 </body>
 </html>
