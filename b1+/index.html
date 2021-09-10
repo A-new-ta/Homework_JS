@@ -9,14 +9,27 @@
 <body>
     <script>
         function centuryFromYear(x) {
-        return Math.ceil((year)/100);
-    }
+        return Math.ceil((x)/100);
+        }
 
         let year = parseInt(prompt('Введите год целым числом'));
         while (year < 0 || isNaN(year)) {
             year = parseInt(prompt ('Введите корректное число'));
         }
         alert (`${centuryFromYear(year)} век`);
+
+
+        // function centuryFromYear() {
+        //     let year = parseInt(prompt('Введите год целым числом'));
+        //     while (year < 0 || isNaN(year)) {
+        //     year = parseInt(prompt ('Введите корректное число'));
+        //     }
+        //     alert (`${Math.ceil((year)/100)} век`);
+        // }
+        // centuryFromYear();
+        
+        
+
     </script>
 </body>
 </html>
