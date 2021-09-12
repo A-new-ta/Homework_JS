@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // let text = prompt ('введите текст').toLowerCase();
+        // function vowelsCount (str) {
+        //     let vowelsCount = 0;
+        //     let vowels = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я']; 
+        //     for (let i = 0; i < str.length; i++) {
+        //         for (let j = 0; j < vowels.length; j++) {
+        //             if (str[i] === vowels[j]) {
+        //                 vowelsCount++;
+        //             }
+        //         }
+        //     }
+        //     return vowelsCount;
+        // }
+        
+        // console.log(vowelsCount(text)); 
+        // console.time(vowelsCount(text));
+        // console.timeEnd(vowelsCount(text));
+
+        let text = prompt ('введите текст').toLowerCase().split(' ').join('');
+        function vowelsCount (str) {
+            let vowelsCount = 0;
+            let vowels = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я']; 
+            for (let i = 0; i < str.length; i++) {
+                if (vowels.includes(str[i])) vowelsCount++;
+            }
+            return vowelsCount;    
+        }
+        
+        console.log(vowelsCount(text)); 
+        // console.time(vowelsCount(text));
+        // console.timeEnd(vowelsCount(text));
+
+    </script>
+</body>
+</html>
