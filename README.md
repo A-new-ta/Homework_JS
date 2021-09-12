@@ -80,7 +80,7 @@ https://a-new-ta.github.io/Homework_JS/b1+/index.html
 Функция не должна использовать if либо условную операцию, только оператор return.
 Спросить у пользователя год. Отобразить пользователю соответствующий году век.
 
-***vowels***
+***N.07 Домашнее задание VOWELS***
 
 https://a-new-ta.github.io/Homework_JS/vowels/index.html
 
