@@ -33,35 +33,151 @@
         // console.time(IsPrimes(1, 100));
         // console.timeEnd(IsPrimes(1, 100));
 
-let n = 10
+    
+    // IsPrimes = function(n) {
+    //     let arr = [];
+    //     for (let i = 2; i <= n; i++) {
+    //         let prime = true;
+    //         for (let j = 2; j < i; j++){
+    //             if (i % j === 0){
+    //                 prime = false;
+    //                 break;
+    //             }
+    //         }
+    //     if (prime) {
+    //         arr.push(i);
+    //     }    
+    //     }
+    //     return arr;
+    // }
+    // let n = 100000;
+    // console.log(IsPrimes(n));
+    // console.time(IsPrimes(n));
+    // console.timeEnd(IsPrimes(n));
 
-var countPrimes = function(n) {    
+// let n = 100000
+
+// var countPrimes = function(n) {    
     
-    //build array to mark
-    let nums = [...Array(n).keys()]
+//     //build array to mark
+//     let nums = [...Array(n).keys()]
     
-    for(let i = 2; i*i < n; i++){
-        if(nums[i] !== "nope"){
-            for(let j = i*i; j < n; j += i){
-                nums[j] = "nope"
-            }
-        }        
-    }
+//     for(let i = 2; i*i < n; i++){
+//         if(nums[i] !== "nope"){
+//             for(let j = i*i; j < n; j += i){
+//                 nums[j] = "nope"
+//             }
+//         }        
+//     }
     
-    let primes = []
+//     let primes = []
     
-    for(let i = 0; i < nums.length; i++) {
-        if(nums[i] > 1){
-            primes.push(nums[i])
-        }
-    }
+//     for(let i = 0; i < nums.length; i++) {
+//         if(nums[i] > 1){
+//             primes.push(nums[i])
+//         }
+//     }
     
-    return primes;
+//     return primes;
 
     
-};
+// };
 
-console.log(countPrimes(n));
+// console.log(countPrimes(n));
+
+
+// let n = 10
+// IsPrimes = function(n) {
+// let numbers = [];
+
+// for (let i = 2; i < n; i++) {
+//     numbers.push(true);
+//    }
+
+// for (let i = 2; i <= n; i++) {
+//     if (numbers[i]) {
+//         for (let j = i * i; j < n; j += i) {
+//             numbers[j] = false;
+//         }
+//     }
+// }
+
+// let primes = [];
+// for (let i = 2; i < n; i++) {
+//     if(numbers[i]) {
+//         primes.push(i);
+//     }
+// }
+
+// return primes;
+// };
+// console.log(IsPrimes(n));
+// console.time(IsPrimes(n));
+// console.timeEnd(IsPrimes(n));
+
+// let n = 100000
+// IsPrimes = function(n) {
+//     let numbers = [];
+//     for (let i = 2; i < n; i++) {
+//         numbers[i] = true;
+//     }
+//     let j = 2;
+//     do {
+//         for (i = 2*j; i < n; i += j) {
+//             numbers[i] = false;
+//         }
+//         for (i = j + 1; i < n; i++) {
+//             if (numbers[i]) break;
+//         }
+//         j = i;
+//     } while (j * j < n);
+//     let primes = [];
+//     for (let i = 2; i < n; i++) {
+//         if (numbers[i]) {
+//             primes.push(i);
+//         }
+//     }
+//     return primes;
+// }
+// console.log(IsPrimes(n));
+// console.time(IsPrimes(n));
+// console.timeEnd(IsPrimes(n));
+
+
+function IsPrimes(n) {
+	let numbers = [];
+
+	for (let i = 0; i < n; i++) {
+		if (i != 0 && i != 1) {
+			numbers.push(true);
+		}
+		else {
+			numbers.push(false);
+		}
+	}
+
+	for (let i = 0; i < n; i ++) {
+		if (numbers[i]) {
+			for (let j = i + i; j < n; j += i) {
+				numbers[j] = false;
+			}
+		}
+	}
+
+	let primes = [];
+
+	for (let i = 0; i < n; i++) {
+		if (numbers[i]) {
+			primes.push(i);
+		}
+	}
+
+	return primes;
+}
+let n = 100000;
+console.log(IsPrimes(n));
+console.time(IsPrimes(n));
+console.timeEnd(IsPrimes(n));
 
     </script>
 </body>
