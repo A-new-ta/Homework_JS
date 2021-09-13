@@ -27,8 +27,8 @@
         // console.time(vowelsCount(text));
         // console.timeEnd(vowelsCount(text));
 
-        let text = prompt ('введите текст').toLowerCase().split(' ').join('');
         function vowelsCount (str) {
+            str = str.toLowerCase().split(' ').join('');
             let vowelsCount = 0;
             let vowels = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я']; 
             for (let i = 0; i < str.length; i++) {
@@ -37,6 +37,7 @@
             return vowelsCount;    
         }
         
+        let text = prompt ('введите текст');
         console.log(vowelsCount(text)); 
         // console.time(vowelsCount(text));
         // console.timeEnd(vowelsCount(text));
