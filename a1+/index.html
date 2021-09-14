@@ -7,62 +7,73 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
+<script>
         
             
-    // IsPrimes = function(n) {
-    //     let arr = [];
-    //     for (let i = 2; i <= n; i++) {
-    //         let prime = true;
-    //         for (let j = 2; j < i; j++){
-    //             if (i % j === 0){
-    //                 prime = false;
-    //                 break;
-    //             }
-    //         }
-    //     if (prime) {
-    //         arr.push(i);
-    //     }    
-    //     }
-    //     return arr;
-    // }
-    // let n = 100000;
-    // console.log(IsPrimes(n));
-    // console.time(IsPrimes(n));
-    // console.timeEnd(IsPrimes(n));
+function IsPrimesEasy(n) {
+  let arr = [];
 
+  check: for (let i = 2; i <= n; i++) {
+    for (let j = 2; j < i; j++) {
+    if (i % j === 0) continue check;
+    }
+    arr.push(i);
+  }
+  return arr;
+}
 
+function IsPrimesArr(n) {
+  let numbers = [];
+  let primes = [];
 
-
-let n = 100000
-IsPrimes = function(n) {
-let numbers = [];
-
-for (let i = 2; i < n; i++) {
+  for (let i = 0; i <= n; i++) {
     numbers.push(true);
-   }
+  }
 
-for (let i = 2; i <= n; i++) {
+  for (let i = 2; i <= n; i++) {
     if (numbers[i]) {
-        for (let j = i * i; j < n; j += i) {
-            numbers[j] = false;
-        }
+      for (let j = 2 * i; j <= n; j += i) {
+        numbers[j] = false;
+      }
+      primes.push(i);
     }
+  }
+  return primes;
 }
 
-let primes = [];
-for (let i = 2; i < n; i++) {
-    if(numbers[i]) {
-        primes.push(i);
+function IsPrimesHash(n) {
+  let numbers = {};
+  let primes = [];
+
+  for (let i = 2; i <= n; i++) {
+    numbers[i] = true;
+  }
+
+  for (let i = 2; i <= n; i++) {
+    if (numbers[i]) {
+      for (let j = 2 * i; j <= n; j += i) {
+        numbers[j] = false;
+      }
+      primes.push(i);
     }
+  }
+  return primes;
 }
 
-return primes;
-};
-console.log(IsPrimes(n));
-console.time(IsPrimes(n));
-console.timeEnd(IsPrimes(n));
+const n = 100000;
 
-    </script>
+console.time();
+console.log(IsPrimesEasy(n));
+console.timeEnd();
+
+console.time();
+console.log(IsPrimesArr(n));
+console.timeEnd();
+
+console.time();
+console.log(IsPrimesHash(n));
+console.timeEnd();
+
+</script>
 </body>
 </html>
