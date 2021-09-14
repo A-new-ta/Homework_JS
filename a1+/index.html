@@ -8,19 +8,61 @@
 </head>
 <body>
     <script>
-        // let n = 10;
+        
+            
+    // IsPrimes = function(n) {
+    //     let arr = [];
+    //     for (let i = 2; i <= n; i++) {
+    //         let prime = true;
+    //         for (let j = 2; j < i; j++){
+    //             if (i % j === 0){
+    //                 prime = false;
+    //                 break;
+    //             }
+    //         }
+    //     if (prime) {
+    //         arr.push(i);
+    //     }    
+    //     }
+    //     return arr;
+    // }
+    // let n = 100000;
+    // console.log(IsPrimes(n));
+    // console.time(IsPrimes(n));
+    // console.timeEnd(IsPrimes(n));
 
-        // nextPrime:
-        // for (let i = 1; i <= n; i++) { // Для всех i...
 
-        // for (let j = 2; j < i; j++) { // проверить, делится ли число..
-        // if (i % j == 0) continue nextPrime; // не подходит, берём следующее
-        // }
 
-        //  console.log( i ); // простое число
-        //  console.time(i);
-        //  console.timeEnd(i);
-        // }
+
+let n = 100000
+IsPrimes = function(n) {
+let numbers = [];
+
+for (let i = 2; i < n; i++) {
+    numbers.push(true);
+   }
+
+for (let i = 2; i <= n; i++) {
+    if (numbers[i]) {
+        for (let j = i * i; j < n; j += i) {
+            numbers[j] = false;
+        }
+    }
+}
+
+let primes = [];
+for (let i = 2; i < n; i++) {
+    if(numbers[i]) {
+        primes.push(i);
+    }
+}
+
+return primes;
+};
+console.log(IsPrimes(n));
+console.time(IsPrimes(n));
+console.timeEnd(IsPrimes(n));
+
     </script>
 </body>
 </html>
