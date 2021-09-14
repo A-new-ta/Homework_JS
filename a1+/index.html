@@ -7,15 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
+<script>
         
             
-        function IsPrimesEasy(n) {
+function IsPrimesEasy(n) {
   let arr = [];
 
   check: for (let i = 2; i <= n; i++) {
     for (let j = 2; j < i; j++) {
-      if (i % j === 0) continue check;
+    if (i % j === 0) continue check;
     }
     arr.push(i);
   }
@@ -74,6 +74,6 @@ console.time();
 console.log(IsPrimesHash(n));
 console.timeEnd();
 
-    </script>
+</script>
 </body>
 </html>
