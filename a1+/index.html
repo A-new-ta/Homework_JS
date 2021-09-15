@@ -12,26 +12,30 @@
             
 function IsPrimesEasy(n) {
   let arr = [];
-
-  check: for (let i = 2; i <= n; i++) {
-    for (let j = 2; j < i; j++) {
+  
+  arr.push(2);
+  
+  check: for (let i = 3; i <= n; i+=2) {
+    for (let j = 3; j <= Math.sqrt(i); j+=2) {
     if (i % j === 0) continue check;
     }
     arr.push(i);
   }
   return arr;
 }
+//2249.329833984375 ms//1081.3837890625 ms - убрала четные i и j//15.218994140625 ms - проверяем j до квадратного корня из i//
+
 
 function IsPrimesArr(n) {
-  let numbers = [];
+  let numbers = [...Array(n)];
   let primes = [];
 
-  for (let i = 0; i <= n; i++) {
-    numbers.push(true);
-  }
-
-  for (let i = 2; i <= n; i++) {
-    if (numbers[i]) {
+  // for (let i = 0; i <= n; i++) {
+  //   numbers.push(true);
+  // }
+  primes.push(2);
+  for (let i = 3; i <= n; i+=2) {
+    if (numbers[i] == undefined) {
       for (let j = 2 * i; j <= n; j += i) {
         numbers[j] = false;
       }
@@ -40,17 +44,18 @@ function IsPrimesArr(n) {
   }
   return primes;
 }
+//14.882080078125 ms//12.321044921875 ms - массив, заполненный undefined//17.321044921875 ms - массив, заполненный нулями с помощью fill.//11.567138671875 - исключила четные i//
 
 function IsPrimesHash(n) {
-  let numbers = {};
+  let numbers = new Object (n);
   let primes = [];
 
-  for (let i = 2; i <= n; i++) {
-    numbers[i] = true;
-  }
+  // for (let i = 2; i <= n; i++) {
+  //   numbers[i] = true;
+  // }
 
   for (let i = 2; i <= n; i++) {
-    if (numbers[i]) {
+    if (numbers[i] == undefined) {
       for (let j = 2 * i; j <= n; j += i) {
         numbers[j] = false;
       }
@@ -59,6 +64,8 @@ function IsPrimesHash(n) {
   }
   return primes;
 }
+
+//13.533935546875 ms//41.895263671875 ms - хэш, заполненный undefined//
 
 const n = 100000;
 
