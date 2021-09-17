@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function deepCopy (origin) {
+            if (typeof (origin) !== 'object' || origin === null) {
+                return origin;
+            } else if (Array.isArray(origin)) {
+                return origin.map((val) => {
+                    return deepCopy(val)
+                })
+            } else if (typeof(origin) === 'object') {
+                let copy = {}
+                for (let k in origin) {
+                    copy[k] = deepCopy(origin[k])
+                }
+                return origin;
+            }
+        }
+
+
+        // function deepCopy (origin) {
+        //     if (typeof (origin) !== 'object' || origin === null) {
+        //         return origin;
+        //     if (origin instanceof Array) {
+        //         let copy = [];
+        //         for (let i = 0; i < origin.lenght; i++) {
+        //             copy[i] = cloneSO(origin[i]);
+        //         }
+        //         return copy;
+        //     }
+        //     if (origin instanceof Object) {
+        //         let copy = {};
+        //         for (let k in origin) {
+        //             copy[k] = deepCopy(origin[k])    
+        //         }
+        //         return copy;
+        //     }
+        //     }
+        // }
+        
+
+
+
+        // var h1={ a:5, b:{b1:6,b2:7}, c:[33,22], d:null, e:undefined, f:Number.NaN };
+        // var h2=deepCopy(h1);
+        var a1=[ 5, {b1:6,b2:7}, [33,22], null, undefined, Number.NaN];
+        var a2=deepCopy(a1);
+        console.log(a1===a2);
+
+    </script>
+</body>
+</html>
