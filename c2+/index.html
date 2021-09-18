@@ -20,7 +20,7 @@
                     arr[i] = deepCopy(origin[i]);
                 }
                 return arr;
-            } else if (typeof(origin) === 'object') {
+            } else {
                 let obj = {}
                 for (let key in origin) {
                     obj[key] = deepCopy(origin[key])
