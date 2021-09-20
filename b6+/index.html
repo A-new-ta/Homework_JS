@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        
+        function buildWrapper(tag) {
+            return function (str, obj) {
+                function changeChars(s) {
+                    return s.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split("'").join('&apos;').split('"').join('&quot;');
+                }
+            let a = changeChars(str).split('');
+            let result = `<${tag}`;
+            for (let key in obj) {
+                obj[key] = changeChars(obj[key]);
+                result += ` ${key}='${obj[key]}'`
+            } 
+                        
+            a.push(`</${tag}>`);
+            let newStr = `"${result}>${a.join('')}"`
+                       
+            return newStr;
+            }
+        }
+        
+        var wrapP = buildWrapper("P");
+        console.log( wrapP("Однажды в студёную зимнюю пору") );
+        // в консоль выводится строка "<P>Однажды в студёную зимнюю пору</P>"
+        console.log( wrapP("Однажды в <студёную> зимнюю пору") );
+         // в консоль выводится строка "<P>Однажды в &lt;студёную&gt; зимнюю пору</P>"
+         console.log( wrapP("Однажды в студёную зимнюю пору",{lang:"ru"}) );
+        // в консоль выводится строка "<P lang='ru'>Однажды в студёную зимнюю пору</P>"
+        var wrapH1=buildWrapper("H1");
+        console.log( wrapH1("СТИХИ",{align:"center",title:"M&M's"}) );
+        // в консоль выводится строка "<H1 align='center' title='M&amp;M&apos;s'>СТИХИ</H1>"
+        
+
+
+    </script>
+
+</body>
+</html>
