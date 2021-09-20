@@ -8,20 +8,36 @@
 </head>
 <body>
     <script>
-        var wrapP=buildWrapper("p");
-
-        function buildWrapper(p) {
-            let text = '';
-            for (let i = 0; i < text.length; i++) {
-                if (wrapP[i] != ' ') {
-                    text = text + '<P>' + wrap[i].charCodeAt(0) + '>' + wrap[i] + '</P>';
-                } else text = text + ' ';
+        
+        
+        function buildWrapper(tag) {
+            return function (str, obj) {
+            str = str.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split("'").join('&apos;').split('"').join('&quot;');
+            let a = str.split('');
+            for (let key in obj) {
+                key = obj[key];
+                }
+                
+            a.unshift(`<${tag}>`);
+            a.push(`</${tag}>`);
+            let newStr = obj + a.join('');
+            return newStr;
             }
-            return text;
         }
 
-        console.log( wrapP("Однажды в студёную зимнюю пору") );
-        //результат "<P>Однажды в студёную зимнюю пору</P>"//
+        var wrapP = buildWrapper("P");
+        // console.log( wrapP("Однажды в студёную зимнюю пору") );
+        // в консоль выводится строка "<P>Однажды в студёную зимнюю пору</P>"
+        // console.log( wrapP("Однажды в <студёную> зимнюю пору") );
+         // в консоль выводится строка "<P>Однажды в &lt;студёную&gt; зимнюю пору</P>"
+         console.log( wrapP("Однажды в студёную зимнюю пору",{lang:"ru"}) );
+        // в консоль выводится строка "<P lang='ru'>Однажды в студёную зимнюю пору</P>"
+        var wrapH1=buildWrapper("H1");
+        console.log( wrapH1("СТИХИ",{align:"center",title:"M&M's"}) );
+        // в консоль выводится строка "<H1 align='center' title='M&amp;M&apos;s'>СТИХИ</H1>"
+        
+
+
     </script>
 
 </body>
