@@ -18,17 +18,16 @@
             let a = changeChars(str).split('');
             let result = `<${tag}`;
             for (let key in obj) {
-                obj[key] = changeChars(obj[key]);
-                result += ` ${key}='${obj[key]}'`
+                let changeStr = changeChars(obj[key]);
+                result += ` ${key}='${changeStr}'`
             } 
-                        
             a.push(`</${tag}>`);
-            let newStr = `"${result}>${a.join('')}"`
-                       
+            let newStr = `${result}>${a.join('')}`
             return newStr;
             }
         }
         
+
         var wrapP = buildWrapper("P");
         console.log( wrapP("Однажды в студёную зимнюю пору") );
         // в консоль выводится строка "<P>Однажды в студёную зимнюю пору</P>"
@@ -40,6 +39,8 @@
         console.log( wrapH1("СТИХИ",{align:"center",title:"M&M's"}) );
         // в консоль выводится строка "<H1 align='center' title='M&amp;M&apos;s'>СТИХИ</H1>"
         
+
+
 
 
     </script>
