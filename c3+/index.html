@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+
+function deepComp (obj1, obj2) {
+    if (obj1 === obj2 || (Number.isNaN(obj1) && Number.isNaN(obj2))) {
+        return true;
+    
+    } else if (obj1 == null || obj2 == null || typeof (obj1) !== 'object' || typeof (obj2) !== 'object') {
+        return false;
+    
+    } else if (Array.isArray(obj1) && Array.isArray(obj2)) {
+        if ((obj1.length !== obj2.length)) {
+            return false;
+        } 
+        for (let i = 0; i < obj1.length; i++) {
+            if (!deepComp(obj1[i], obj2[i])) {
+                return false;
+            }
+        }
+        return true;
+    
+    } else if (Object.getPrototypeOf(obj1) !== Object.getPrototypeOf(obj2)) {
+        return false;
+    }
+    
+        let obj1keys = Object.keys(obj1);
+        let obj2keys = Object.keys(obj2);
+        if (obj1keys.length !== obj2keys.length) {
+            return false;
+        } 
+        for (let key of obj1keys) {
+            if (!(key in obj2) || !deepComp(obj1[key], obj2[key])) {
+                return false;
+            }
+        }
+    
+    return true;
+}
+
+function AreTheArraysSame (results, tests) {
+    let pass = 0;
+    let notpass = 0;
+    for (i = 0; i < results.length; i++) {
+        if (results[i] === tests[i]) {
+            pass++;
+        } else  notpass++;
+    }
+    return `тестов пройдено: ${pass}, тестов не пройдено: ${notpass}`;
+}
+
+var H1={ a:5, b: { b1:6, b2:7 } };
+var H2={ b: { b1:6, b2:7 }, a:5 };
+var H3={ a:5, b: { b1:6 } };
+var H4={ a:5, b: { b1:66, b2:7 } };
+var H5={ a:5, b: { b1:6, b2:7, b3:8 } };
+var H6={ a:null, b:undefined, c:Number.NaN };
+var H7={ c:Number.NaN, b:undefined, a:null };
+var H8={a:5,b:6};
+var H9={c:5,d:6};
+var H10={a:5};
+var A1=[5,7];
+var A2=[5,5,7];
+var A3=[5,8,7];
+
+
+let results = [deepComp(H1,H2), deepComp(H1,H3), deepComp(H1,H4), deepComp(H1,H5), deepComp(H6,H7), deepComp(H8,H9), deepComp(H8,H10), deepComp(null,H10), deepComp(H10,null), deepComp(null,null), deepComp(null,undefined), deepComp(5,"5"), deepComp(5,H1), deepComp(A1,H1), deepComp(A2,A3), deepComp( {a:5,b:undefined}, {a:5,c:undefined} ), deepComp([5,7],{0:5,1:7}), deepComp( [5,7],{0:5,1:7,length:2} ), deepComp("aaa","bbb"), deepComp(Number.NaN,Number.NaN)];
+let tests = [true, false, false, false, true, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true];
+
+console.log(AreTheArraysSame(results, tests));
+        
+    </script>
+</body>
+</html>
