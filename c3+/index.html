@@ -9,23 +9,7 @@
 <body>
     <script>
 
-// function deepCopy (origin) {
-//             if (typeof (origin) !== 'object' || origin === null) {
-//                 return origin;
-//             } else if (Array.isArray(origin)) {
-//                 let arr = [];
-//                 for (let i = 0; i < origin.length; i++){
-//                     arr[i] = deepCopy(origin[i]);
-//                 }
-//                 return arr;
-//             } else {
-//                 let obj = {}
-//                 for (let key in origin) {
-//                     obj[key] = deepCopy(origin[key])
-//                 }
-//                 return obj;
-//             }
-//         }
+
 
 function deepComp (obj1, obj2) {
     if (obj1 === obj2 || (Number.isNaN(obj1) && Number.isNaN(obj2))) {
