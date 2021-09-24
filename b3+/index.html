@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+    let priorities = {
+        '+': 1,
+        '-': 1,
+        '/': 2,
+        '*': 2
+    };
+
+    let numArr = [];
+    let stack = [];
+
+    function calculator (expr) {
+        if (checkBrackets(expr) == false) throw 'Error: Brackets must be paired';
+        let parsedExpr = expr.split(' ').join('');
+        
+        for (let i = 0; i < parsedExpr.length; i++) {
+            if (typeof(parsedExpr[i]) == 'number') numArr.push(parsedExpr[i]);
+            else if (parsedExpr[i] === '(') stack.push(parsedExpr[i]);
+            else if (parsedExpr[i] === ')') {
+                while (stack[stack.length - 1] != '(') {
+
+                }
+            }
+        }
+
+
+
+
+    }
+    
+    
+
+
+
+    function calc (x, y, operation) {
+        let result = 0;
+        switch (operation) {
+            case '+': 
+                result = x + y; break;
+            case '-':
+                result = x - y; break;
+            case '*':
+                result = x * y; break;
+            case '/':
+                if (y === 0){
+                    throw 'Error: division by zero'
+                }
+                result = x / y
+        }
+        return result;
+    }
+    
+        
+    function checkBrackets (expr) {
+        let openBrackets = 0;
+        let closedBrackets = 0;
+        for(let i = 0; i < expr.length; i++) {
+            if(expr[i] == '(') openBrackets++;
+            if(expr[i] == ')') closedBrackets++;
+        }
+        if(openBrackets == closedBrackets) return true;
+        else return false;
+    }
+
+    
+
+        
+
+
+
+        
+    </script>
+</body>
+</html>
