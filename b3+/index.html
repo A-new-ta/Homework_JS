@@ -9,57 +9,71 @@
 <body>
     <script>
 
-    let priorities = {
+    
+
+    function calculator (expr) {
+        
+        let priority = {
         '+': 1,
         '-': 1,
         '/': 2,
         '*': 2
-    };
+        };
 
-    let numArr = [];
-    let stack = [];
+        let operations = {
+            '+': function (x, y) {return y + x},
+            '-': function (x, y) {return y - x},
+            '*': function (x, y) {return y * x},
+            '/': function (x, y) {
+                if (x === 0){throw 'Error: division by zero'}
+                return y / x
+            }
+        };
 
-    function calculator (expr) {
+        let numArr = [];
+        let stack = [];
+
         if (checkBrackets(expr) == false) throw 'Error: Brackets must be paired';
-        let parsedExpr = expr.split(' ').join('');
+        let parsedExpr = expr.split(' ').join('').split('');
+        
+
+    
         
         for (let i = 0; i < parsedExpr.length; i++) {
-            if (typeof(parsedExpr[i]) == 'number') numArr.push(parsedExpr[i]);
+            if (parseFloat(parsedExpr[i]) || parsedExpr === '0') numArr.push(parsedExpr[i]);
+
             else if (parsedExpr[i] === '(') stack.push(parsedExpr[i]);
+
             else if (parsedExpr[i] === ')') {
                 while (stack[stack.length - 1] != '(') {
-
+                    numArr.push(stack.pop());
                 }
+                stack.pop();
+            }
+            else  {
+                while (priority[stack[stack.length - 1]] >= priority[parsedExpr[i]]) {
+                    numArr.push(stack.pop());
+                }
+                stack.push(parsedExpr[i]);
             }
         }
 
-
-
-
-    }
-    
-    
-
-
-
-    function calc (x, y, operation) {
-        let result = 0;
-        switch (operation) {
-            case '+': 
-                result = x + y; break;
-            case '-':
-                result = x - y; break;
-            case '*':
-                result = x * y; break;
-            case '/':
-                if (y === 0){
-                    throw 'Error: division by zero'
-                }
-                result = x / y
+        while (stack.length > 0) {
+            numArr.push(stack.pop());
         }
-        return result;
+
+        for (let i = 0; i < numArr.length; i++) {
+            
+            if (parseFloat(numArr[i])) stack.push(numArr[i]);
+            else {
+                stack.push(operations[numArr[i]](stack.pop(), stack.pop()));
+            }
+        }
+        return stack[0];
     }
+
     
+        
         
     function checkBrackets (expr) {
         let openBrackets = 0;
@@ -73,8 +87,8 @@
     }
 
     
-
-        
+    console.log(calculator('2*(-3+1)'));
+     
 
 
 
