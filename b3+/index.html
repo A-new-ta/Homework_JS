@@ -17,10 +17,13 @@
         '+': 1,
         '-': 1,
         '/': 2,
-        '*': 2
+        '*': 2,
+        '`': 3
+
         };
 
         let operations = {
+            '`': function (x) {return -x},
             '+': function (x, y) {return y + x},
             '-': function (x, y) {return y - x},
             '*': function (x, y) {return y * x},
@@ -36,11 +39,16 @@
         if (checkBrackets(expr) == false) throw 'Error: Brackets must be paired';
         let parsedExpr = expr.split(' ').join('').split('');
         
+        for (let i = 0; i < parsedExpr.length; i++) {
+            if ((parsedExpr[i] === '-') && !parseFloat(parsedExpr[i -1])) {
+                parsedExpr[i] = parsedExpr[i].replace('-','`');
+            }
+        }
 
     
         
         for (let i = 0; i < parsedExpr.length; i++) {
-            if (parseFloat(parsedExpr[i]) || parsedExpr === '0') numArr.push(parsedExpr[i]);
+            if (parseFloat(parsedExpr[i]) || parsedExpr === '0') numArr.push(parseFloat(parsedExpr[i]));
 
             else if (parsedExpr[i] === '(') stack.push(parsedExpr[i]);
 
@@ -65,6 +73,9 @@
         for (let i = 0; i < numArr.length; i++) {
             
             if (parseFloat(numArr[i])) stack.push(numArr[i]);
+            else if (numArr[i] == '`') {
+                stack.push(operations[numArr[i]](stack.pop()));
+            }
             else {
                 stack.push(operations[numArr[i]](stack.pop(), stack.pop()));
             }
