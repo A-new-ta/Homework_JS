@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+    
+
+    function calculator (expr) {
+        
+        let priority = {
+        '+': 1,
+        '-': 1,
+        '/': 2,
+        '*': 2,
+        'unmin': 3
+
+        };
+
+        let operations = {
+            'unmin': function (x) {return -x},
+            '+': function (x, y) {return y + x},
+            '-': function (x, y) {return y - x},
+            '*': function (x, y) {return y * x},
+            '/': function (x, y) {
+                if (x === 0) throw 'Error: Division by zero'
+            return y / x;
+        }
+    }
+
+        let numArr = [];
+        let stack = [];
+
+        if (checkBrackets(expr) == false) throw 'Error: Brackets must be paired';
+
+        let parsedExpr = expr.split(' ').join('').split('');
+
+        
+        for (let i = 1; i < parsedExpr.length; i++) {
+            if ((+parsedExpr[i] >= 0) && (+parsedExpr[i-1]>=0)) {
+                parsedExpr[i-1] = parsedExpr[i-1] + parsedExpr[i];
+                parsedExpr.splice(i , 1);
+                i -= 1;
+            }
+            else if ((+parsedExpr[i+1] >= 0) && (+parsedExpr[i-1]>=0) && (parsedExpr[i] === '.')) {
+                parsedExpr[i-1] = parsedExpr[i-1] + parsedExpr[i] + parsedExpr[i+1];
+                parsedExpr.splice(i, 2);
+                i -= 1;
+            }
+        }
+        
+
+        for (let i = 0; i < parsedExpr.length; i++) {
+            if ((parsedExpr[i] === '-') && (parsedExpr[i -1] === '+' || parsedExpr[i -1] === '-' || parsedExpr[i -1] === '*' || parsedExpr[i -1] === '/' || parsedExpr[i -1] === '(' || parsedExpr[i -1] === 'undefined')) {
+                parsedExpr[i] = parsedExpr[i].replace('-','unmin');
+            }
+        }
+
+    
+        
+        for (let i = 0; i < parsedExpr.length; i++) {
+            if (+parsedExpr[i] || parsedExpr === '0' || +parsedExpr[i] == 0) numArr.push(+parsedExpr[i]);
+
+            else if (parsedExpr[i] === '(') stack.push(parsedExpr[i]);
+
+            else if (parsedExpr[i] === ')') {
+                while (stack[stack.length - 1] != '(') {
+                    numArr.push(stack.pop());
+                }
+                stack.pop();
+            }
+            else  {
+                while (priority[stack[stack.length - 1]] >= priority[parsedExpr[i]]) {
+                    numArr.push(stack.pop());
+                }
+                stack.push(parsedExpr[i]);
+            }
+        }
+
+        while (stack.length > 0) {
+            numArr.push(stack.pop());
+        }
+
+        for (let i = 0; i < numArr.length; i++) {
+            
+            if (+numArr[i] || numArr[i] === 0) stack.push(numArr[i]);
+            else if (numArr[i] == 'unmin') {
+                stack.push(operations[numArr[i]](stack.pop()));
+            }
+            else {
+                stack.push(operations[numArr[i]](stack.pop(), stack.pop()));
+                
+            }
+        }
+        return stack[0];
+    }
+
+    
+        
+        
+    function checkBrackets (expr) {
+        let openBrackets = 0;
+        let closedBrackets = 0;
+        for(let i = 0; i < expr.length; i++) {
+            if(expr[i] == '(') openBrackets++;
+            if(expr[i] == ')') closedBrackets++;
+        }
+        if(openBrackets == closedBrackets) return true;
+        else return false;
+    }
+
+    
+    console.log(calculator('((2.5*(-3+1))-11)/2'));
+    console.log(calculator('2/0')); 
+    
+
+
+
+        
+    </script>
+</body>
+</html>
