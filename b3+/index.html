@@ -56,7 +56,7 @@
         
 
         for (let i = 0; i < parsedExpr.length; i++) {
-            if ((parsedExpr[i] === '-') && (parsedExpr[i -1] === '+' || parsedExpr[i -1] === '-' || parsedExpr[i -1] === '*' || parsedExpr[i -1] === '/' || parsedExpr[i -1] === '(' || parsedExpr[i -1] === 'undefined')) {
+            if ((parsedExpr[i] === '-') && (parsedExpr[i -1] === '+' || parsedExpr[i -1] === '-' || parsedExpr[i -1] === '*' || parsedExpr[i -1] === '/' || parsedExpr[i -1] === '(' || parsedExpr[i -1] === undefined)) {
                 parsedExpr[i] = parsedExpr[i].replace('-','unmin');
             }
         }
@@ -115,8 +115,8 @@
     }
 
     
-    console.log(calculator('((2.5*(-3+1))-11)/2'));
-    console.log(calculator('2/0')); 
+    console.log(calculator('-(2+3)'));
+    
     
 
 
