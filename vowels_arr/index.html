@@ -8,8 +8,10 @@
 </head>
 <body>
     <script>
+        "use strict";
+
         function vowelsCount_forEach (str) {
-            newArr = str.toLowerCase().split(' ').join('').split('');
+            let newArr = str.toLowerCase().split(' ').join('').split('');
             let vowelsCount = 0;
             let vowels = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я']; 
             newArr.forEach(function (i) {
@@ -21,13 +23,13 @@
         }
         
         function vowelsCount_filter (str) {
-            newArr = str.toLowerCase().split(' ').join('').split('');
+            let newArr = str.toLowerCase().split(' ').join('').split('');
             let vowels = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я']; 
             return newArr.filter(i => vowels.includes(i)).length
         }
 
         function vowelsCount_reduce (str) {
-            newArr = str.toLowerCase().split(' ').join('').split('');
+            let newArr = str.toLowerCase().split(' ').join('').split('');
             let vowels = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я']; 
             return newArr.reduce(function(vowelsCount, i) {
                 if (vowels.includes(i)) {
