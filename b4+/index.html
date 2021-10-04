@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+"use strict";
+
+
+let beginWord = "ЛИСА"
+let endWord = "ЛОСЬ"
+// let beginWord = "МУХА"
+// let endWord = "СЛОН"
+let wordList = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"]
+
+
+
+function findLadders (beginWord, endWord, wordList) {
+  let ladderWord = [];
+  let dictionary = {}
+  wordList = Array.from(wordList);
+  if (wordList.indexOf(endWord) === -1) {
+    wordList.push(endWord)
+  }
+  for (let i = 0; i < wordList.length; i++) {
+    dictionary[wordList[i]] = true
+  }
+  let graph = buildGraph(beginWord, dictionary, endWord);
+  let parent = bfs(beginWord, graph, endWord);
+    
+  if (!parent.min) {
+    return []
+  } else {
+    ladderWord = getWay(parent, endWord)
+  }
+  return ladderWord.join('');
+};
+
+
+
+function buildGraph(beginWord, dictionary, endWord) {
+  let graph = {};
+  let queue = [];
+  let checked = {};
+  let frontWord = beginWord.split();
+  let next = null;
+  let findLast = false;
+
+  while (frontWord.length) {
+    next = [];
+    for (let i = 0; i < frontWord.length; i++) {
+      graph[frontWord[i]] = findNeighbor(frontWord[i], dictionary, frontWord, checked);
+     
+      if (graph[frontWord[i]].indexOf(endWord) != -1) {
+        findLast = true
+      }
+      next = next.concat(graph[frontWord[i]]);
+      checked[frontWord[i]] = true;
+
+    }
+    if (findLast) break;
+    frontWord = next;
+  }
+  return graph
+};
+
+
+
+function findNeighbor(word, dictionary, frontWord, checked) {
+  let neighbors = [];
+  let temp = null;
+
+for (let i = 0; i < word.length; i++) {
+	let a = 'А'.charCodeAt(0);
+	let left = word.substring(0, i);
+    let right = word.substring(i + 1);
+	for (let j = 0; j < 32; j++) {
+		let x = String.fromCharCode(j + a);
+        temp = left + x + right;
+        if (dictionary[temp] && (frontWord.indexOf(temp) === -1) && !checked[temp]) {
+        neighbors.push(temp)
+      }
+    }
+  }
+  return neighbors;
+};
+
+
+
+function bfs(start, opt, end) {
+  let dis = {};
+  dis[start] = 0;
+  let parent = {};
+  parent[start] = null;
+  let i = 1;
+  let frontWord = [start];
+  let next = null;
+  let findLast = false;
+
+  while (frontWord.length) {
+    next = [];
+    if (findLast) {
+      break;
+    }
+    frontWord.forEach(function(desc) {
+      opt[desc].forEach(function(prev) {
+        if (prev === end) {
+          findLast = true;
+        }
+        if (!dis[prev]) {
+          dis[prev] = i;
+          parent[prev] = [desc];
+          next.push(prev);
+        } else {
+          parent[prev].push(desc)
+        }
+      })
+    })
+    frontWord = next;
+    i++;
+  }
+  parent.min = dis[end];
+  parent.dis = dis;
+  return parent;
+};
+
+
+function getWay(parent, endWord) {
+  let way = [];
+  let temp = [];
+  if (!parent[endWord]) {
+    return [
+      [endWord]
+    ]
+  }
+  for (let i = 0; i < parent[endWord].length; i++) {
+    let previous = getWay(parent, parent[endWord][i]);
+    for (let j = 0; j < previous.length; j++) {
+      temp = previous[j].concat([endWord]);
+      way.push(temp)
+    }
+  }
+  return way;
+};
+
+
+console.log(findLadders(beginWord, endWord, wordList));
+
+
+
+
+    </script>
+</body>
+</html>
