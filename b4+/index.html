@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+// работает, самый медленный способ, поиск только в ширину BFS
+
+// function setCharAt(str, index, character) {
+//   return str.substr(0, index) + character + str.substr(index + character.length);
+// }
+
+// function findNeighbor(word, dict, frontier, checked) {
+//   var neighbors = []
+//   var temp = null
+//   for (var i = 0; i < word.length; i++) {
+//     for (let c of "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ") {
+//       temp = word;
+//       temp = word.slice(0, i) + c + word.slice(i+1);
+//       if (dict[temp] && (frontier.indexOf(temp) === -1) && !checked[temp]) {
+//         neighbors.push(temp)
+//       }
+//     }
+//   }
+//   return neighbors;
+// }
+
+// function bfs(s, adj, end) {
+//   var level = {};
+//   level[s] = 0;
+//   var parent = {};
+//   parent[s] = null;
+//   var i = 1
+//   var frontier = [s]
+//   var next = null;
+//   var reached = false;
+
+//   while (frontier.length) {
+//     next = []
+//     if (reached) {
+//       break;
+//     }
+//     frontier.forEach(function(par) {
+//       adj[par].forEach(function(chi) {
+//         if (chi === end) {
+//           reached = true;
+//         }
+//         if (!level[chi]) {
+//           level[chi] = i
+//           parent[chi] = [par];
+//           next.push(chi)
+//         } else {
+
+//           parent[chi].push(par)
+
+//         }
+//       })
+//     })
+//     frontier = next
+//     i++
+//   }
+//   parent.min = level[end];
+//   parent.level = level
+//   return parent;
+
+// }
+
+// function getPath(parent, endWord) {
+//   var path = []
+//   var temp = []
+  
+//   if (!parent[endWord]) {
+//     return [
+//       [endWord]
+//     ]
+//   }
+
+//   for (var i = 0; i < parent[endWord].length; i++) {
+
+//     //if(parent.level[parent[endWord][i]] <= parent.min) {
+//     var previous = getPath(parent, parent[endWord][i]);
+
+//     for (var j = 0; j < previous.length; j++) {
+//       temp = previous[j].concat([endWord]);
+
+
+//       path.push(temp)
+
+
+//     }
+//     //}
+//   }
+//   return path
+//   console.log(path);
+// }
+
+// function buildGraph(beginWord, dict, endWord) {
+//   var graph = {}
+//   var queue = []
+//   var checked = {}
+//   var curr = null;
+//   var frontier = beginWord.split();
+//   var next = null
+//   var reached = false
+
+//   while (frontier.length) {
+//     next = [];
+
+//     for (var i = 0; i < frontier.length; i++) {
+//       graph[frontier[i]] = findNeighbor(frontier[i], dict, frontier, checked);
+     
+//       if (graph[frontier[i]].indexOf(endWord) != -1) {
+//         reached = true
+//       }
+//       next = next.concat(graph[frontier[i]]);
+      
+//       checked[frontier[i]] = true;
+
+//     }
+//     if (reached) break;
+    
+//     next = new Set(next)
+//     next = Array.from(next)
+    
+//     frontier = next;
+
+//   }
+//   return graph
+//   console.log(graph);
+// }
+
+// var findLadders = function(beginWord, endWord, wordList) {
+//   var ladders = [];
+//   var dict = {}
+//   wordList = Array.from(wordList);
+//   if (wordList.indexOf(endWord) === -1) {
+//     wordList.push(endWord)
+//   }
+//   for (var i = 0; i < wordList.length; i++) {
+//     dict[wordList[i]] = true
+//   }
+//   // performance.mark('start')
+//   var graph = buildGraph(beginWord, dict, endWord);
+//   // performance.mark('end')
+
+//   var parent = bfs(beginWord, graph, endWord);
+
+//   // performance.measure('path', 'start', 'end')
+//   // var items = performance.getEntriesByName('path')
+//   // console.log(items)
+//   if (!parent.min) {
+//     return []
+//   } else {
+//     ladders = getPath(parent, endWord)
+//   }
+
+//   // console.log(ladders)
+//   return ladders;
+// };
+
+// var beginWord = "ЛИСА"
+// var endWord = "ЛОСЬ"
+// var wordList = ["ЛУЖА","ЛИРА","ЛИГА","ЛИПА","ЛОЖЬ","ЛУПА","ПЛУТ","ЛОЖА","СЛОТ","ПАРА", "ЛИСА", "ЛОСЬ"]
+
+// console.time();
+// console.log(findLadders(beginWord, endWord, wordList));
+// console.timeEnd();
+
+
+
+
+
+
+//работает, интересный и сложный способо, перебор не букв алфавита, и создает кучу объектов в объектах, самый быстрый спобоб
+
+// var findLadders = function(beginWord, endWord, wordList) {
+//   if (!wordList.includes(endWord)) return [];
+//   let mostLength = 0;
+//   let object = { [beginWord]: { parent: [] } };
+//   let array = findDifferenceOne(beginWord, endWord, wordList, object);
+//   array.forEach(elem => {
+//     object[elem] = {};
+//     object[elem].parent = [beginWord];
+//   })
+//   let result = [];
+//   while (array.length) {
+//     let item = array.shift();
+//     if (item === endWord) {
+//       let parentList = getParentList(item, object, beginWord);
+//       if (mostLength === 0) {
+//         mostLength = parentList.length;
+//       }
+//       if (parentList.length === mostLength) {
+//         result.push(parentList);
+//       }
+//     } else if (mostLength === 0) {
+//       let array2 = findDifferenceOne(item, endWord, wordList, object);
+//       array2.forEach(elem => {
+//         if (object[elem]) {
+//           object[elem].parent.push(item);
+//         } else {
+//           object[elem] = {};
+//           object[elem].parent = [item];
+//         }
+//       })
+//       if (array2.length > 0 && item !== endWord) {
+//         array.push(...array2)
+//       }
+//     }
+//   }
+//   return result;
+// };
+
+// function findDifferenceOne(beginWord, endWord, list, object) {
+//   let result = [];
+//   for (let i = 0; i < list.length; i++) {
+//     let item = list[i];
+//     if (isDiffOne(beginWord, item)&& !object[beginWord].parent.includes(item)) {
+//       if (item !== beginWord) {
+//         result.push(item);
+//       }
+//     }
+//   }
+//   return result;
+// };
+
+// function isDiffOne(a, b) {
+//   let diff = 0
+//   for (let i = 0; i < a.length; i++) {
+//     if (a[i] !== b[i]) diff ++;
+//     if (diff > 1) return false;
+//   };
+//   return true;
+// }
+
+// function getParentList(word, object, beginWord) {
+//   let result = [];
+
+//   return (function findParent(item) {
+//     result.unshift(item)
+//     let parent = object[item].parent.shift();
+//     if (parent === beginWord) object[item].parent.push(parent);
+//     if (parent) return findParent(parent)
+//     return result
+//   })(word)
+// }
+// let param = ['ЛИСА', 'ЛОСЬ', ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА", "ЛИСА", "ЛОСЬ"]];
+// // let param = ['red', 'tax', ["ted","tex","red","tax","tad","den","rex","pee"]];
+// let result = findLadders(...param);
+
+// console.time();
+// console.log(result)
+// console.timeEnd();
+
+
+
+
+
+
+//работает, но почему то вносит в set повторно слова, а должен быть уникальным//исправлено, проверить., попробовать заменить перебор букв из алфавита так как в способе выше, поиск в ширину и глубину BFS DFS
+
+// var beginWord = "ЛИСА";
+// var endWord = "ЛОСЬ";
+// var wordList = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"];
+
+// var findLadders = function(beginWord, endWord, wordList) {
+//   wordList.push(beginWord, endWord);
+//   var wordSet = new Set(wordList);
+//   var wordNext = {};
+//   var distance = {};
+//   var result = [];
+
+//   bfs(beginWord, endWord, wordSet, wordNext, distance);
+//   dfs(beginWord, endWord, result, wordNext, distance, []);
+
+//   return result;
+// };
+
+// var dfs = function (word, endWord, result, wordNext, distance, path) {
+//   var neighbors = wordNext[word] || [];
+
+//   path.push(word);
+
+//   if (word === endWord) {
+//     result.push(Array.from(path));
+//   } else {
+//     for (var i = 0; i < neighbors.length; i++) {
+//       if (distance[word] + 1 === distance[neighbors[i]]) {
+//         dfs(neighbors[i], endWord, result, wordNext, distance, path);
+//       }
+//     }
+//   }
+
+//   path.pop();
+// };
+
+// var bfs = function (beginWord, endWord, wordSet, wordNext, distance) {
+//   var queue = [];
+//   var findLast = false;
+//   var neighbors = [];
+//   var dis = 0;
+//   var word = '';
+//   var len = 0;
+//   var i = 0;
+
+//   queue.push(beginWord);
+//   distance[beginWord] = 0;
+
+//   while (len = queue.length) {
+//     findLast = false;
+
+//     for (i = 0; i < len; i++) {
+//       word = queue.shift();
+//       dis = distance[word];
+//       neighbors = getNeighbors(word, wordSet);
+//       if (!wordNext[word]) wordNext[word] = [];
+
+//       for (var j = 0; j < neighbors.length; j++) {
+//         wordNext[word].push(neighbors[j]);
+
+//         if (distance[neighbors[j]] === undefined) {
+//           distance[neighbors[j]] = dis + 1;
+
+//           if (neighbors[j] === endWord) {
+//             findLast = true;
+//           } else {
+//             queue.push(neighbors[j]);
+//           }
+//         }
+//       }
+//     }
+//     if (findLast) break;
+//   }
+// };
+
+// var getNeighbors = function (word, wordSet) {
+//   var start = 'А'.charCodeAt(0);
+//   var len = word.length;
+//   var str = '';
+//   var res = [];
+
+//   for (var i = 0; i < len; i++) {
+//     for (var j = 0; j < 32; j++) {
+//       str = word.substr(0, i) + String.fromCharCode(j + start) + word.substr(i + 1);
+//       if (wordSet.has(str) && !res.includes(str) && str !== word) res.push(str);
+//     }
+//   }
+
+//   return res;
+// };
+
+
+
+
+
+// console.time();
+// console.log(findLadders(beginWord, endWord, wordList));
+// console.timeEnd();
+
+
+
+
+
+
+
+var start = "ЛИСА";
+var end = "ЛОСЬ";
+var words = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"];
+
+var findLadders = function(start, end, words) {
+	// Constants and Check functions.
+  words.push(start, end);
+  var dict = new Set(words);
+	var A_CODE = 'a'.charCodeAt(0);
+	var WORD_COUNTS = 32;
+	var wordLength = start.length;
+	var results;
+	var currents, next;
+	var isFounded = false;
+
+	// Check its from -> to is valid operation.
+	var isValid = function(from, to) {
+		var i = 0,
+			c = 0;
+		while (i < wordLength) {
+			if (from.charCodeAt(i) !== to.charCodeAt(i)) {
+				++c;
+			}
+			++i;
+		}
+		return (c === 1);
+	};
+
+	// Create replace str, e.g : 'abc' => 'azc', 'adc' ....etc.
+	var replacedWord = function(word, idx, chCode) {
+		var newStr = word.substr(0, idx) + String.fromCharCode(chCode) + word.substr(idx + 1);
+		return newStr;
+	};
+
+	// If its only one step from start to end.
+	if (start === end || isValid(start, end)) {
+		return [
+			[start, end]
+		];
+	}
+
+	results = [];
+	var startSet = new Set([start]);
+	var endSet = new Set([end]);
+	var startPath = [
+		[start]
+	];
+	var endPath = [
+		[end]
+	]
+	dict.add(end);
+	var isReversing = false;
+	var isConnected = false;
+
+	// Use to decide whether use all word possible or use all dice word.
+	var wordCombinations = WORD_COUNTS * wordLength;
+	var dictComputations;
+
+	// Determine current paths.
+	var currentPaths;
+	var currentLength;
+	var currentSet;
+	var pathLength;
+
+	// Next path.
+	var nextPaths;
+
+	// Loop vars.
+	var currentPath, currentWord, targets, target, tmpPath;
+
+	// Loop variables.
+	var i, j, k;
+
+	// Init
+	currentPaths = startPath;
+	currentSet = startSet;
+	currentLength = currentPaths.length;
+
+	while (currentLength > 0) {
+		nextPaths = [];
+		// Remove words in current set.
+		targets = currentSet.keys();
+		for (target of targets) {
+			dict.delete(target);
+		}
+		currentSet.clear();
+		dictComputations = dict.size * wordLength;
+		// Decide whether to use dict iteration of word replaces.
+		if (dictComputations < wordCombinations) {
+			// If iteration though dict needs less compares, iterate it.
+			for (i = 0; i < currentLength; ++i) {
+				currentPath = currentPaths[i];
+				currentWord = currentPath[currentPath.length - 1];
+				targets = dict.keys();
+				for (target of targets) {
+					if (isValid(currentWord, target)) {
+						tmpPath = currentPath.slice();
+						tmpPath.push(target);
+						nextPaths.push(tmpPath);
+						currentSet.add(target);
+					}
+				}
+			}
+		} else {
+			// Otherwise, use bruteforce to check all possibilities.
+			for (i = 0; i < currentLength; ++i) {
+				currentPath = currentPaths[i];
+				currentWord = currentPath[currentPath.length - 1];
+				for (j = 0; j < wordLength; ++j) {
+					for (k = 0; k < WORD_COUNTS; ++k) {
+						target = replacedWord(currentWord, j, A_CODE + k);
+						if (dict.has(target)) {
+							tmpPath = currentPath.slice();
+							tmpPath.push(target);
+							nextPaths.push(tmpPath);
+							currentSet.add(target);
+						}
+					}
+				}
+			}
+		}
+		// Put generated paths for next loop.
+		if (isReversing) {
+			endPath = nextPaths;
+		} else {
+			startPath = nextPaths;
+		}
+
+		// Prepare to check connection    
+		if (startSet.size > endSet.size) {
+			targets = endSet.keys();
+			currentSet = startSet;
+		} else {
+			targets = startSet.keys();
+			currentSet = endSet;
+		}
+
+		// Check connection.
+		for (target of targets) {
+			if (currentSet.has(target)) {
+				isConnected = true;
+				break;
+			}
+		}
+		if (isConnected) {
+			break;
+		} else {
+			// Use the set with smaller size.
+			isReversing = startPath.length > endPath.length ? true : false;
+			currentSet = isReversing ? endSet : startSet;
+			currentPaths = isReversing ? endPath : startPath;
+			currentLength = currentPaths.length;
+		}
+	}
+
+	// If break by connection, connect start with end now.
+	if (isConnected) {
+		currentLength = startPath.length;
+		pathLength = endPath.length;
+		// Reverse endPaths.
+		for (j = 0; j < pathLength; ++j) {
+			endPath[j].reverse();
+		}
+		for (i = 0; i < currentLength; ++i) {
+			currentPath = startPath[i];
+			currentWord = currentPath[currentPath.length - 1];
+			if (!endSet.has(currentWord)) {
+				continue;
+			}
+			for (j = 0; j < pathLength; ++j) {
+				target = endPath[j];
+				if (currentWord === target[0]) {
+					tmpPath = currentPath.concat(target.slice(1));
+					results.push(tmpPath);
+				}
+			}
+		}
+	}
+	return results;
+};
+
+
+console.time();
+console.log(findLadders(start, end, words));
+console.timeEnd();
+
+
+    </script>
+</body>
+</html>
