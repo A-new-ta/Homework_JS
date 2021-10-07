@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+'use strict'
+
+
+function formatNumber(num, format){
+    
+    let count = 0;
+    let revformat = format.split('').reverse();
+        
+    for (let i = 0; i < revformat.length; i++) {
+        if (revformat[i] !== '.'){
+        count++
+        } else break;
+    };
+    
+    let number = (Math.round(num*(Math.pow(10,count)))/(Math.pow(10,count))).toFixed(count);
+    let revnumber = number.split('').reverse();
+    for (let j = count+1; j < revformat.length; j++){
+        if (revformat[j] === ' '){
+            revnumber.splice(j,0, ' ');
+        }
+    }
+return revnumber.reverse().join('').trim();
+
+}
+
+
+console.log(formatNumber(12345.368, '# ### ###.##'));
+console.log(formatNumber(2.3, '# ### ###.##'));
+console.log(formatNumber(123456.3259, '# ## ###.###'));
+
+
+
+    </script>
+</body>
+</html>
