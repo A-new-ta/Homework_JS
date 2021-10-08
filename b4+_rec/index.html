@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+    let dict = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"];
+    let beginWord = "ЛИСА";
+    let endWord = "ЛОСЬ";
+
+    function isDiffOne (word1, word2) {
+    let diff = 0
+    for (let i = 0; i < word1.length; i++) {
+        if (word1[i] !== word2[i]) diff ++;
+        if (diff > 1) return false;
+    };
+    return true;
+    };
+
+    // let finalArr = [];
+
+    function nextStep (cw, wa, tw) {
+        if (wa.length === 0) return null;
+        for (let w of wa) {
+            if (isDiffOne(cw, w)) {
+                if (w === tw) {
+                    return [cw, tw];
+                }
+                wa.splice(wa.indexOf(w), 1);
+                return nextStep (w, wa, tw).unshift(w);
+
+            }
+          } 
+        }
+
+    //     if (result1.length === 0) {
+    //         return null;
+    //     } else {
+    //             // let result2 = result1;
+
+    //             for (let j = 0; j < result1.length; j++) {
+    //                 let w = result1[j];
+    //                 if (w === tw) {
+    //                     return finalArr.push(cw,w);
+    //                 } else {
+    //                     let index = wa.indexOf(w);
+    //                     wa.splice(index,1);
+    //                     nextStep(w, wa, tw);
+    //                 }
+    //             // return result1;
+
+
+
+
+   
+
+
+
+console.log(nextStep (beginWord, dict, endWord));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
