@@ -21,8 +21,8 @@ function formatNumber(num, format){
         count++
         } else break;
     };
-    
-    let number = (Math.round(num*(Math.pow(10,count)))/(Math.pow(10,count))).toFixed(count);
+    let c = Math.pow(10,count);
+    let number = ((Math.round(num*c))/c).toFixed(count);
     let revnumber = number.split('').reverse();
     for (let j = count+1; j < revformat.length; j++){
         if (revformat[j] === ' '){
