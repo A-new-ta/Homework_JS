@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+let num = 12345.368;
+let format = '# ### ###.##';
+function formatNumber(num, format){
+let count = 0;
+let reverseformat = format.split('').reverse();
+
+for (i = 0; i < reverseformat.length; i++) {
+    while (reverseformat !== '.'){
+        if (reverseformat[i] === '#' ) {
+        count++;
+        }
+    }
+return count;
+}
+
+
+num = (Math.round(num*100)/100).toFixed(2);
+
+}
+
+
+
+
+(formatNumber(num, format));
+
+
+
+
+// // читерский способо через регулярные выражения
+// function formatNumber(num) {
+//   return (Math.round(num*100)/100).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+// };
+
+// console.log(formatNumber(12345.9945)) 
+
+
+// // с помощью toLocalStrings
+// let number1 = (Math.round(number*100)/100).toFixed(2);
+// number1 = number1.toLocaleString();
+
+// console.log(12345.368);
+
+
+
+
+
+    </script>
+</body>
+</html>
