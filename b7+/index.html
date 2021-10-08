@@ -8,50 +8,35 @@
 </head>
 <body>
     <script>
+'use strict'
 
-let num = 12345.368;
-let format = '# ### ###.##';
+
 function formatNumber(num, format){
-let count = 0;
-let reverseformat = format.split('').reverse();
-
-for (i = 0; i < reverseformat.length; i++) {
-    while (reverseformat !== '.'){
-        if (reverseformat[i] === '#' ) {
-        count++;
+    
+    let count = 0;
+    let revformat = format.split('').reverse();
+        
+    for (let i = 0; i < revformat.length; i++) {
+        if (revformat[i] !== '.'){
+        count++
+        } else break;
+    };
+    
+    let number = (Math.round(num*(Math.pow(10,count)))/(Math.pow(10,count))).toFixed(count);
+    let revnumber = number.split('').reverse();
+    for (let j = count+1; j < revformat.length; j++){
+        if (revformat[j] === ' '){
+            revnumber.splice(j,0, ' ');
         }
     }
-return count;
-}
-
-
-num = (Math.round(num*100)/100).toFixed(2);
+return revnumber.reverse().join('').trim();
 
 }
 
 
-
-
-(formatNumber(num, format));
-
-
-
-
-// // читерский способо через регулярные выражения
-// function formatNumber(num) {
-//   return (Math.round(num*100)/100).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-// };
-
-// console.log(formatNumber(12345.9945)) 
-
-
-// // с помощью toLocalStrings
-// let number1 = (Math.round(number*100)/100).toFixed(2);
-// number1 = number1.toLocaleString();
-
-// console.log(12345.368);
-
-
+console.log(formatNumber(12345.368, '# ### ###.##'));
+console.log(formatNumber(2.3, '# ### ###.##'));
+console.log(formatNumber(123456.3259, '# ## ###.###'));
 
 
 
