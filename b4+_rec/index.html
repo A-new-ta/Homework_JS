@@ -9,7 +9,7 @@
 <body>
     <script>
         
-    let dict = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"];
+    let dict = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИПА","ТАРА","ЛИГА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА", "ЛОСЬ"];
     let beginWord = "ЛИСА";
     let endWord = "ЛОСЬ";
 
@@ -17,59 +17,33 @@
     let diff = 0
     for (let i = 0; i < word1.length; i++) {
         if (word1[i] !== word2[i]) diff ++;
-        if (diff > 1) return false;
-    };
-    return true;
+        };
+    return diff;
     };
 
-    // let finalArr = [];
+    
 
     function nextStep (cw, wa, tw) {
+        
         if (wa.length === 0) return null;
-        for (let w of wa) {
-            if (isDiffOne(cw, w)) {
+        for (let j = 0; j < wa.length; j++) {
+            let w = wa[j];  
+            
+            if (isDiffOne(cw, w) === 1) {
                 if (w === tw) {
                     return [cw, tw];
                 }
-                wa.splice(wa.indexOf(w), 1);
-                return nextStep (w, wa, tw).unshift(w);
-
-            }
-          } 
+            let result = wa.filter(el => el !== w);
+                
+            nextStep (w, result, tw);
+            }  
+                    
         }
-
-    //     if (result1.length === 0) {
-    //         return null;
-    //     } else {
-    //             // let result2 = result1;
-
-    //             for (let j = 0; j < result1.length; j++) {
-    //                 let w = result1[j];
-    //                 if (w === tw) {
-    //                     return finalArr.push(cw,w);
-    //                 } else {
-    //                     let index = wa.indexOf(w);
-    //                     wa.splice(index,1);
-    //                     nextStep(w, wa, tw);
-    //                 }
-    //             // return result1;
-
-
-
-
-   
-
-
+        return null;
+        
+    }
 
 console.log(nextStep (beginWord, dict, endWord));
-
-
-
-
-
-
-
-
 
 
 
