@@ -9,7 +9,7 @@
 <body>
     <script>
         
-    let dict = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"];
+    let dict = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИПА","ТАРА","ЛИГА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА", "ЛОСЬ"];
     let beginWord = "ЛИСА";
     let endWord = "ЛОСЬ";
 
@@ -21,57 +21,29 @@
     return diff;
     };
 
-    // let finalArr = [];
+    
 
     function nextStep (cw, wa, tw) {
         
         if (wa.length === 0) return null;
         for (let j = 0; j < wa.length; j++) {
-            let w = wa[j];
+            let w = wa[j];  
+            
             if (isDiffOne(cw, w) === 1) {
                 if (w === tw) {
                     return [cw, tw];
                 }
-                let result = wa.slice();
-                result.splice(wa.indexOf(w), 1);
-                return nextStep (w, result, tw).unshift(w);
-
-            }
-          } 
+            let result = wa.filter(el => el !== w);
+                
+            nextStep (w, result, tw);
+            }  
+                    
         }
-
-    //     if (result1.length === 0) {
-    //         return null;
-    //     } else {
-    //             // let result2 = result1;
-
-    //             for (let j = 0; j < result1.length; j++) {
-    //                 let w = result1[j];
-    //                 if (w === tw) {
-    //                     return finalArr.push(cw,w);
-    //                 } else {
-    //                     let index = wa.indexOf(w);
-    //                     wa.splice(index,1);
-    //                     nextStep(w, wa, tw);
-    //                 }
-    //             // return result1;
-
-
-
-
-   
-
-
+        return null;
+        
+    }
 
 console.log(nextStep (beginWord, dict, endWord));
-
-
-
-
-
-
-
-
 
 
 
