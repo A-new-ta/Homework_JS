@@ -9,7 +9,7 @@
 <body>
     <script>
         
-    let dict = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИПА","ТАРА","ЛИГА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА", "ЛОСЬ"];
+    let dict = ["ЛУЖА","ЛИРА","ЛИПА","ЛОЖЬ","ЛУПА","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА", "ЛОСЬ"];
     let beginWord = "ЛИСА";
     let endWord = "ЛОСЬ";
 
@@ -21,27 +21,39 @@
     return diff;
     };
 
-    
-
+    let newArr = [];
     function nextStep (cw, wa, tw) {
         
         if (wa.length === 0) return null;
-        for (let j = 0; j < wa.length; j++) {
+      outer:  for (let j = 0; j < wa.length; j++) {
             let w = wa[j];  
             
             if (isDiffOne(cw, w) === 1) {
                 if (w === tw) {
-                    return [cw, tw];
-                }
-            let result = wa.filter(el => el !== w);
+                    break outer;
+                  // и надо кактоперестать выполнять цикл дальше  
+                }    
                 
-            nextStep (w, result, tw);
-            }  
-                    
+                let result = wa.filter(el => el !== w);
+                newArr.push(w);   
+                nextStep (w, result, tw);
+               
+            }
+            // if (w === tw){
+            //     return newArr;
+            // } 
+                
         }
-        return null;
+            // return null;
+            // return newArr;
+            // newArr.unshift(cw);
+            return newArr; // как сделать чтобы не возвращлся обратно к перебору массива???
+            
+        }
+        // return null;
         
-    }
+    
+    
 
 console.log(nextStep (beginWord, dict, endWord));
 
