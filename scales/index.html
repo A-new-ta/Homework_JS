@@ -20,14 +20,14 @@ class Scales {
     getSumScale (product) {
         let result = 0;
         this.productList.forEach(function (product) {
-            result += product.weight;
+            result += product.getScale();
         });
         return result;
     };
     getNameList (product) {
         let result = [];
         this.productList.forEach(function (product) {
-            result.push(product.name);
+            result.push(product.getName());
         });
         return result;
     };
