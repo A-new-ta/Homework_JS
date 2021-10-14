@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+"use strict";
+
+class Scales {
+    constructor() {
+    this.productList = [];
+    }
+    add (product) {
+        this.productList.push(product);
+    };
+    getSumScale (product) {
+        let result = 0;
+        this.productList.forEach(function (product) {
+            result += product.weight;
+        });
+        return result;
+    };
+    getNameList (product) {
+        let result = [];
+        this.productList.forEach(function (product) {
+            result.push(product.name);
+        });
+        return result;
+    };
+}
+
+let scales = new Scales ();
+
+class Product {
+    constructor (name, weight){
+        this.name = name;
+        this.weight = weight;
+        }
+    getName () {
+        return this.name;
+    };
+    getScale () {
+        return this.weight;
+    };
+}
+
+class Apple extends Product {
+    constructor (name, weight) {
+        super();
+        this.name = name;
+        this.weight = weight;
+    }
+}
+
+class Tomato extends Product {
+    constructor (name, weight) {
+        super();
+        this.name = name;
+        this.weight = weight;
+    }
+}
+
+
+var apple1 = new Apple ("яблоко1", 150);
+var tomato1 = new Tomato("помидор1", 110);
+var tomato2 = new Tomato("помидор2", 90);
+
+scales.add(apple1);
+scales.add(tomato1);
+scales.add(tomato2);
+
+console.log(scales.getSumScale());
+console.log(scales.getNameList());
+
+
+    </script>
+</body>
+</html>
