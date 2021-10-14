@@ -1,0 +1,31 @@
+label {
+    font-size: 24px;
+}
+.wrapper{
+    display: flex;
+}
+.ch-wrap {
+    width: 560px;
+    height: 560px;
+    border: 2px solid #111;
+}
+.ch-item {
+    width: 70px;
+    height: 70px;
+    float: left;
+}
+.ch-black {
+    background: rgb(107, 106, 106);
+}
+
+.solution {
+    margin-left: 50px;
+    margin-top: 10px;
+    
+}
+
+.select-solution {
+    width: 250px;
+    margin-top: 30px;
+}
+
