@@ -1,0 +1,45 @@
+td {
+    width: 70px;
+    height: 70px;
+    font-size: 45px;
+    text-align: center;
+    vertical-align: center;
+}
+
+.chess-board{
+    float: left;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.black {
+    background: rgb(133, 130, 130);
+    border-radius: 5%;
+} 
+
+.select-solution {
+    width: 450px;
+    margin-top: 25px;
+    margin-left: 100px;
+    font-size: 20px;
+}
+.chess-desk {
+    border: 1px solid black;
+}
+.queen:hover {
+    background-color: rgb(207, 40, 40);
+    transition: 0.5s; 
+    cursor: pointer;
+    
+}
+.queen {
+    transition: 0.5s;
+}
+
+ .moves{
+    background-color: rgb(207, 87, 87);
+    transition: 0.5s;
+} 
+
+
+
