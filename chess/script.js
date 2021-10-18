@@ -1,261 +1,130 @@
 "use strict";
 
-//рисуем шахматную доску
+// доска с вариантами расстановки ферзей
 
-//   let chessWrap = document.querySelector('.ch-wrap');
-//   let i = 0, count = 0;
-//   while (count < 8 * 8) {
-//     let item = document.createElement('div');
-//     chessWrap.appendChild(item);
-//     item.classList.add('ch-item');
-//     if (i && i % 2)
-//       item.classList.add('ch-black')
-//     i += ((i + 2) % 9) ? 1 : 2;
-//     count++;
-//   }
+function chessDesk(solution) {
 
- 
+    let solutionArr = solution.split(',');
+        
+        let div = document.getElementsByClassName('chess-board')[0];
+        let table = document.createElement('table');
+        table.classList.add('chess-desk');
+
+        for (let i = 0; i < 8; i++) {
+            let tr = document.createElement('tr');
+            tr.classList.add('row');
+            for (let j = 0; j < 8; j++) {
+                let td = document.createElement('td');
+                if (i % 2 !== j % 2) {
+                    td.classList.add('black');
+                }
+                if (+(solutionArr[i]) === j) {
+                    td.innerHTML = '&#9813;';
+                    td.setAttribute('row-position', `${i}`);
+                    td.setAttribute('col-position', `${j}`);
+                    td.classList.add('queen');
+                    td.setAttribute('title',
+                    `нажмите кнопку мыши, чтобы посмотреть ходы
+нажмите кпонку мыши еще раз, чтобы скрыть ходы`);
+                    td.addEventListener('mousedown', mousedownChangeColor);
+                    // td.addEventListener('mouseup', mouseupChangeColor);
+                }
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        }
+        div.appendChild(table);
 
 
-
-
-
-
-
-
-function searchSolutions(boardSide) {
-  let figures = new Array(boardSide);
-  let possibleSolutions = [];
-
-  //Функция проверки на стоящего рядом
-  function check(figureNumber, row) {
-      for (let i = 0; i < figureNumber; i++) {
-          let Nearby = figures[i];
-          if (Nearby === row // если в одном ряду
-              || Nearby === row - (figureNumber - i) // если по диагонали
-              || Nearby === row + (figureNumber - i)) {
-              return false;
-          }
-      }
-      return true;
-  }
-
-  //Функция поиска
-  function search(figureNumber) {
-      if (figureNumber === boardSide) {
-          let solutionNumber = possibleSolutions.length;
-          possibleSolutions[solutionNumber] = [];
-          for (let i = 0; i < boardSide; i++) {
-              possibleSolutions[solutionNumber].push(figures[i]);
-          }
-      } else {
-          for (let row = 0; row < boardSide; row++) {
-              //Если проверка вернула false проверяем на следующий ряд
-              //Если проверка вернула true запускаем следующее число
-              if (check(figureNumber, row)) {
-                  figures[figureNumber] = row;
-                  //Если ничего не вернулось, то из стэка удаляется вызов и продолжается предыдущий вызов
-                  search(figureNumber + 1);
-              }
-          }
-      }
-  }
-
-  search(0);
-  return possibleSolutions;
 }
-console.log(searchSolutions(8));
 
 
+// выбор варианта расстановки 
+function selectOption() {
+    let select = document.getElementById('select-solution');
+    let arr = searchPosition(8);
+    let disabledOption = document.createElement('option');
+    disabledOption.selected = true;
+    disabledOption.innerText = 'выберите вариант расстановки ферзей';
+    select.appendChild(disabledOption);
+
+    for (let k = 0; k < arr.length; k++) {
+        let item = document.createElement('option');
+        item.innerHTML = arr[k];
+        select.appendChild(item);
+    }
+}
+selectOption();
 
 
-// const countNQueens = (n) => {
-//   if (n === 0 || n === 1) {
-//     return 1;
-//   }
+// построение доски по выбранному варианту
+let select = document.getElementById('select-solution');
+select.addEventListener('change', changeSolution);
 
-//   let count = 0;
- 
-//   const solver = (current, increment = 1) => {
-//     if (current.length === n) {
-//       count += increment;
-//     } else {
-//       for (let col = 0; col < n; col += 1) {
-//         let row = 0;
-//         let l = 0;
-//         for (l = current.length; row < l; row += 1) {
-//           const prev = current[row];
-//           if (prev === col) {
-//             break;
-//           }
-//           if (prev - (l - row) === col) {
-//             break;
-//           }
-//           if (prev + (l - row) === col) {
-//             break;
-//           }
-//         }
-//         if (row === l) {
-//           solver(current.concat([col]), increment);
-//         }
-//       }
-//     }
-//     return current;
-//   };
+function changeSolution(EO) {
+    // Удаляем старую доску
+    let table = document.getElementsByClassName('chess-board')[0];
+    table.innerHTML = '';
 
-//   const items = (n / 2) << 0;
-//   for (let i = 0; i < items; i += 1) {
-//     solver([i], 2);
-//   }
-//   if (items + items !== n) {
-//     solver([items], 1);
-//   }
-
-//   // return count;
-// };
-// console.log(countNQueens(8));
+    let index = EO.target.options.selectedIndex;
+    let solution = EO.target.options[index].innerText;
+    chessDesk(solution);
+}
 
 
-
-
-// let solutionCount = 0;
-// function countPrint() {
-// 	return ++solutionCount;
-// }
-
-// function buildArrs() {
-// 	let arrs = [];
-// 	for (let i=8; i>0; i--) {
-// 		let arr = [];
-// 		for (let j=8; j>0; j--) {
-// 			arr.push(0);	
-// 		}
-// 		arrs.push(arr);
-// 	}
-// 	return arrs;
-// }
-
-// function printArrs(arrs) {
-// 	console.log("------------------------------ count=", countPrint());
-// 	for (let i=0; i<arrs.length; i++) {
-// 		let arr = arrs[i];
-// 		let row = arr.map(item => {
-// 			return !!item ? ' ● ' : ' ○ ';
-// 		}).join("");
-// 		console.log(row);
-// 	}
-// }
-
-// function isConflict(arrs, rowIndex, colIndex) {
-// 	const target = arrs[rowIndex][colIndex];
-// 	for (let i=rowIndex-1; i>=0; i--) {
-// 		let row = arrs[i];
-// 		let j = row.indexOf(1);
-// 		if (j==colIndex || (rowIndex-i == Math.abs(colIndex-j)))
-// 			return true;
-// 	}
-// 	return false;
-// }
-
-// function clearDirtyRow(row) {
-// 	row.fill(0);
-// }
-
-// function findQueens(arrs, rowIndex) {
-// 	if (rowIndex>=8) {
-// 		printArrs(arrs);
-// 		return;
-// 	}
-// 	for (let i=0; i<arrs[rowIndex].length; i++) {
-// 		if (!isConflict(arrs, rowIndex, i)) { 
-// 			clearDirtyRow(arrs[rowIndex]);
-// 			arrs[rowIndex][i] = 1;
-// 			findQueens(arrs, rowIndex+1);
-// 		}
-// 	}
-// }
-
-// function start() {
-// 	let plate = buildArrs();
-// 	solutionCount = 0;
-// 	findQueens(plate, 0);
-// }
-
-// console.log(start(8));
-
-
-
-
-
-//  const countNQeensUsingSimpleBacktracking = (n) => {
   
-//    let count = 0;
-//    let current = [];
-  
-//   const solver = (current) => {
-//     if (current.length === n) {
-//       count += 1;
-//     } else {
-//       for (let i = 0; i < n; i += 1) {
-//         let j = 0;
-//         let l = 0;
-//         for (l = current.length; j < l; j += 1) {
-//           const prev = current[j];
-//           if (prev === i) {
-//             break;
-//           }
-//           if (prev - (l - j) === i) {
-//             break;
-//           }
-//           if (prev + (l - j) === i) {
-//             break;
-//           }
-//         }
-//         if (j === l) {
-//           solver(current.concat([i]));
-//         }
-//       }
-//     }
-//   };
-
-//   solver([]);
-
-//   return current;
-// };
-// console.log(countNQeensUsingSimpleBacktracking(8));
+// поиск возможных вариантов расстановки
+function searchPosition(boardNumber) {
+    let currentSolution = [];
+    let finalSolution = [];
+    
+    function search(currentSolution) {
+        if (currentSolution.length === boardNumber) {
+            finalSolution.push(currentSolution);
+        } else {
+            for (let col = 0; col < boardNumber; col++) {
+                let row = 0;
+                let length = 0;
+                for (length = currentSolution.length; row < length; row++) {
+                    let prev = currentSolution[row];
+                    if ((prev === col) ||
+                        (prev - (length - row) === col) ||
+                        (prev + (length - row) === col)) {
+                    break;
+                    }
+                }
+            if (row === length) {
+                search(currentSolution.concat([col]));
+            }
+            }
+        }
+      
+    };
+  search([]);
+  return finalSolution;
+};
+// console.log(searchPosition(8));
 
 
-// function queenPuzzle(rows, columns) {
-//     if (rows <= 0) {
-//         return [[]];
-//     } else {
-//         return addQueen(rows - 1, columns);
-//     }
-// }
- 
-// function addQueen(newRow, columns, prevSolution) {
-//     var newSolutions = [];
-//     var prev = queenPuzzle(newRow, columns);
-//     for (var i = 0; i < prev.length; i++) {
-//         var solution = prev[i];
-//         for (var newColumn = 0; newColumn < columns; newColumn++) {
-//             if (!hasConflict(newRow, newColumn, solution))
-//                 newSolutions.push(solution.concat([newColumn]))
-//         }
-//     }
-//     return newSolutions;
-// }
- 
-// function hasConflict(newRow, newColumn, solution) {
-//     for (var i = 0; i < newRow; i++) {
-//         if (solution[i]     == newColumn          ||
-//             solution[i] + i == newColumn + newRow || 
-//             solution[i] - i == newColumn - newRow) {
-//                 return true;
-//         }
-//     }
-//     return false;
-// }
- 
-// console.log(queenPuzzle(8, 8));
+// подсвечивание клеток 
+function mousedownChangeColor(EO) {
+    let row = +(EO.target.getAttribute('row-position'));
+    let col = +(EO.target.getAttribute('col-position'));
+    let tr = document.getElementsByClassName('row');
+    let left = col - row; 
+    let right = col + row; 
+
+    for (let i = 0; i < 8; i++) {
+        let td = tr[i].childNodes;
+    
+        for (let k = 0; k < 8; k++) {
+            if (row === i && k === col) {
+                continue;
+            }
+            if ((k === left + i) || (k === right - i) || (i === row) || (k === col)) {
+                td[k].classList.toggle('moves');
+            }
+        }
+    }
+}
 
