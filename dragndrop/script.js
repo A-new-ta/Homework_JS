@@ -1,77 +1,57 @@
 'use strict';
 
 let images = document.querySelectorAll('img');
-let diffMouseMinusImgX = 0;
-let diffMouseMinusImgY = 0;
-let currElem;
+let mouseImgX = 0;
+let mouseImgY = 0;
+let currentImg;
+
 window.addEventListener('load', start);
 
 function start() {
     for (let elem of images) {
-        let position = getElementPos(elem);
-        elem.style.left = position.left + 'px';
-        // elem.style.left = position.offsetLeft + 'px';
-        elem.style.top = position.top + 'px';
-        // elem.style.top = position.offsetTop + 'px';
+        let imgPos = getElementPos(elem);
+        elem.style.left = imgPos.left + 'px';
+        elem.style.top = imgPos.top + 'px';
+        
         elem.addEventListener('mousedown', mousedown);
         elem.addEventListener('mouseup', mouseup);
         // elem.style.margin = '0px';
-    }
+    };
     for (let elem of images) {
         elem.style.position = 'absolute';
-    }
+    };
 }
 
 function getElementPos(elem) {
-    let bbox = elem.getBoundingClientRect();
-    let marginleft = parseInt(getComputedStyle(elem).marginLeft);
-    let margintop = parseInt(getComputedStyle(elem).marginTop);
+    let pos = elem.getBoundingClientRect();
+    let marginLeft = parseInt(getComputedStyle(elem).marginLeft);
+    let marginTop = parseInt(getComputedStyle(elem).marginTop);
     return {
-      left: bbox.left - marginleft + window.pageXOffset,
-      top: bbox.top - margintop + window.pageYOffset
+      left: pos.left - marginLeft + window.pageXOffset,
+      top: pos.top - marginTop + window.pageYOffset
     };
 }
 
 function mousedown (EO) {
-    EO = EO || window.event;
     EO.preventDefault();
-    currElem = EO.target;
-    let position = getElementPos(currElem);
-    diffMouseMinusImgX = EO.pageX - position.left;
-    diffMouseMinusImgY = EO.pageY - position.top;
-    document.body.appendChild(currElem);
-    currElem.style.cursor = 'pointer';
+    currentImg = EO.target;
+    let currPosition = getElementPos(currentImg);
+    mouseImgX = EO.pageX - currPosition.left;
+    mouseImgY = EO.pageY - currPosition.top;
+    document.body.appendChild(currentImg);
+    currentImg.style.cursor = 'pointer';
     window.addEventListener('mousemove', mousemove);
     
-    // Проверки:
-    // console.log('нажатие:' + EO);
-    // console.log('EO.target: ' + EO.target);
-    // console.log('EO.pageY: ' + EO.pageY + '\n' + 'EO.pageX: ' + EO.pageX + '\n' + 'diffMouseMinusImgY: ' + diffMouseMinusImgY);
-    // console.log('элемент: ' + currElem);
-}
-
-function mouseup (EO) {
-    EO = EO || window.event;
-    EO.preventDefault();
-    window.removeEventListener('mousemove', mousemove);
-    // currElem.style.cursor = 'auto';
-
-    // Проверки:
-    // console.log('снятие:' + EO);
-    // console.log('курсор: ' + currElem.style.cursor);
 }
 
 function mousemove (EO) {
-    EO = EO || window.event;
     EO.preventDefault();
-    currElem.style.cursor = 'pointer';
-    currElem.style.left = (EO.pageX - diffMouseMinusImgX) + 'px';
-    // currElem.style.left = EO.pageX - offsetX + 'px';
-    currElem.style.top = (EO.pageY - diffMouseMinusImgY) + 'px';
-
-    
-    // Проверки:
-    // console.log('события движений:' + EO);
-    // console.log('курсор: ' + currElem.style.cursor);
-    // console.log(EO.pageY);
+    currentImg.style.left = (EO.pageX - mouseImgX) + 'px';
+    currentImg.style.top = (EO.pageY - mouseImgY) + 'px';
 }
+
+function mouseup (EO) {
+    EO.preventDefault();
+    window.removeEventListener('mousemove', mousemove);
+}
+
