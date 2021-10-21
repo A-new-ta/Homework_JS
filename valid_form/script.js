@@ -25,7 +25,8 @@ function createForm(formName, fields) {
     for (let i = 0; i < fields.length; i++) {
         let field = fields[i];
         let fieldDiv = document.createElement('div');
-        fieldDiv.setAttribute('style', 'width: 100%; display:flex; min-height: 30px');
+        fieldDiv.classList.add('wrap');
+        // fieldDiv.setAttribute('style', 'width: 100%; display:flex; min-height: 30px');
         let formLabel = document.createElement('label');
         formLabel.textContent = field.label;
         formLabel.htmlFor = field.name;
@@ -36,7 +37,8 @@ function createForm(formName, fields) {
         fieldDiv.appendChild(formField);
         formName.appendChild(fieldDiv);
         let fieldSpan = document.createElement('span');
-        fieldSpan.setAttribute('style', 'margin-left: 0px; color: red');
+        fieldSpan.classList.add('error');
+        // fieldSpan.setAttribute('style', 'margin-left: 0px; color: red');
         fieldDiv.appendChild(fieldSpan);
         
         
@@ -50,7 +52,6 @@ function createForm(formName, fields) {
                     result.type = 'text';
                     result.name = field.name;
                     result.id = field.name;
-                    result.setAttribute('style', 'width: 50%; position: relative; left: 200px');
                     break;
                 
                 case 'date':
@@ -58,7 +59,6 @@ function createForm(formName, fields) {
                     result.type = 'date';
                     result.name = field.name;
                     result.id = field.name;
-                    result.setAttribute('style', 'width: 50%; position: relative; left: 200px');
                     break;
                 
                 case 'number':
@@ -66,12 +66,10 @@ function createForm(formName, fields) {
                     result.type = 'number';
                     result.name = field.name;
                     result.id = field.name;
-                    result.setAttribute('style', 'width: 50%; position: relative; left: 200px');
                     break;
                 
                 case 'combo':
                     result = document.createElement('select');
-                    result.setAttribute('style', 'position: relative; left: 200px; height: 26px');
                     result.id = field.name;
                     result.name = field.name;
                     for (let i = 0; i < field.variants.length; i++) {
@@ -84,10 +82,11 @@ function createForm(formName, fields) {
                 
                 case 'radio':
                     result = document.createElement('div');
-                    result.setAttribute('style', 'width: 50%; position: relative; left: 200px; top:0');
+                    result.classList.add('radio');
                     for (let i = 0; i < field.variants.length; i++) {
                         let item = field.variants[i];
                         let elem = document.createElement('label');
+                        elem.classList.add('payment');
                         elem.textContent = field.variants[i].text;
                         elem.htmlFor = `${field.name}-${item.value}`;
 
@@ -106,14 +105,12 @@ function createForm(formName, fields) {
                     result.type = 'checkbox';
                     result.name = field.name;
                     result.id = field.name;
-                    result.setAttribute('style', 'position: relative; left: 200px');
                     break;
                 
                 case 'memo':
                     result = document.createElement('textarea');
                     result.name = field.name;
                     result.id = field.name;
-                    result.setAttribute('style', 'width: 50%; position: relative; left: 200px');
                     break;
                 
                 case 'submit':
