@@ -9,57 +9,51 @@
 <body>
     <script>
         
-    let dict = ["ЛУЖА","ЛИРА","ЛИПА","ЛОЖЬ","ЛУПА","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА", "ЛОСЬ"];
-    let beginWord = "ЛИСА";
-    let endWord = "ЛОСЬ";
+    // let dict = ["ЛУЖА","ЛИРА","ЛИПА","ЛОЖЬ","ЛУПА","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"];
+    // let beginWord = "ЛИСА";
+    // let endWord = "ЛОСЬ";
+    // dict.push(endWord);
+    
 
-    function isDiffOne (word1, word2) {
-    let diff = 0
-    for (let i = 0; i < word1.length; i++) {
-        if (word1[i] !== word2[i]) diff ++;
-        };
-    return diff;
-    };
+    // function isDiffOne (word1, word2) {
+    // let diff = 0
+    // for (let i = 0; i < word1.length; i++) {
+    //     if (word1[i] !== word2[i]) diff ++;
+    //     };
+    // return diff;
+    // };
 
-    let newArr = [];
-    function nextStep (cw, wa, tw) {
+    // let newArr = [];
+    // function nextStep (cw, wa, tw) {
         
-        if (wa.length === 0) return null;
-      outer:  for (let j = 0; j < wa.length; j++) {
-            let w = wa[j];  
+    //     if (wa.length === 0) return null;
+    //     // while (cw !== tw) { 
+    //         for (let j = 0; j < wa.length; j++) {
+    //         let w = wa[j];  
+    //         if (w === tw){
+    //             return newArr;
+    //             break;
+    //         } 
+    //         if (isDiffOne(cw, w) === 1) {
+    //             let result = wa.filter(el => el !== w);
+    //             newArr.push(w);  
+    //             nextStep (w, result, tw);
+    //         }
+
             
-            if (isDiffOne(cw, w) === 1) {
-                if (w === tw) {
-                    break outer;
-                  // и надо кактоперестать выполнять цикл дальше  
-                }    
-                
-                let result = wa.filter(el => el !== w);
-                newArr.push(w);   
-                nextStep (w, result, tw);
+            // }
+            // while (w !== tw) {
+            //     return nextStep (w, result, tw);
+            // }
+            
                
-            }
-            // if (w === tw){
-            //     return newArr;
-            // } 
-                
-        }
+        // }
+        //  break;
+        
             // return null;
             // return newArr;
             // newArr.unshift(cw);
-            return newArr; // как сделать чтобы не возвращлся обратно к перебору массива???
-            
-        }
-        // return null;
-        
-    
-    
-
-console.log(nextStep (beginWord, dict, endWord));
-
-
-
-
-    </script>
-</body>
-</html>
+//     } return newArr;  
+// }   
+//         // return null;
+// console.log(nextStep (beginWord, dict, endWord));
