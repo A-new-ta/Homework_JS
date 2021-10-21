@@ -1,3 +1,13 @@
+label {
+    float: left;
+    width: 200px;
+}
+
+body > form > div:nth-child(10) > label {
+    float: none;
+    display: block;
+ }
+
 .wrap {
    margin-bottom: 5px; 
    min-height: 20px;
@@ -8,19 +18,13 @@
     margin-left: 10px;
 }
 
-label {
-    float: left;
-    width: 200px;
+.errcolor {
+    background-color: #f8cdcd
 }
-
-
 .payment{
     width: 100px;  
 }
-body > form > div:nth-child(10) > label {
-   float: none;
-   display: block;
-}
+
 
 #description{
     width: 50%;
@@ -38,4 +42,6 @@ body > form > div:nth-child(10) > label {
 #email, #division {
     width: 20%;
 }
+
+
 
