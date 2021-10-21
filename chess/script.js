@@ -128,6 +128,3 @@ function mousedownChangeColor(EO) {
     }
 }
 
-
-
-

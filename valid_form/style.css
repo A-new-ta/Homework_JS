@@ -1,0 +1,47 @@
+label {
+    float: left;
+    width: 200px;
+}
+
+body > form > div:nth-child(10) > label {
+    float: none;
+    display: block;
+ }
+
+.wrap {
+   margin-bottom: 5px; 
+   min-height: 20px;
+}
+
+.error {
+    color: red;
+    margin-left: 10px;
+}
+
+.errcolor {
+    background-color: #f8cdcd
+}
+.payment{
+    width: 100px;  
+}
+
+
+#description{
+    width: 50%;
+    min-height: 50px;
+}
+#developers, #sitename {
+    width: 30%;
+}
+#siteurl {
+    width: 20%;
+}
+#date, #visitors {
+    width: 12%;
+}
+#email, #division {
+    width: 20%;
+}
+
+
+
