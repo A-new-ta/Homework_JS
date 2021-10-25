@@ -188,7 +188,7 @@ function validDivision(EO) {
     let divisionValue = Number(division.value);
     let divisionErr = division.nextElementSibling;
     
-    if (divisionValue === 2) {
+    if (divisionValue === 1) {
         divisionErr.innerHTML = 'Эта рубрика недоступна';
         division.classList.add('errcolor');
         return false;
@@ -265,6 +265,7 @@ function validFormAll(EO) {
         validDate();
         validVisitors();
         validEmail();
+        validDivision();
         validPayment();
         validVotes();
         validDescription();
@@ -275,6 +276,7 @@ function validFormAll(EO) {
         value = validDate(value);
         value = validVisitors(value);
         value = validEmail(value);
+        value = validDivision(value);
         value = validPayment(value);
         value = validVotes(value);
         value = validDescription(value);
