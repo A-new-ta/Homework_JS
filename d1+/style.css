@@ -26,11 +26,11 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
   }
 
 .image {
-    width: 700px;
-    height: 455px;
+    width: 500px;
+    height: 325px;
     background: url('meme3.webp') 0 0 / 100% no-repeat ;
     position: absolute;
-    top: 400px;
+    top: 300px;
     left: 300px;
 }
 
