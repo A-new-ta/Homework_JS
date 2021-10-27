@@ -3,10 +3,11 @@
 const image = document.querySelector('.image');
 let inputData = {};
 
+
 function getImageData(EO) {
     let pos = image.getBoundingClientRect();
     inputData = {
-        action: EO.target.className,
+        action: EO.target.id,
         width: pos.width,
         height: pos.height,
         top: pos.top,
@@ -49,47 +50,69 @@ document.addEventListener('mousedown', EO => {
 });
 
 function mousemove(EO) {
+
     // общие условия для клика
     if (inputData.action) {
-
+        // let mouseLeft = EO.pageX - inputData.left;
+        // let mouseTop = EO.pageY - inputData.top;
+        // let mouseRight = EO.pageX - (inputData.left + inputData.width);
+        // let mouseBottom = EO.pageY - (inputData.top + inputData.height);
         //прописываем условия для всех возможных кликов мыши
         if (inputData.action === 'image') {
-
+            image.style.top = EO.pageY - inputData.shiftY + 'px';
+            image.style.left = EO.pageX - inputData.shiftX + 'px';
         }
 
-        if (inputData.action === 'resizer top__left') {
+        if (inputData.action === 'top__left') {
+           
+            image.style.width = image.offsetHeight * inputData.propWidth + 'px';
+            image.style.height = inputData.height - (EO.pageY - inputData.top) + 'px';
+            
+            image.style.left = (inputData.left + inputData.width) - image.offsetWidth + 'px';
+            image.style.top = (inputData.top + inputData.height) - image.offsetHeight + 'px';
+        
+            if (EO.pageY >= inputData.top + inputData.height && EO.pageX >= inputData.left + inputData.width) {
+                image.style.height = EO.pageY - (inputData.top + inputData.height) + 'px';
+                image.style.top = inputData.top + inputData.height + 'px';
+                image.style.width = image.offsetHeight * inputData.propWidth + 'px';
+                image.style.left = inputData.left + inputData.width + 'px';
+            }
+        }
+
+        if (inputData.action === 'top__middle') {
+            image.style.top = EO.pageY  + 'px';
+            image.style.height = inputData.height - (EO.pageY - inputData.top) + 'px';
+            if (EO.pageY >= inputData.top + inputData.height) {
+                image.style.top = inputData.top + inputData.height + 'px';
+                image.style.height = (EO.pageY - inputData.top) - inputData.height + 'px';
+            }
+        }
+
+        if (inputData.action === 'top__right') {
             
         }
 
-        if (inputData.action === 'resizer top__middle') {
+        if (inputData.action === 'middle__right') {
             
         }
 
-        if (inputData.action === 'resizer top__right') {
+        if (inputData.action === 'middle__right') {
             
         }
 
-        if (inputData.action === 'resizer middle__right') {
+        if (inputData.action === 'bottom__right') {
             
         }
 
-        if (inputData.action === 'resizer middle__right') {
+        if (inputData.action === 'bottom__middle') {
             
         }
 
-        if (inputData.action === 'resizer bottom__right') {
+        if (inputData.action === 'bottom__left') {
             
         }
 
-        if (inputData.action === 'resizer bottom__middle') {
-            
-        }
-
-        if (inputData.action === 'resizer bottom__left') {
-            
-        }
-
-        if (inputData.action === 'resizer middle__left') {
+        if (inputData.action === 'middle__left') {
             
         }
     } 

@@ -28,7 +28,8 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
 .image {
     width: 500px;
     height: 325px;
-    background: url('meme3.webp') 0 0 / 100% no-repeat ;
+    background: url('meme3.webp') no-repeat ;
+    background-size: 100% 100%;
     position: absolute;
     top: 300px;
     left: 300px;
