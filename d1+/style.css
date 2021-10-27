@@ -1,0 +1,87 @@
+/* Обнуление*/
+*{padding: 0;margin: 0;border: 0;}
+*,*:before,*:after{-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+nav,footer,header,aside{display: block;}
+html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms-text-size-adjust:100%;-moz-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+input,button,textarea{font-family:inherit;}
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner{padding:0;border:0;}
+a,a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: inherit;}
+/*-------------------- */
+
+
+.resizer{
+    width: 12px;
+    height: 12px;
+    border: 3px solid #4286f4;
+    background-color: white;
+    position: absolute;
+  }
+
+.image {
+    width: 500px;
+    height: 325px;
+    background: url('meme3.webp') no-repeat ;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 300px;
+    left: 300px;
+}
+
+
+.top__left {
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    cursor: nwse-resize; 
+}
+.top__middle{
+    left: 50%;
+    right: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    cursor: ns-resize; 
+}
+.top__right{
+    left: 100%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    cursor: nesw-resize; 
+}
+.middle__right{
+    left: 100%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: ew-resize; 
+}
+.bottom__right{
+    left: 100%;
+    top: 100%;
+    transform: translate(-50%, -50%);
+    cursor: nwse-resize; 
+}
+.bottom__middle{
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, -50%);
+    cursor: ns-resize; 
+}
+.bottom__left{
+    left: 0;
+    top: 100%;
+    transform: translate(-50%, -50%);
+    cursor: nesw-resize; 
+}
+.middle__left{
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: ew-resize; 
+}
