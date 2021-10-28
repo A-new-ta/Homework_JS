@@ -49,8 +49,8 @@ function mousemove(EO) {
         if (inputData.action === 'top__left') {
            
             image.style.height = inputData.height - mouseTop + 'px';
-            image.style.width = image.offsetHeight * inputData.propWidth + 'px';
             image.style.top = (inputData.top + inputData.height) - image.offsetHeight + 'px';
+            image.style.width = Math.round(image.offsetHeight * inputData.propWidth) + 'px';
             image.style.left = (inputData.left + inputData.width) - image.offsetWidth + 'px';
             
             if (EO.pageY >= inputData.top + inputData.height && EO.pageX >= inputData.left + inputData.width) {
