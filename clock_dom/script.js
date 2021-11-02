@@ -8,6 +8,7 @@ function start(width) {
 
     let size = document.querySelector('.number');
     let widthClock = +size.value;
+    clockDiameter = widthClock;
     if (widthClock >= 200 || widthClock <= 600) {
         let menu = document.querySelector('.menu');
         menu.classList.add('hidden');
@@ -17,7 +18,7 @@ function start(width) {
         loadbar.classList.remove('hidden');
         let body = document.body;
         body.setAttribute('style', 'background: url("img/mountains_black_2.jpg") center center fixed');
-        return widthClock;
+        return clockDiameter;
     }
 }
 
@@ -44,8 +45,8 @@ setTimeout(() => {
  
 const clock = document.querySelector('.clock');
 const container = document.querySelector('.container');
-const clockDiameter = start(width);
-// const clockDiameter = clock.offsetWidth; //диаметр циферблата часов
+// const clockDiameter = start(width);
+let clockDiameter = 0; //диаметр циферблата часов
 const clockRad = clock.offsetWidth / 2; // радиус циферблата часов
 const childElemClock = clockDiameter / 9; // диаметр элемента циферблата
 const childElemClockDiam = clockRad * 0.85; // общий диаметр всех элементов циферблата
