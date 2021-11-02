@@ -3,35 +3,43 @@
 // input window
 let button = document.querySelector('.ok__button');
 button.addEventListener('click', start);
+let input = document.querySelector('.number');
+input.addEventListener('keydown', enter);
 
-function start() {
-
-    let size = document.querySelector('.number');
-    let widthClock = +size.value;
-    if (widthClock >= 350 && widthClock <= 750) {
-
-        load();
-
-        let menu = document.querySelector('.menu');
-        menu.classList.add('hidden');
-        let container = document.querySelector('.container');
-        container.classList.remove('hidden');
-        let loadbar = document.querySelector('.loading-background');
-        loadbar.classList.remove('hidden');
-        const clock = document.querySelector('.clock');
-        clock.style.width = widthClock + 'px';
-        clock.style.height = widthClock + 'px';
-        let body = document.body;
-        body.setAttribute('style', 'background: url("img/mountains_black_2.jpg") center center fixed; background-size: cover');
-        
-        definition(widthClock);
-        getAnalogClock();
-        updateTime();
+function enter(eo) {
+    if (eo.keyCode === 13) {
+        start();
     }
-    // definition(widthClock);
-    // getAnalogClock();
-    // updateTime();
 }
+function start() {
+    
+        let size = document.querySelector('.number');
+        let widthClock = +size.value;
+        if (widthClock >= 350 && widthClock <= 750) {
+
+            load();
+
+            let menu = document.querySelector('.menu');
+            menu.classList.add('hidden');
+            let container = document.querySelector('.container');
+            container.classList.remove('hidden');
+            let loadbar = document.querySelector('.loading-background');
+            loadbar.classList.remove('hidden');
+            const clock = document.querySelector('.clock');
+            clock.style.width = widthClock + 'px';
+            clock.style.height = widthClock + 'px';
+            let body = document.body;
+            body.setAttribute('style', 'background: url("img/mountains_black_2.webp") center center fixed; background-size: cover');
+        
+            definition(widthClock);
+            getAnalogClock();
+            updateTime();
+        }
+        // definition(widthClock);
+        // getAnalogClock();
+        // updateTime();
+}
+
 
 
 
@@ -41,7 +49,7 @@ function load() {
     let widthBar = 0;
     const loadBar = document.querySelector('.load')
     let loadId = setInterval(() => {
-        loadBar.setAttribute('style', 'background: red');
+        loadBar.setAttribute('style', 'background: grey');
         loadBar.style.width = `${widthBar}%`
         if (widthBar !== 100) {
             widthBar += 10;
@@ -216,3 +224,22 @@ function updateTime() {
 
 // updateTime();
 // setTimeout(updateTime, 1000 - time.getMilliseconds());
+
+// change theme
+let changeButton = document.querySelector('.theme__button');
+changeButton.addEventListener('click', change);
+
+function change() {
+    let theme = document.getElementById('theme');
+    if (theme.getAttribute('href') === 'style.css') {
+        theme.href = 'white_theme.css';
+        changeButton.innerHTML = 'Dark theme';
+        let body = document.body;
+        body.setAttribute('style', 'background: url("img/mountains_white_3.webp") center center fixed; background-size: cover');
+    } else if (theme.getAttribute('href') === 'white_theme.css') {
+        theme.href = 'style.css';
+        changeButton.innerHTML = 'Light theme';
+        let body = document.body;
+        body.setAttribute('style', 'background: url("img/mountains_black_2.webp") center center fixed; background-size: cover');
+    }
+}
