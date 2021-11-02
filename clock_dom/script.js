@@ -3,59 +3,96 @@
 // input window
 let button = document.querySelector('.ok__button');
 button.addEventListener('click', start);
+let input = document.querySelector('.number');
+input.addEventListener('keydown', enter);
 
-function start(width) {
-
-    let size = document.querySelector('.number');
-    let widthClock = +size.value;
-    if (widthClock >= 200 || widthClock <= 600) {
-        let menu = document.querySelector('.menu');
-        menu.classList.add('hidden');
-        let container = document.querySelector('.container');
-        container.classList.remove('hidden');
-        let loadbar = document.querySelector('.loading-background');
-        loadbar.classList.remove('hidden');
-        let body = document.body;
-        body.setAttribute('style', 'background: url("img/mountains_black_2.jpg") center center fixed');
-        return widthClock;
+function enter(eo) {
+    if (eo.keyCode === 13) {
+        start();
     }
+}
+function start() {
+    
+        let size = document.querySelector('.number');
+        let widthClock = +size.value;
+        if (widthClock >= 350 && widthClock <= 750) {
+
+            load();
+
+            let menu = document.querySelector('.menu');
+            menu.classList.add('hidden');
+            let container = document.querySelector('.container');
+            container.classList.remove('hidden');
+            let loadbar = document.querySelector('.loading-background');
+            loadbar.classList.remove('hidden');
+            const clock = document.querySelector('.clock');
+            clock.style.width = widthClock + 'px';
+            clock.style.height = widthClock + 'px';
+            let body = document.body;
+            body.setAttribute('style', 'background: url("img/mountains_black_2.webp") center center fixed; background-size: cover');
+        
+            definition(widthClock);
+            getAnalogClock();
+            updateTime();
+        }
+        // definition(widthClock);
+        // getAnalogClock();
+        // updateTime();
 }
 
 
 
 
-
-//Loadbar-------------
-const loadBar = document.querySelector('.load')
-let widthBar = 0;
-
-let loadId = setInterval(() => {
-    loadBar.style.width = `${widthBar}%`
-    widthBar === 100 ? 100 : widthBar+=10
-  }, 160);
-  
-setTimeout(() => { 
-    loadBar.style.width = '100%';
-    clearInterval(loadId) 
-    setTimeout(() => document.querySelector('.loading-background').style.display = 'none', 100) 
+//Loadbar
+function load() {
     
-}, 2000);
+    let widthBar = 0;
+    const loadBar = document.querySelector('.load')
+    let loadId = setInterval(() => {
+        loadBar.setAttribute('style', 'background: grey');
+        loadBar.style.width = `${widthBar}%`
+        if (widthBar !== 100) {
+            widthBar += 10;
+        }
+    }, 160);
+  
+    setTimeout(() => {
+        loadBar.style.width = '100%';
+        clearInterval(loadId)
+        setTimeout(() => document.querySelector('.loading-background').style.display = 'none', 100)
+    }, 2000);
+}
 
- 
-const clock = document.querySelector('.clock');
+
+// const clock = document.querySelector('.clock');
 const container = document.querySelector('.container');
-const clockDiameter = start(width);
-// const clockDiameter = clock.offsetWidth; //диаметр циферблата часов
-const clockRad = clock.offsetWidth / 2; // радиус циферблата часов
-const childElemClock = clockDiameter / 9; // диаметр элемента циферблата
-const childElemClockDiam = clockRad * 0.85; // общий диаметр всех элементов циферблата
-const secondsArrowWidth = clockRad * 0.8 ; // длина секундной стрелки
-const secondsArrowHeight = clockRad * 0.02; // ширина секундной стрелки
-const minutesArrowWidth = clockRad * 0.8; // длина минутной стрелки
-const minutesArrowHeight = clockRad * 0.04; // ширина минутной стрелки
-const hoursArrowWidth = clockRad * 0.7; // длина часовой стрелки
-const hoursArrowHeight = clockRad * 0.05; // ширина часовой стрелки
-const proportionArrows = clockDiameter / 4 / 10;
+let clockDiameter; //диаметр циферблата часов
+let clockRad; // радиус циферблата часов
+let childElemClock; // диаметр элемента циферблата
+let childElemClockDiam; // общий диаметр всех элементов циферблата
+let secondsArrowWidth; // длина секундной стрелки
+let secondsArrowHeight; // ширина секундной стрелки
+let minutesArrowWidth; // длина минутной стрелки
+let minutesArrowHeight; // ширина минутной стрелки
+let hoursArrowWidth; // длина часовой стрелки
+let hoursArrowHeight; // ширина часовой стрелки
+let proportionArrows;
+
+function definition(width) {
+    // const clock = document.querySelector('.clock');
+    clockDiameter = width; // диаметр циферблата часов
+    clockRad = clockDiameter / 2; // радиус циферблата часов
+    childElemClock = clockDiameter / 9; // диаметр элемента циферблата
+    childElemClockDiam = clockRad * 0.85; // общий диаметр всех элементов циферблата
+    secondsArrowWidth = clockRad * 0.8 ; // длина секундной стрелки
+    secondsArrowHeight = clockRad * 0.02; // ширина секундной стрелки
+    minutesArrowWidth = clockRad * 0.8; // длина минутной стрелки
+    minutesArrowHeight = clockRad * 0.04; // ширина минутной стрелки
+    hoursArrowWidth = clockRad * 0.7; // длина часовой стрелки
+    hoursArrowHeight = clockRad * 0.05; // ширина часовой стрелки
+    proportionArrows = clockDiameter / 4 / 10;
+}
+
 
 // Аналоговые часы
 function getAnalogClock() {
@@ -70,7 +107,6 @@ function getAnalogClock() {
         clock.append(circle);
         return circle;
     }
-
     
     for (let i = 1; i <= 12; i++) {
         let circle = createCircle();
@@ -82,6 +118,11 @@ function getAnalogClock() {
         circle.style.top = Math.round(circleCenterY - (circle.offsetHeight / 2)) + 'px';
         circle.innerHTML = i;
     }
+
+    digitalClock = getDigitalClock();
+    secondsArrow =  getSecondsArrow();
+    minutesArrow =  getMinutesArrow();
+    hoursArrow = getHoursArrow();
 }
 
 // Цифровые часы (положение и размер)
@@ -144,11 +185,11 @@ function getHoursArrow() {
 }
 
 
-getAnalogClock();
-let digitalClock = getDigitalClock();
-let secondsArrow = getSecondsArrow();
-let minutesArrow = getMinutesArrow();
-let hoursArrow = getHoursArrow();
+// getAnalogClock();
+let digitalClock;
+let secondsArrow;
+let minutesArrow;
+let hoursArrow;
 
 // функция текущего времени
 function updateTime() {
@@ -178,7 +219,27 @@ function updateTime() {
     secondsArrow.style.transform = `rotate(${secondsAngle}deg)`;
 
     setTimeout(updateTime, 1000 - time.getMilliseconds());
+    
 }
 
-updateTime();
+// updateTime();
 // setTimeout(updateTime, 1000 - time.getMilliseconds());
+
+// change theme
+let changeButton = document.querySelector('.theme__button');
+changeButton.addEventListener('click', change);
+
+function change() {
+    let theme = document.getElementById('theme');
+    if (theme.getAttribute('href') === 'style.css') {
+        theme.href = 'white_theme.css';
+        changeButton.innerHTML = 'Dark theme';
+        let body = document.body;
+        body.setAttribute('style', 'background: url("img/mountains_white_3.webp") center center fixed; background-size: cover');
+    } else if (theme.getAttribute('href') === 'white_theme.css') {
+        theme.href = 'style.css';
+        changeButton.innerHTML = 'Light theme';
+        let body = document.body;
+        body.setAttribute('style', 'background: url("img/mountains_black_2.webp") center center fixed; background-size: cover');
+    }
+}
