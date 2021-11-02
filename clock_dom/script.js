@@ -4,12 +4,12 @@
 let button = document.querySelector('.ok__button');
 button.addEventListener('click', start);
 
-function start(width) {
+function start() {
 
     let size = document.querySelector('.number');
     let widthClock = +size.value;
     clockDiameter = widthClock;
-    if (widthClock >= 200 || widthClock <= 600) {
+    if (widthClock >= 200 && widthClock <= 600) {
         let menu = document.querySelector('.menu');
         menu.classList.add('hidden');
         let container = document.querySelector('.container');
@@ -20,7 +20,8 @@ function start(width) {
         body.setAttribute('style', 'background: url("img/mountains_black_2.jpg") center center fixed');
         
     }
-    getAnalogClock(clockDiameter);
+    definition();
+    getAnalogClock();
 }
 
 
@@ -43,9 +44,24 @@ setTimeout(() => {
     
 }, 2000);
 
- 
-const clock = document.querySelector('.clock');
-const container = document.querySelector('.container');
+function definition() {
+    clock = document.querySelector('.clock');
+    container = document.querySelector('.container');
+    
+    clockRad = clockDiameter / 2; // радиус циферблата часов
+    childElemClock = clockDiameter / 9; // диаметр элемента циферблата
+    childElemClockDiam = clockRad * 0.85; // общий диаметр всех элементов циферблата
+    secondsArrowWidth = clockRad * 0.8 ; // длина секундной стрелки
+    secondsArrowHeight = clockRad * 0.02; // ширина секундной стрелки
+    minutesArrowWidth = clockRad * 0.8; // длина минутной стрелки
+    minutesArrowHeight = clockRad * 0.04; // ширина минутной стрелки
+    hoursArrowWidth = clockRad * 0.7; // длина часовой стрелки
+    hoursArrowHeight = clockRad * 0.05; // ширина часовой стрелки
+    proportionArrows = clockDiameter / 4 / 10;
+}
+
+let clock = document.querySelector('.clock');
+let container = document.querySelector('.container');
 // const clockDiameter = start(width);
 let clockDiameter = 0; //диаметр циферблата часов
 let clockRad = clockDiameter / 2; // радиус циферблата часов
@@ -58,6 +74,11 @@ let minutesArrowHeight = clockRad * 0.04; // ширина минутной ст�
 let hoursArrowWidth = clockRad * 0.7; // длина часовой стрелки
 let hoursArrowHeight = clockRad * 0.05; // ширина часовой стрелки
 let proportionArrows = clockDiameter / 4 / 10;
+
+const digitalClock = document.createElement('div');
+const hoursArrow = document.createElement('div');
+const minutesArrow = document.createElement('div');
+const secondsArrow = document.createElement('div');
 
 // Аналоговые часы
 function getAnalogClock() {
@@ -86,10 +107,10 @@ function getAnalogClock() {
         circle.innerHTML = i;
     }
 
-    let digitalClock = getDigitalClock();
-    let secondsArrow = getSecondsArrow();
-    let minutesArrow = getMinutesArrow();
-    let hoursArrow = getHoursArrow();
+    getDigitalClock();
+    getSecondsArrow();
+    getMinutesArrow();
+    getHoursArrow();
     updateTime();
 }
 
@@ -103,7 +124,7 @@ function getDigitalClock() {
     digitalClock.style.fontSize = clockDiameter / 9 + 'px';
 
     clock.appendChild(digitalClock);
-    return digitalClock;
+    // return digitalClock;
 }
 
 
