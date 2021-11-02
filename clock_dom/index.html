@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="img/Clock-icon.png" rel="icon"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+    <title>Clock</title>
+</head>
+<body>
+    
+    <div class="menu">
+        <p>Введите диаметр часов от 200 до 600 пикселей и нажмите ОК</p>
+        <input type="number" class="number">
+        <button class="ok__button">OK</button>
+    </div>
+
+    <div class="container hidden" id="container">
+        <div id="clock" class="clock"></div>
+        <button class="theme__button" id="theme__button">Light theme</button>
+    </div>
+    
+    <div class="loading-background hidden">
+        <div class="load-wrapper">
+          <div class="load-text">Loading...</div>
+          <div class="load"></div>
+        </div>
+    </div>
+   
+
+	<script  src="script.js"></script>
+</body>
+</html>
+
+
+
