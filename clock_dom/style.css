@@ -105,7 +105,7 @@ p {
     background-color: white;
     box-shadow: 0px 0px 10px white;
     border-radius: 1vh;
-    font-size: 24px;
+    font-size: 20px;
     top: 5vh;
     right: 5vh;
     width: 14vh;
@@ -130,7 +130,7 @@ p {
     background-color: red;
 }
 
-.loading-background {
+/* .loading-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -153,13 +153,13 @@ p {
 .load {
     height: 100%;
     /* background: rgb(250, 3, 3); */
-    border-radius: 1vh;
+    /* border-radius: 1vh;
     transition: 0.2s linear;
-}
+} */
 
-.load-text {
+/* .load-text {
     position: absolute;
     top: 15%;
     left: 40%;
     font-size: 3vh;
-}
+} */ 
