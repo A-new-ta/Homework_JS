@@ -55,36 +55,25 @@ p {
 .container {
     max-width: 1450px;
     height: 900px;
-    margin: 0 auto;
+    margin: 200px auto;
+    text-align: center;
 }
 
 .clock {
-    
     border-radius: 50%;
     background-color: #fcca67;
-    position: relative;
-    top: 15%;
-    margin: 0 auto;
 }
-
-
-.childElem {
-	background-color:#4eb083;
-    border-radius: 50%;
-	position: absolute;
-	text-align: center;
-	line-height: 165%;
+.circle {
+    fill: #4eb083;
 }
-
-.digital-clock {
-    
-    text-align: center;
-    position: absolute;
+.circlenumber, .digital {
+    fill: black;
+    text-anchor: middle;
 }
-
 .seconds, .minutes, .hours {
-    /* background-color: #322a24; */
-    position: absolute;
+    stroke: black;
+    stroke-linecap: round;
     opacity: 0.8;
 }
+
 

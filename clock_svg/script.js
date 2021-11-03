@@ -21,22 +21,16 @@ function start() {
             menu.classList.add('hidden');
             let container = document.querySelector('.container');
             container.classList.remove('hidden');
-            let clock = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            clock.setAttribute('class', 'clock');
+            const clock = document.querySelector('.clock');
             clock.setAttribute('width', widthClock);
             clock.setAttribute('height', widthClock);
-            container.append(clock);
-            // clock.style.width = widthClock + 'px';
-            // clock.style.height = widthClock + 'px';
-                    
+                                
             definition(widthClock);
             getAnalogClock();
             updateTime();
         }
 }
 
-
-let clock = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 const container = document.querySelector('.container');
 let clockDiameter; //диаметр циферблата часов
 let clockRad; // радиус циферблата часов
@@ -56,11 +50,11 @@ function definition(width) {
     clockRad = clockDiameter / 2; // радиус циферблата часов
     childElemClock = clockDiameter / 9 / 2; // радиус элемента циферблата
     childElemClockDiam = clockRad * 0.85; // общий диаметр всех элементов циферблата
-    secondsArrowWidth = clockRad * 0.8 ; // длина секундной стрелки
+    secondsArrowWidth = clockRad * 0.2 ; // длина секундной стрелки
     secondsArrowHeight = clockRad * 0.02; // ширина секундной стрелки
-    minutesArrowWidth = clockRad * 0.8; // длина минутной стрелки
+    minutesArrowWidth = clockRad * 0.3; // длина минутной стрелки
     minutesArrowHeight = clockRad * 0.04; // ширина минутной стрелки
-    hoursArrowWidth = clockRad * 0.7; // длина часовой стрелки
+    hoursArrowWidth = clockRad * 0.4; // длина часовой стрелки
     hoursArrowHeight = clockRad * 0.05; // ширина часовой стрелки
     proportionArrows = clockDiameter / 4 / 10;
 }
@@ -72,21 +66,17 @@ function getAnalogClock() {
     // Создаем элементы циферблата (маленький круг вокруг цифр)
     function createCircle() {
         let circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.setAttribute('r', childElemClock.toString());
-        circle.setAttribute('fill', '#4eb083');
-
-        // circle.style.width = childElemClock + 'px';
-        // circle.style.height = childElemClock + 'px';
-        // circle.classList.add('childElem');
-        // circle.style.fontSize = clockDiameter / 15 + 'px';
+        circle.setAttribute('r', childElemClock + '');
+        circle.setAttribute('class', 'circle');
         clock.append(circle);
         return circle;
     }
 
     function text() {
         let circleNumber = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        circleNumber.setAttribute('fill', 'black');
-        circleNumber.setAttribute('font-size', 'clockDiameter / 15');
+        circleNumber.setAttribute('class', 'circlenumber');
+        circleNumber.setAttribute('font-size', (clockDiameter / 15) + '');
+        clock.append(circleNumber);
         return circleNumber;
     }
 
@@ -97,16 +87,12 @@ function getAnalogClock() {
         let circleCenterX = clockRad + childElemClockDiam * Math.sin(angle);
         let circleCenterY = clockRad - childElemClockDiam * Math.cos(angle);
 
-        circle.setAttribute('cx', String(Math.round(circleCenterX)));
-        circle.setAttribute('cy',  String(Math.round(circleCenterY)));
+        circle.setAttribute('cx', Math.round(circleCenterX) + '');
+        circle.setAttribute('cy', Math.round(circleCenterY) + '');
 
-        // circle.style.left = Math.round(circleCenterX - (circle.offsetWidth / 2)) + 'px';
-        // circle.style.top = Math.round(circleCenterY - (circle.offsetHeight / 2)) + 'px';
-        // circle.innerHTML = i;
-        circleNumber.setAttribute('x', (Math.round(circleCenterX - (circle.offsetWidth / 2))).toString());
-        circleNumber.setAttribute('y', (Math.round(circleCenterY + (childElemClock / 3) - (circle.offsetHeight / 2))).toString());
-        circleNumber.textContent = i.toString();
-
+        circleNumber.setAttribute('x', Math.round(circleCenterX - (circle.clientWidth / 2)) + '');
+        circleNumber.setAttribute('y', Math.round(circleCenterY + (childElemClock / 3) - (circle.clientHeight / 2)) + '');
+        circleNumber.textContent = i + '';
     }
 
     digitalClock = getDigitalClock();
@@ -118,15 +104,10 @@ function getAnalogClock() {
 // Цифровые часы (положение и размер)
 function getDigitalClock() {
     let digitalClock = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    digitalClock.setAttribute('x', 'clockDiameter / 2');
-    digitalClock.setAttribute('y', 'clockDiameter / 3');
-    digitalClock.setAttribute('font-size', 'clockDiameter / 12');
-    digitalClock.setAttribute('text-anchor', 'middle');
-
-    // digitalClock.style.top = clockDiameter * 0.3 + 'px';
-    // digitalClock.style.width = clockDiameter + 'px';
-    // digitalClock.style.fontSize = clockDiameter / 12 + 'px';
-
+    digitalClock.setAttribute('x', clockDiameter / 2 + '');
+    digitalClock.setAttribute('y', clockDiameter / 3 + '');
+    digitalClock.setAttribute('class', 'digital');
+    digitalClock.setAttribute('font-size', clockDiameter / 12 + '');
     clock.append(digitalClock);
     return digitalClock;
 }
@@ -135,61 +116,49 @@ function getDigitalClock() {
 // Получение секундной стрелки
 function getSecondsArrow() {
     let secondsArrow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-
     secondsArrow.setAttribute('class', 'seconds');
-    secondsArrow.setAttribute('x1', 'clockRad');
-    secondsArrow.setAttribute('x2', 'clockRad');
-    secondsArrow.setAttribute('y2', 'clockRad + proportionArrows');
-    secondArrow.setAttribute('stroke', 'black');
-    secondArrow.setAttribute('stroke-linecap', 'round');
-    secondArrow.style.transformOrigin = '50% 50%';
-
-
-    // secondsArrow.style.width = secondsArrowHeight + 'px';
-    // secondsArrow.style.height = secondsArrowWidth + proportionArrows + 'px';
-    // secondsArrow.style.borderRadius = secondsArrowHeight + 'px';
-    // secondsArrow.style.transformOrigin = secondsArrowHeight / 2 + 'px ' + secondsArrowWidth * 0.92 + 'px';
+    secondsArrow.setAttribute('x1', clockRad + '');
+    secondsArrow.setAttribute('x2', clockRad + '');
+    secondsArrow.setAttribute('y2', (clockRad + proportionArrows) + '');
+    secondsArrow.style.transformOrigin = '50% 50%';
     clock.append(secondsArrow);
     // положение секундной стрелки
-    secondsArrow.setAttribute('y1', 'secondsArrowWidth');
-    secondsArrow.setAttribute('stroke-width', 'secondsArrowHeight');
-    // secondsArrow.style.left = clockRad - secondsArrow.offsetWidth/ 2 + 'px';
-    // secondsArrow.style.top = clockRad - secondsArrow.offsetHeight + (proportionArrows * 2) + 'px';
+    secondsArrow.setAttribute('y1', secondsArrowWidth + '');
+    secondsArrow.setAttribute('stroke-width', secondsArrowHeight + '');
     return secondsArrow;
 }
 
- // Получение минутной стрелки
+// Получение минутной стрелки
 function getMinutesArrow() {
-    let minutesArrow = document.createElement('div');
-    minutesArrow.classList.add('minutes');
-    minutesArrow.style.width = minutesArrowHeight + 'px';
-    minutesArrow.style.height = minutesArrowWidth + proportionArrows + 'px';
-    minutesArrow.style.borderRadius = minutesArrowHeight + 'px';
-    minutesArrow.style.transformOrigin = minutesArrowHeight / 2 + 'px ' + minutesArrowWidth * 0.92 + 'px';
+    let minutesArrow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    minutesArrow.setAttribute('class', 'minutes');
+    minutesArrow.setAttribute('x1', clockRad + '');
+    minutesArrow.setAttribute('x2', clockRad + '');
+    minutesArrow.setAttribute('y2', (clockRad + proportionArrows) + '');
+    minutesArrow.style.transformOrigin = '50% 50%';
     clock.append(minutesArrow);
     // положение минутной стрелки
-    minutesArrow.style.left = clockRad - minutesArrow.offsetWidth/ 2 + 'px';
-    minutesArrow.style.top = clockRad - minutesArrow.offsetHeight + (proportionArrows * 2) + 'px';
+    minutesArrow.setAttribute('y1', minutesArrowWidth + '');
+    minutesArrow.setAttribute('stroke-width', minutesArrowHeight + '');
     return minutesArrow;
 }
 
 // Получение часовой стрелки
 function getHoursArrow() {
-    let hoursArrow = document.createElement('div');
-    hoursArrow.classList.add('hours');
-    hoursArrow.style.width = hoursArrowHeight + 'px';
-    hoursArrow.style.height = hoursArrowWidth + proportionArrows + 'px';
-    hoursArrow.style.borderRadius = hoursArrowHeight + 'px';
-    hoursArrow.style.transformOrigin = hoursArrowHeight / 2 + 'px ' + hoursArrowWidth * 0.92 + 'px';
+    let hoursArrow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    hoursArrow.setAttribute('class', 'hours');
+    hoursArrow.setAttribute('x1', clockRad + '');
+    hoursArrow.setAttribute('x2', clockRad + '');
+    hoursArrow.setAttribute('y2', (clockRad + proportionArrows) + '');
+    hoursArrow.style.transformOrigin = '50% 50%';
     clock.append(hoursArrow);
     // положение часовой стрелки
-    hoursArrow.style.left = clockRad - hoursArrow.offsetWidth/ 2 + 'px';
-    hoursArrow.style.top = clockRad - hoursArrow.offsetHeight + (proportionArrows * 2) + 'px';
+    hoursArrow.setAttribute('y1', hoursArrowWidth + '');
+    hoursArrow.setAttribute('stroke-width', hoursArrowHeight + '');
     return hoursArrow;
 }
 
 
-// getAnalogClock();
 let digitalClock;
 let secondsArrow;
 let minutesArrow;
@@ -205,8 +174,7 @@ function updateTime() {
     // Отображение времени на цифровых часах
     digitalClock.textContent = `${hours}:${minutes}:${seconds}`;
     
-    
-    // добавление нулей для цифровых часов
+     // добавление нулей для цифровых часов
     function checkTime(i) {
         if (i < 10) {
             i = '0' + i;
