@@ -15,9 +15,9 @@ function start() {
     
         let size = document.querySelector('.number');
         let widthClock = +size.value;
-        if (widthClock >= 350 && widthClock <= 750) {
+        if (widthClock >= 200 && widthClock <= 800) {
 
-            load();
+            // load();
 
             let menu = document.querySelector('.menu');
             menu.classList.add('hidden');
@@ -44,24 +44,24 @@ function start() {
 
 
 //Loadbar
-function load() {
+// function load() {
     
-    let widthBar = 0;
-    const loadBar = document.querySelector('.load')
-    let loadId = setInterval(() => {
-        loadBar.setAttribute('style', 'background: grey');
-        loadBar.style.width = `${widthBar}%`
-        if (widthBar !== 100) {
-            widthBar += 10;
-        }
-    }, 160);
+//     let widthBar = 0;
+//     const loadBar = document.querySelector('.load')
+//     let loadId = setInterval(() => {
+//         loadBar.setAttribute('style', 'background: grey');
+//         loadBar.style.width = `${widthBar}%`
+//         if (widthBar !== 100) {
+//             widthBar += 10;
+//         }
+//     }, 160);
   
-    setTimeout(() => {
-        loadBar.style.width = '100%';
-        clearInterval(loadId)
-        setTimeout(() => document.querySelector('.loading-background').style.display = 'none', 100)
-    }, 2000);
-}
+//     setTimeout(() => {
+//         loadBar.style.width = '100%';
+//         clearInterval(loadId)
+//         setTimeout(() => document.querySelector('.loading-background').style.display = 'none', 100)
+//     }, 2000);
+// }
 
 
 // const clock = document.querySelector('.clock');
@@ -201,6 +201,7 @@ function updateTime() {
     // Отображение времени на цифровых часах
     digitalClock.textContent = `${hours} : ${minutes} : ${seconds}`;
     
+    
     // добавление нулей для цифровых часов
     function checkTime(i) {
         if (i < 10) {
@@ -218,12 +219,11 @@ function updateTime() {
     minutesArrow.style.transform = `rotate(${minutesAngle}deg)`;
     secondsArrow.style.transform = `rotate(${secondsAngle}deg)`;
 
-    setTimeout(updateTime, 1000 - time.getMilliseconds());
-    
+    setTimeout(updateTime, 1020 - time.getMilliseconds());
+    console.log(time);
 }
 
-// updateTime();
-// setTimeout(updateTime, 1000 - time.getMilliseconds());
+
 
 // change theme
 let changeButton = document.querySelector('.theme__button');
