@@ -1,0 +1,79 @@
+
+.hidden {
+    display: none ;
+}
+
+.menu {
+    max-width: 1450px;
+    max-height: 900px;
+    margin: 400px auto 0px auto;
+    text-align: center;
+}
+
+.number {
+    display: block;
+    margin: 50px auto;
+    padding: 10px;
+    border-radius: 10px;
+    width: 250px;
+    font-size: 16px;
+    box-shadow: -10px -10px 20px #ffffff, 10px 10px 20px rgba(0, 0, 0, 0.25);
+    border: none;
+    outline: none;
+    background-color: #ececec;
+}
+
+
+p {
+    font-size: 24px;
+}
+
+.ok__button {
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    width: 150px;
+    height: 45px;
+    font-size: 16px;
+    box-shadow: -10px -10px 20px #ffffff, 10px 10px 20px rgba(0, 0, 0, 0.25);
+    background-color:  #ececec;;
+    border: none;
+    cursor: pointer;
+}
+.ok__button:hover, .number:hover {
+    cursor: pointer;
+    transition: 0.5s;
+    background-color: rgb(236, 233, 233);
+}
+
+.ok__button:active {
+    cursor: pointer;
+    box-shadow: -10px -10px 20px #ffffff, 10px 10px 20px rgba(0, 0, 0, 0.25) inset;
+    transition: 1s;
+}
+
+.container {
+    max-width: 1450px;
+    height: 900px;
+    margin: 200px auto;
+    text-align: center;
+}
+
+.clock {
+    border-radius: 50%;
+    background-color: #fcca67;
+}
+.circle {
+    fill: #4eb083;
+}
+.circlenumber, .digital {
+    fill: black;
+    text-anchor: middle;
+}
+.seconds, .minutes, .hours {
+    stroke: black;
+    stroke-linecap: round;
+    opacity: 0.8;
+}
+
+
