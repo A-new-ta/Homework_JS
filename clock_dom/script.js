@@ -35,9 +35,6 @@ function start() {
             getAnalogClock();
             updateTime();
         }
-        // definition(widthClock);
-        // getAnalogClock();
-        // updateTime();
 }
 
 
@@ -64,7 +61,7 @@ function start() {
 // }
 
 
-// const clock = document.querySelector('.clock');
+
 const container = document.querySelector('.container');
 let clockDiameter; //диаметр циферблата часов
 let clockRad; // радиус циферблата часов
@@ -220,6 +217,7 @@ function updateTime() {
     secondsArrow.style.transform = `rotate(${secondsAngle}deg)`;
 
     setTimeout(updateTime, 1020 - time.getMilliseconds());
+    
     console.log(time);
 }
 
