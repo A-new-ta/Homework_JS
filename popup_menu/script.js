@@ -28,53 +28,46 @@ var menu = [
       ]
     }
 ];
+
   
-class Menu {
-    constructor(element, data, isFirstLayer) {
-        this.element = element;
-        this.data = data;
-        this.isFirstLayer = isFirstLayer;
-    };
+let menu1 = document.querySelector('.menu');
 
-    getMenu() {
-        function build(element, data, firstLayer = true) {
-            let ul = document.createElement('ul');
-
-            for (let {name, url, submenu} of data) {
-                let li = document.createElement('li');
-                li.classList.add('menu-item');
-
-                if (url) {
-                    let a = document.createElement('a');
-                    a.href = url;
-                    a.textContent = name;
-                    li.append(a);
-                } else {
-                    li.textContent = name;
-                }
-
-                if (!firstLayer) {
-                    ul.classList.add('submenu');
-                }
-
-                if (submenu) {
-                    let ulSub = build(li, submenu, false);
-
-                    li.addEventListener('mouseover', () => {
-                        ulSub.style.display = 'inherit';
-                    });
-
-                    li.addEventListener('mouseleave', () => {
-                        ulSub.style.display = 'none';
-                    });
-                }
-                ul.append(li);
-            }
-            element.append(ul);
-            return ul;
-        }
-        build(this.element, this.data, this.isFirstLayer);
+function createMenu(div, menuArr) {
+  let ul = document.createElement('ul');
+  
+  for (let {name, url, submenu} of menuArr) {
+    
+    let li = document.createElement('li');
+    li.classList.add('menu-item');
+    
+    if (url) {
+      let a = document.createElement('a');
+      a.href = url;
+      a.textContent = name;
+      li.appendChild(a);
+    } else {
+      li.textContent = name;
     }
+    
+    if (submenu) {
+      let ulSubmenu = createMenu(li, submenu);
+      ulSubmenu.classList.add('submenu');
+      
+      li.addEventListener('mouseover', () => {
+        ulSubmenu.style.display = 'block';
+      });
+      
+      li.addEventListener('mouseleave', () => {
+        ulSubmenu.style.display = 'none';
+      });
+      
+    }
+    ul.appendChild(li);
+  }
+  div.appendChild(ul);
+  return ul;
 }
 
-new Menu(document.querySelector('.menu'), menu).getMenu();
+createMenu(menu1, menu);
+
+

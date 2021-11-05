@@ -3,7 +3,6 @@
 .menu {
     display: flex;
     cursor: pointer;
-    
 }
 
 ul {
@@ -29,7 +28,7 @@ a, a:visited, a:hover, a:active, .menu-item {
 }
 
 .menu-item:hover{
-    background-color: rgb(207, 202, 202);
+    background-color: #d1c8c8;
 }
 
 .submenu {
@@ -37,9 +36,12 @@ a, a:visited, a:hover, a:active, .menu-item {
     width: 250px;
     position: absolute;
     top: 100%;
-    z-index: 1;
-    background-color: #d0d33b;
-    
+    background-color: #cdcf39;
+}
+
+.submenu li {
+    border-left-style: none; 
+    border-bottom:  1px solid black;
 }
 
 .submenu > li > .submenu {
@@ -49,7 +51,6 @@ a, a:visited, a:hover, a:active, .menu-item {
     background-color: #b1b363;
 }
 
-.submenu li {
-    border-left-style: none; 
-    border-bottom:  1px solid black;
-}
+
+
+
