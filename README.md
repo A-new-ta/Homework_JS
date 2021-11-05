@@ -429,4 +429,43 @@ https://a-new-ta.github.io/Homework_JS/d1+/index.html
 Описание — в домашнем задании про проект CLOCK_DOM.
 Поле для ввода числа и кнопку «построить часы» реализовать средствами HTML, не SVG.
     
+
+***popup_menu***
+    
+ https://a-new-ta.github.io/Homework_JS/popup_menu/index.html
+    
+Создать проект POPUP_MENU.
+Разработать функцию или класс формирования горизонтального меню с выпадающими при поднесении мыши подменю.
+Меню должно динамически строиться по предоставленному массиву с пунктами.
+Массив может быть произвольным, тестировать можно на следующем массиве:
+````
+var menu=[
+  {name:'Пункт 1',submenu:
+    [
+      {name:'Пункт 1.1',submenu:
+        [
+          {name:'Пункт 1.1.1',url:'http://www.tut.by'},
+          {name:'Пункт 1.1.2 длинный',url:'http://www.tut.by'}
+        ]
+      },
+      {name:'Пункт 1.2',url:'http://www.tut.by'},
+      {name:'Пункт 1.3 длинный',submenu:
+        [
+          {name:'Пункт 1.3.1',url:'http://www.tut.by'},
+          {name:'Пункт 1.3.2',url:'http://www.tut.by'},
+          {name:'Пункт 1.3.3',url:'http://www.tut.by'},
+          {name:'Пункт 1.3.4 длинный',url:'http://www.tut.by'}
+        ]
+      }
+    ]
+  },
+  {name:'Пункт 2 длинный',url:'http://www.tut.by'},
+  {name:'Пункт 3',submenu:
+    [
+      {name:'Пункт 3.1 длинный',url:'http://www.tut.by'},
+      {name:'Пункт 3.2',url:'http://www.tut.by'}
+    ]
+  }
+];
+````
  
