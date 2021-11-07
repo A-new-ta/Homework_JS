@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>polyfill</title>
+</head>
+<body>
+    <script>
+    
+    //метод map   
+    let array=[2,4,6]; 
+    function fm(v,i,a) {
+    return v*v; }
+    console.log(array.map(fm));
+    
+    //полифил для map
+    
+    Array.prototype._myOwnMap = function(callback) {
+        let arr = [];              
+        for (let i = 0; i < this.length; i++) { 
+            arr.push(callback(this[i], i, this));
+        }
+    return arr;
+    }
+    console.log(array._myOwnMap(fm));
+
+    
+    // метод forEach
+    let number = [1, 2, 3, 4, 5];
+    function someFunction(v,i,a) {
+        console.log(i + '-' + v)
+    }
+    number.forEach(someFunction);
+
+    //полифил forEach
+    Array.prototype._myOwnForEach = function(callback) {
+        for (let i = 0; i < this.length; i++) {
+            callback(this[i], i, this);
+        }
+    }
+    number._myOwnForEach(someFunction);
+
+    </script>
+</body>
+</html>
