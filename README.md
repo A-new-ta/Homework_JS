@@ -476,3 +476,10 @@ https://a-new-ta.github.io/Homework_JS/clock_canvas/index.html
 Реализовать часы (проект CLOCK_CANVAS) с использованием Canvas.
 Описание — в домашнем задании про проект CLOCK_DOM.
 Поле для ввода числа и кнопку «построить часы» реализовать средствами HTML, не Canvas.
+    
+    
+***polyfill***
+    
+https://a-new-ta.github.io/Homework_JS/polyfill/index.html
+    
+Полифилы для методов map и forEach
