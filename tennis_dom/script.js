@@ -57,11 +57,6 @@ leftracket = {
         leftracket.style.left = this.posX + 'px';
         leftracket.style.top = this.posY + 'px';
     },
-
-    // scoreCount: function () {
-    //     let resultLeft = document.querySelector('.blue');
-    //     resultLeft.innerHTML = this.count;
-    // }
 }
 
 
@@ -84,10 +79,6 @@ rightracket = {
 
     
 }
-
-// ball.update();
-// leftracket.update();
-// rightracket.update();
 
 
 // управление ракетками, keydown
