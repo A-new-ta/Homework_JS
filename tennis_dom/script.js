@@ -28,6 +28,7 @@ ball = {
     posY: FIELD_HEIGHT / 2 - BALL_WIDTH / 2,
     speedX: 0,
     speedY: 0,
+    accel: 1.2,
     width: BALL_WIDTH,
     height: BALL_WIDTH,
 
@@ -55,7 +56,12 @@ leftracket = {
         leftracket.style.height = this.height + 'px';
         leftracket.style.left = this.posX + 'px';
         leftracket.style.top = this.posY + 'px';
-    }
+    },
+
+    // scoreCount: function () {
+    //     let resultLeft = document.querySelector('.blue');
+    //     resultLeft.innerHTML = this.count;
+    // }
 }
 
 
@@ -74,12 +80,14 @@ rightracket = {
         rightracket.style.height = this.height + 'px';
         rightracket.style.left = this.posX + 'px';
         rightracket.style.top = this.posY + 'px';
-    }
+    },
+
+    
 }
 
-ball.update();
-leftracket.update();
-rightracket.update();
+// ball.update();
+// leftracket.update();
+// rightracket.update();
 
 
 // управление ракетками, keydown
@@ -111,6 +119,8 @@ let button = document.querySelector('.start');
 button.addEventListener('click', startGame);
 
 function startGame() {
+    rightracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
+    leftracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
     ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
     ball.posY = FIELD_HEIGHT / 2 - BALL_WIDTH / 2;
     ball.speedX = (Math.random() < 0.5 ? -2 : 2);
@@ -120,85 +130,120 @@ function startGame() {
 
 
 // счетчик 
+let greenRes = 0;
+let blueRes = 0;
 
+function setResult() {
+    let resultLeft = document.querySelector('.blue');
+    resultLeft.innerHTML = `${blueRes}`
+    let resultRight = document.querySelector('.green');
+    resultRight.innerHTML = `${greenRes}`
+}
 
-// функция ускорения для мяча
+// для остановки игры когда набрано 10 очков - исправить чтобы 
+function stopWhenWin() {
+    if (greenRes === 2) {
+        alert('зеленая ракетка выйграла');
+        greenRes = 0;
+        blueRes = 0;
+        rightracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
+        leftracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
+        ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
+        ball.posY = FIELD_HEIGHT / 2 - BALL_WIDTH / 2;
+    }
+    if (blueRes === 2) {
+        alert('синяя ракетка выйграла');
+        greenRes = 0;
+        blueRes = 0;
+        rightracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
+        leftracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
+        ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
+        ball.posY = FIELD_HEIGHT / 2 - BALL_WIDTH / 2;
+    }
+    setResult();
+}
 
-
-//функция tick
+// игровой процесс
 function tick() {
-
+        
     ball.posX += ball.speedX;
-    ball.posY += ball.speedY;
-
-    if(ball.speedX !==0 && ball.speedY !==0) {
-
-       //отскок от правой ракетки
-       if( (ball.posX + ball.width) >= rightracket.offsetLeft && (ball.posY + ball.width / 2) >= rightracket.offsetTop && (ball.posY + ball.width / 2) <= (rightracket.offsetTop + rightracket.height)) {
-        ball.speedX = - ball.speedX;
-        }
-    
-        if (ball.posX + ball.width > (field.offsetLeft + field.width)) {
+    // вылетел ли мяч правее стены?
+    if (ball.posX + ball.width > field.width) {
+        ball.speedX = -ball.speedX;
+        ball.posX = field.width - ball.width;
         ball.speedX = 0;
         ball.speedY = 0;
-        a++; 
-        }
-    
-        //отскок от левой ракетки
-        if(ball.posX <= (leftracket.offsetLeft + leftracket.width) && (ball.posY + ball.width / 2) >= leftracket.offsetTop && (ball.posY + ball.width / 2) <= (leftracket.offsetTop + leftracket.height)) {
+        greenRes++;
+        setResult();
+    }
+    // вылетел ли мяч левее стены?
+    if (ball.posX < 0) {
         ball.speedX = - ball.speedX;
-        }
-    
-        if ( ball.posX < field.offsetLeft) {
         ball.posX = 0;
         ball.speedX = 0;
         ball.speedY = 0;
-        b++;
-        }
-    
-      
-        if (ball.posY + ball.width > field.offsetTop) {
-          ball.speedY = - ball.speedY;
-        }
-      
-        if (ball.posY < field.offsetTop) {
-          ball.speedY = - ball.speedY;
-        }
+        blueRes++;
+        setResult();
     }
 
+    ball.posY += ball.speedY;
+    // вылетел ли мяч ниже пола?
+    if (ball.posY + ball.height > field.height) {
+        ball.speedY = - ball.speedY;
+        ball.posY = field.height - ball.height;
+    }
+    // вылетел ли мяч выше потолка?
+    if (ball.posY < 0) {
+        ball.speedY = - ball.speedY;
+        ball.posY = 0;
+    }
+
+    //отскок от правой ракетки
+    if ((ball.posX + ball.width) >= rightracket.posX && ball.posX <= (rightracket.posX + rightracket.width)) {
+        if (ball.posY >= rightracket.posY && ball.posY <= rightracket.posY + rightracket.height) {
+            ball.speedX = - (ball.speedX * ball.accel);
+            ball.speedY = ball.speedY * ball.accel;
+        }
+    }
+            
+    //отскок от левой ракетки
+    if (ball.posX <= (leftracket.posX + leftracket.width)) {
+        if (ball.posY + ball.height >= leftracket.posY && ball.posY <= leftracket.posY + leftracket.height) {
+            ball.speedX = - (ball.speedX * ball.accel);
+            ball.speedY = ball.speedY * ball.accel;
+        }
+    }
+    
     ball.update();
     
     leftracket.posY += leftracket.speed;
-
-    if (leftracket.posY <= field.offsetTop) {
-        leftracket.posY = field.offsetTop;
-    }
-
-    if ((leftracket.posY + leftracket.height) >= (field.offsetTop + field.height)) {
-        leftracket.posY = field.offsetTop + field.height - leftracket.height;
-    }
-
     rightracket.posY += rightracket.speed;
-    
-    if (rightracket.posY <= field.offsetTop) {
-        rightracket.posY = field.offsetTop;
-    } 
-    if ((rightracket.posY + rightracket.height) >= (field.offsetTop + field.height)) {
-        rightracket.posY = field.offsetTop + field.height - rightracket.height;
+    // ракетка выше потолка?
+    if (leftracket.posY <= 0) {
+        leftracket.posY = 0;
+    }
+    if (rightracket.posY <= 0) {
+        rightracket.posY = 0;
+    }
+    // ракетка ниже пола?
+    if ((leftracket.posY + leftracket.height) >= field.height) {
+        leftracket.posY = field.height - leftracket.height;
+    }
+    if ((rightracket.posY + rightracket.height) >= field.height) {
+        rightracket.posY = field.height - rightracket.height;
     }
 
     leftracket.update();
     rightracket.update();
     
-    //где-то еще написать функцию для остановки игры когда ктото набрал 10 очков
-
+    stopWhenWin();
     requestAnimationFrame(tick);
 }
 
 
 let timer = 0;
 window.addEventListener('load', function () {
-    button.addEventListener('click', startGame);
+    button.addEventListener('click', startGame, false);
     addEventListener('keydown', racketMove);
     addEventListener('keyup', racketStop);
     timer = requestAnimationFrame(tick);
