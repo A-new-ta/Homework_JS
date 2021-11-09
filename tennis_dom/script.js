@@ -39,28 +39,116 @@ ball = {
     }
 }
 
-//ракетки
-let racket = document.querySelector('.racket');
-racket = {
+//левая ракетка
+let leftracket = document.querySelector('.leftracket');
+leftracket = {
     width: RACKET_WIDTH,
     height: RACKET_HEIGHT,
     speed: 0,
+    posX: 0,
+    posY: FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2,
 
     update: function () {
-        let racket = document.querySelector('.racket');
-        racket.style.width = this.width + 'px';
-        racket.style.height = this.height + 'px';
         let leftracket = document.querySelector('.leftracket');
+        leftracket.style.width = this.width + 'px';
+        leftracket.style.height = this.height + 'px';
+        leftracket.style.left = this.posX + 'px';
+        leftracket.style.top = this.posY + 'px';
+    }
+}
+
+
+//правая ракетка
+let rightracket = document.querySelector('.racket');
+rightracket = {
+    width: RACKET_WIDTH,
+    height: RACKET_HEIGHT,
+    speed: 0,
+    posX: FIELD_WIDTH - RACKET_WIDTH,
+    posY: FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2,
+
+    update: function () {
         let rightracket = document.querySelector('.rightracket');
-        leftracket.style.left = 0 + 'px';
-        leftracket.style.top = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2 + 'px';
-        rightracket.style.left = FIELD_WIDTH - RACKET_WIDTH + 'px';
-        rightracket.style.top = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2 + 'px';
+        rightracket.style.width = this.width + 'px';
+        rightracket.style.height = this.height + 'px';
+        rightracket.style.left = this.posX + 'px';
+        rightracket.style.top = this.posY + 'px';
     }
 }
 
 
 
+// управление ракетками, keydown
+document.addEventListener('keydown', racketMove);
+function racketMove(eo) {
+    if (eo.keyCode === 16) {
+        leftracket.speed = -5;
+    }
+    if (eo.keyCode === 17) {
+        leftracket.speed = 5;
+    }
+    if (eo.keyCode === 38) {
+        rightracket.speed = -5;
+    }
+    if (eo.keyCode === 40) {
+        rightracket.speed = 5;
+    }
+}
+
+// управление ракетками, keydown
+document.addEventListener('keydown', racketStop);
+function racketStop() {
+    leftracket.speed = 0;
+    rightracket.speed = 0;
+}
+
+// функция запуска мяча по кнопке
+let button = document.querySelector('.start');
+button.addEventListener('click', startGame);
+function startGame() {
+    ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
+    ball.posY = FIELD_HEIGHT / 2 - BALL_WIDTH / 2;
+    ball.speedX = (Math.random() < 0.5 ? -2 : 2);
+    ball.speedY = (Math.random() < 0.5 ? -2 : 2);
+}
+
+
+
+// счетчик 
+function score() {
+    let start = 0;
+    return function () {
+        return start++;
+    }
+}
+
+// функция ускорения для мяча
+
+
+//функция tick
+function tick() {
+    ball.posX += ball.speedX;
+    ball.posY += ball.speedY;
+
+    leftracket.posY += leftracket.speed;
+    rightracket.posY += rightracket.speed;
+
+    
+
+    // вылетел ли мяч правее стены?
+
+     // вылетел ли мяч левее стены?
+    
+    // вылетел ли мяч ниже пола?
+
+     // вылетел ли мяч выше потолка?
+}
+
+
+
+
+
 field.update();
 ball.update();
-racket.update();
+leftracket.update();
+rightracket.update();
