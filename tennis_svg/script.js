@@ -4,60 +4,89 @@ const FIELD_WIDTH = 700;
 const FIELD_HEIGHT = 400;
 const BALL_WIDTH = 25;
 const BALL_RAD = BALL_WIDTH / 2;
+const BALL_X = FIELD_WIDTH / 2;
+const BALL_Y = FIELD_HEIGHT / 2;
 const RACKET_WIDTH = 15;
 const RACKET_HEIGHT = 80;
 
 
+
+// создаем кнопку с текстом
+let start = document.querySelector('.start');
+let button = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+button.setAttribute('class', 'button');
+button.setAttribute('onclick', 'startGame()');
+start.appendChild(button);
+let text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+text.setAttribute('class', 'text');
+text.setAttribute('x', '35');
+text.setAttribute('y', '32');
+text.textContent = 'СТАРТ!';
+start.appendChild(text);
+
+
+let wrapper = document.querySelector('.wrapper')
 // поле
-let field = document.querySelector('.field');
-field = {
+
+let field = {
     width: FIELD_WIDTH,
     height: FIELD_HEIGHT,
+    color: '#e7cc36',
 
     update: function () {
-        let field = document.querySelector('.field');
-        field.style.width = this.width + 'px';
-        field.style.height = this.height + 'px';
+        let field = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        field.setAttribute('stroke','black');
+        field.setAttribute('stroke-width',1);
+        field.setAttribute('fill', this.color);
+        field.setAttribute('width', this.width);
+        field.setAttribute('height', this.height);
+        wrapper.appendChild(field);
     }
 }
 field.update();
 
 // мяч
-let ball = document.querySelector('.ball');
-ball = {
-    posX: FIELD_WIDTH / 2 - BALL_WIDTH / 2,
-    posY: FIELD_HEIGHT / 2 - BALL_WIDTH / 2,
+
+let ball = {
+    posX: BALL_X,
+    posY: BALL_Y,
     speedX: 0,
     speedY: 0,
     accel: 1.2,
-    width: BALL_WIDTH,
-    height: BALL_WIDTH,
+    radius: BALL_RAD,
+    color: 'red',
 
     update: function () {
-        let ball = document.querySelector('.ball');
-        ball.style.left = this.posX + 'px';
-        ball.style.top = this.posY + 'px';
-        ball.style.width = this.width + 'px';
-        ball.style.height = this.width + 'px';
+        let ball = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        ball.setAttribute('fill', this.color);
+        ball.setAttribute('cx', this.posX);
+        ball.setAttribute('cy', this.posY);
+        ball.setAttribute('r', this.radius);
+        ball.id = 'ball';
+        wrapper.appendChild(ball);
     }
 }
 ball.update();
 
 //левая ракетка
-let leftracket = document.querySelector('.leftracket');
-leftracket = {
+let leftracket = {
     width: RACKET_WIDTH,
     height: RACKET_HEIGHT,
     speed: 0,
     posX: 0,
     posY: FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2,
+    color: 'blue',
 
     update: function () {
-        let leftracket = document.querySelector('.leftracket');
-        leftracket.style.width = this.width + 'px';
-        leftracket.style.height = this.height + 'px';
-        leftracket.style.left = this.posX + 'px';
-        leftracket.style.top = this.posY + 'px';
+        let leftracket = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        leftracket.setAttribute('stroke', 'black');
+        leftracket.setAttribute('stroke-width', 1);
+        leftracket.setAttribute('fill', this.color);
+        leftracket.setAttribute('width', this.width);
+        leftracket.setAttribute('height', this.height);
+        leftracket.setAttribute('x', this.posX);
+        leftracket.setAttribute('y', this.posY);
+        wrapper.appendChild(leftracket);
     },
 }
 leftracket.update();
@@ -70,13 +99,18 @@ rightracket = {
     speed: 0,
     posX: FIELD_WIDTH - RACKET_WIDTH,
     posY: FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2,
+    color: 'green',
 
     update: function () {
-        let rightracket = document.querySelector('.rightracket');
-        rightracket.style.width = this.width + 'px';
-        rightracket.style.height = this.height + 'px';
-        rightracket.style.left = this.posX + 'px';
-        rightracket.style.top = this.posY + 'px';
+        let rightracket = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        rightracket.setAttribute('stroke', 'black');
+        rightracket.setAttribute('stroke-width', 1);
+        rightracket.setAttribute('fill', this.color);
+        rightracket.setAttribute('width', this.width);
+        rightracket.setAttribute('height', this.height);
+        rightracket.setAttribute('x', this.posX);
+        rightracket.setAttribute('y', this.posY);
+        wrapper.appendChild(rightracket);
     },
 }
 rightracket.update();
@@ -107,15 +141,15 @@ function racketStop() {
 }
 
 // функция запуска мяча по кнопке
-let button = document.querySelector('.start');
-button.addEventListener('click', startGame);
+// let button = document.querySelector('.start');
+start.addEventListener('click', startGame);
 
 function startGame() {
     setResult();
     rightracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
     leftracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
-    ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
-    ball.posY = FIELD_HEIGHT / 2 - BALL_WIDTH / 2;
+    ball.posX = BALL_X;
+    ball.posY = BALL_Y;
     ball.speedX = (Math.random() < 0.5 ? -2 : 2);
     ball.speedY = (Math.random() < 0.5 ? -2 : 2);
 }
@@ -139,8 +173,8 @@ function stopWhenWin() {
         blueRes = 0;
         rightracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
         leftracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
-        ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
-        ball.posY = FIELD_HEIGHT / 2 - BALL_WIDTH / 2;
+        ball.posX = BALL_X;
+        ball.posY = BALL_Y;
     }
     if (blueRes === 5) {
         alert('зеленая ракетка выиграла');
@@ -148,8 +182,8 @@ function stopWhenWin() {
         blueRes = 0;
         rightracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
         leftracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
-        ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
-        ball.posY = FIELD_HEIGHT / 2 - BALL_WIDTH / 2;
+        ball.posX = BALL_X;
+        ball.posY = BALL_Y;
     }
 }
 
@@ -160,18 +194,18 @@ function tick() {
         
     ball.posX += ball.speedX;
     // вылетел ли мяч правее стены?
-    if (ball.posX + ball.width > field.width) {
-        ball.speedX = - ball.speedX;
-        ball.posX = field.width - ball.width;
+    if (ball.posX + ball.radius > field.width) {
+        // ball.speedX = - ball.speedX;
         ball.speedX = 0;
         ball.speedY = 0;
+        ball.posX = field.width - ball.radius;
         greenRes++;
         setResult();
     }
     // вылетел ли мяч левее стены?
-    if (ball.posX < 0) {
-        ball.speedX = - ball.speedX;
-        ball.posX = 0;
+    if (ball.posX - ball.radius < 0) {
+        // ball.speedX = - ball.speedX;
+        ball.posX = ball.radius;
         ball.speedX = 0;
         ball.speedY = 0;
         blueRes++;
@@ -180,33 +214,33 @@ function tick() {
 
     ball.posY += ball.speedY;
     // вылетел ли мяч ниже пола?
-    if (ball.posY + ball.height > field.height) {
+    if (ball.posY + ball.radius > field.height) {
         ball.speedY = - ball.speedY;
-        ball.posY = field.height - ball.height;
+        ball.posY = field.height - ball.radius;
     }
     // вылетел ли мяч выше потолка?
-    if (ball.posY < 0) {
+    if (ball.posY - ball.radius < 0) {
         ball.speedY = - ball.speedY;
-        ball.posY = 0;
+        ball.posY = ball.radius;
     }
 
     //отскок от правой ракетки
-    if ((ball.posX + ball.width) >= rightracket.posX && ball.posX <= (rightracket.posX + rightracket.width)) {
+    if ((ball.posX + ball.radius) >= rightracket.posX && ball.posX <= (rightracket.posX + rightracket.width)) {
         if (ball.posY >= rightracket.posY && ball.posY <= rightracket.posY + rightracket.height) {
             ball.speedX = - (ball.speedX * ball.accel);
-            ball.speedY = ball.speedY * ball.accel;
+            // ball.speedY = ball.speedY * ball.accel;
         }
     }
             
     //отскок от левой ракетки
-    if (ball.posX <= (leftracket.posX + leftracket.width)) {
-        if (ball.posY + ball.height >= leftracket.posY && ball.posY <= leftracket.posY + leftracket.height) {
+    if (ball.posX - ball.radius <= (leftracket.posX + leftracket.width)) {
+        if (ball.posY + ball.radius >= leftracket.posY && ball.posY - ball.radius <= leftracket.posY + leftracket.height) {
             ball.speedX = - (ball.speedX * ball.accel);
-            ball.speedY = ball.speedY * ball.accel;
+            // ball.speedY = ball.speedY * ball.accel;
         }
     }
         
-    ball.update();
+    // ball.update();
     
     leftracket.posY += leftracket.speed;
     rightracket.posY += rightracket.speed;
@@ -225,8 +259,8 @@ function tick() {
         rightracket.posY = field.height - rightracket.height;
     }
 
-    leftracket.update();
-    rightracket.update();
+    // leftracket.update();
+    // rightracket.update();
     
     stopWhenWin();
     requestAnimationFrame(tick);

@@ -1,9 +1,21 @@
 .start {
     display: block;
-	width: 150px;
-	height: 50px;
-	margin: 50px auto 0px auto;
-	font-size: 18px;
+	/* width: 150px;
+	height: 50px; */
+	margin: 0 auto;
+    width: 150px;
+    height: 50px;
+	/* font-size: 18px; */
+}
+.button {
+    stroke: black;
+    stroke-width: 1;
+    fill: rgb(236, 232, 232);
+    width: 150px;
+    height: 50px;
+}
+.text {
+    font-size: 24px;
 }
 
 .score {
@@ -16,13 +28,18 @@
     font-weight: 700;
 }
 
-.field {
+/* .field {
     background-color: rgb(231, 204, 54);
     position: relative;
     border: 1px solid black;
     margin: 0 auto;
+} */
+.wrapper {
+    display: block;
+    margin: 0 auto;
+    width: 700px;
+    height: 400px;
 }
-
 .leftracket {
     position: absolute;
     background-color: blue;
