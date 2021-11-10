@@ -1,0 +1,42 @@
+.start {
+    display: block;
+	width: 150px;
+	height: 50px;
+	margin: 50px auto 0px auto;
+	font-size: 18px;
+}
+
+.score {
+    display: flex;
+	width: 40%;
+	margin: auto;
+	margin-top: 20px;
+	/* align-items: center; */
+	justify-content: space-between;
+	font-size: 36px;
+    font-weight: 700;
+}
+
+.field {
+    background-color: rgb(231, 204, 54);
+    position: relative;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+.leftracket {
+    position: absolute;
+    background-color: blue;
+}
+
+.rightracket{
+    position: absolute;
+    background-color: green;
+}
+
+.ball {
+    position: absolute;
+    border-radius: 50%;
+    background-color: red;
+}
+
