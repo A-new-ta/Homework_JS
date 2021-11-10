@@ -40,6 +40,7 @@ ball = {
         ball.style.height = this.width + 'px';
     }
 }
+ball.update();
 
 //левая ракетка
 let leftracket = document.querySelector('.leftracket');
@@ -58,7 +59,7 @@ leftracket = {
         leftracket.style.top = this.posY + 'px';
     },
 }
-
+leftracket.update();
 
 //правая ракетка
 let rightracket = document.querySelector('.racket');
@@ -76,9 +77,8 @@ rightracket = {
         rightracket.style.left = this.posX + 'px';
         rightracket.style.top = this.posY + 'px';
     },
-
-    
 }
+rightracket.update();
 
 
 // управление ракетками, keydown
@@ -98,7 +98,7 @@ function racketMove(eo) {
     }
 }
 
-// управление ракетками, keydown
+// управление ракетками, keyup
 window.addEventListener('keyup', racketStop);
 function racketStop() {
     leftracket.speed = 0;
@@ -110,6 +110,7 @@ let button = document.querySelector('.start');
 button.addEventListener('click', startGame);
 
 function startGame() {
+    setResult();
     rightracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
     leftracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
     ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
@@ -118,23 +119,21 @@ function startGame() {
     ball.speedY = (Math.random() < 0.5 ? -2 : 2);
 }
 
-
-
 // счетчик 
 let greenRes = 0;
 let blueRes = 0;
 
 function setResult() {
     let resultLeft = document.querySelector('.blue');
-    resultLeft.innerHTML = `${blueRes}`
+    resultLeft.innerHTML = `${greenRes}`
     let resultRight = document.querySelector('.green');
-    resultRight.innerHTML = `${greenRes}`
+    resultRight.innerHTML = `${blueRes}`
 }
 
-// для остановки игры когда набрано 10 очков - исправить чтобы 
+// остановка игры, когда один из игроков победил
 function stopWhenWin() {
-    if (greenRes === 2) {
-        alert('зеленая ракетка выйграла');
+    if (greenRes === 5) {
+        alert('синяя ракетка выиграла');
         greenRes = 0;
         blueRes = 0;
         rightracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
@@ -142,8 +141,8 @@ function stopWhenWin() {
         ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
         ball.posY = FIELD_HEIGHT / 2 - BALL_WIDTH / 2;
     }
-    if (blueRes === 2) {
-        alert('синяя ракетка выйграла');
+    if (blueRes === 5) {
+        alert('зеленая ракетка выиграла');
         greenRes = 0;
         blueRes = 0;
         rightracket.posY = FIELD_HEIGHT / 2 - RACKET_HEIGHT / 2;
@@ -151,8 +150,9 @@ function stopWhenWin() {
         ball.posX = FIELD_WIDTH / 2 - BALL_WIDTH / 2;
         ball.posY = FIELD_HEIGHT / 2 - BALL_WIDTH / 2;
     }
-    setResult();
 }
+
+requestAnimationFrame(tick);
 
 // игровой процесс
 function tick() {
@@ -160,7 +160,7 @@ function tick() {
     ball.posX += ball.speedX;
     // вылетел ли мяч правее стены?
     if (ball.posX + ball.width > field.width) {
-        ball.speedX = -ball.speedX;
+        ball.speedX = - ball.speedX;
         ball.posX = field.width - ball.width;
         ball.speedX = 0;
         ball.speedY = 0;
@@ -204,7 +204,7 @@ function tick() {
             ball.speedY = ball.speedY * ball.accel;
         }
     }
-    
+        
     ball.update();
     
     leftracket.posY += leftracket.speed;
@@ -232,13 +232,7 @@ function tick() {
 }
 
 
-let timer = 0;
-window.addEventListener('load', function () {
-    button.addEventListener('click', startGame, false);
-    addEventListener('keydown', racketMove);
-    addEventListener('keyup', racketStop);
-    timer = requestAnimationFrame(tick);
-})
+
 
 
 
