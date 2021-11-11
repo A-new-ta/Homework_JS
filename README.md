@@ -507,3 +507,11 @@ https://a-new-ta.github.io/Homework_JS/tennis_svg/index.html
 Описание — в домашнем задании про проект TENNIS_DOM.
 Кнопку «старт» реализовать средствами SVG (прямоугольник).
 
+
+***TENNIS_CANVAS***
+    
+https://a-new-ta.github.io/Homework_JS/tennis_canvas/index.html
+    
+Реализовать игру «Теннис» (проект TENNIS_CANVAS) с использованием Canvas.
+Описание — в домашнем задании про проект TENNIS_DOM.
+Кнопку «старт» реализовать средствами HTML, не Canvas.
