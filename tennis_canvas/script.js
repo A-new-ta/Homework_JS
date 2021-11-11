@@ -15,7 +15,6 @@ canvas.width = FIELD_WIDTH;
 canvas.height = FIELD_HEIGHT;
 let context = canvas.getContext('2d');
 
-
 function rect (x, y, w, h, color) {
     context.fillStyle = color;
     context.fillRect(x, y, w, h);
