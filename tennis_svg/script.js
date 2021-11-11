@@ -94,7 +94,6 @@ let leftracketH = {
     }
 }
 
-
 //создаем правую ракетку
 let rightracket = document.createElementNS('http://www.w3.org/2000/svg','rect');
 rightracket.setAttribute('class', 'rightracket');
@@ -120,7 +119,6 @@ let rightracketH = {
         rightracket.setAttribute('y', this.posY);
     }
 }
-
 
 
 // управление ракетками, keydown
@@ -275,6 +273,7 @@ function tick() {
     stopWhenWin();
     requestAnimationFrame(tick);
 }
+
 
 
 
