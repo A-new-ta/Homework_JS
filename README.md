@@ -523,3 +523,13 @@ https://a-new-ta.github.io/Homework_JS/drinks_loc_storage/index.html
     
 На основе класса HashStorageClass (из проекта DRINKS) разработать класс LocStorageClass (в модуле LocStorage.js) для хранения информации в localStorage.
 На веб-странице создать два объекта класса LocStorageClass и реализовать два интерфейса (набора кнопок) — для работы с напитками и для работы с блюдами.
+    
+    
+***DYN_FORM_AJAX*** 
+    
+https://a-new-ta.github.io/Homework_JS/dyn_form_ajax/index.html
+    
+Переделать проект DYN_FORM на использование AJAX — подгружать двумя AJAX-запросами массивы с описаниями форм из файлов:
+https://fe.it-academy.by/Examples/dyn_form_ajax/formDef1.json
+https://fe.it-academy.by/Examples/dyn_form_ajax/formDef2.json
+Формы должны отобразиться на веб-странице строго в указанном порядке.
