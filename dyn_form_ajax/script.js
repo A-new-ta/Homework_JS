@@ -122,10 +122,10 @@ function createForm(formName, fields) {
 
 function loadForm() {
     $.ajax("https://fe.it-academy.by/Examples/dyn_form_ajax/formDef1.json",
-        { type: "GET", dataType: "json", success: DataLoaded, error: ErrorHandler, async: false }
+        { type: "GET", dataType: "json", success: DataLoaded, error: ErrorHandler }
     );
     $.ajax("https://fe.it-academy.by/Examples/dyn_form_ajax/formDef2.json",
-        { type: "GET", dataType: "json", success: DataLoaded, error: ErrorHandler, async: false }
+        { type: "GET", dataType: "json", success: DataLoaded, error: ErrorHandler }
     );
 }
 
