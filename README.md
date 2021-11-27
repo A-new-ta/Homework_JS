@@ -515,3 +515,11 @@ https://a-new-ta.github.io/Homework_JS/tennis_canvas/index.html
 Реализовать игру «Теннис» (проект TENNIS_CANVAS) с использованием Canvas.
 Описание — в домашнем задании про проект TENNIS_DOM.
 Кнопку «старт» реализовать средствами HTML, не Canvas.
+    
+ 
+***DRINKS_LOC_STORAGE***
+    
+https://a-new-ta.github.io/Homework_JS/drinks_loc_storage/index.html
+    
+На основе класса HashStorageClass (из проекта DRINKS) разработать класс LocStorageClass (в модуле LocStorage.js) для хранения информации в localStorage.
+На веб-странице создать два объекта класса LocStorageClass и реализовать два интерфейса (набора кнопок) — для работы с напитками и для работы с блюдами.
