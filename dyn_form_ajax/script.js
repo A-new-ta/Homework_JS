@@ -120,21 +120,36 @@ function createForm(formName, fields) {
         }
 }
 
+
+let data1 = undefined;
+let data2 = undefined;
+
 function loadForm() {
-    $.ajax("https://fe.it-academy.by/Examples/dyn_form_ajax/formDef1.json",
-        { type: "GET", dataType: "json", success: DataLoaded, error: ErrorHandler }
-    );
-    $.ajax("https://fe.it-academy.by/Examples/dyn_form_ajax/formDef2.json",
-        { type: "GET", dataType: "json", success: DataLoaded, error: ErrorHandler }
-    );
+  
+    if (data1 === undefined) {
+        $.ajax("https://fe.it-academy.by/Examples/dyn_form_ajax/formDef1.json",
+            { type: "GET", dataType: "json", success: function(data) {
+                    data1 = data; loadForm();}, error: ErrorHandler }
+        );
+        return;
+    }
+    if (data2 === undefined) {
+        $.ajax("https://fe.it-academy.by/Examples/dyn_form_ajax/formDef2.json",
+        { type: "GET", dataType: "json", success: function(data) {
+            data2 = data; loadForm();}, error: ErrorHandler }
+        );
+        return;
+    }
+    
+    createForm(form, data1);
+    createForm(form, data2);
+    
 }
-
-function DataLoaded(data) {
-    createForm(form, data);
-}
-
 function ErrorHandler(jqXHR, StatusStr, ErrorStr) {
     alert(StatusStr + ' ' + ErrorStr);
 }
 
 loadForm();
+
+
+
