@@ -1,10 +1,10 @@
 "use strict";
 
 class ClockViewCanvas {
-    constructor(diam, selector, clock) {
+    constructor(diam, city, clock) {
         this.clock = clock;
-        this.selector = selector;
-        this.context = this.getContainer(this.selector, 'canvas', diam);
+        this.city = city;
+        this.context = this.getContainer(this.city, 'canvas', diam);
         this.clockDiameter = diam;
         this.clockRad = this.clockDiameter / 2;
         this.childElemClock = this.clockDiameter / 18;
@@ -18,30 +18,30 @@ class ClockViewCanvas {
         this.proportionArrows = this.clockDiameter / 4 / 10;
     }
 
-    getContainer(selector, style, diam) {
+    getContainer(city, style, diam) {
         let element;
         let clockContainer = document.createElement('div');
         clockContainer.classList.add('container');
-        if (!document.querySelector(`.main-clock-${selector}`)) {
+        if (!document.querySelector(`.main-clock-${city}`)) {
             let buttonStart = document.createElement('button');
-            buttonStart.classList.add('button-start-' + selector);
+            buttonStart.classList.add('button-start-' + this.city);
             buttonStart.style.marginBottom = '20px';
             buttonStart.textContent = 'Старт'
         
             let buttonStop = document.createElement('button');
-            buttonStop.classList.add('button-stop-' + selector);
+            buttonStop.classList.add('button-stop-' + this.city);
             buttonStop.style.margin = '20px 5px';
             buttonStop.textContent = 'Стоп';
-            let city = document.createElement('b');
-            city.textContent = selector;
+            let city = document.createElement('span');
+            city.textContent = this.city;
             clockContainer.append(buttonStart);
             clockContainer.append(buttonStop);
             clockContainer.append(city);
 
             element = document.createElement('div');
-            element.classList.add('main-clock-' + selector);
+            element.classList.add('main-clock-' + this.city);
             let canvas = document.createElement('canvas');
-            canvas.setAttribute('id', 'main-clock-' + selector);
+            canvas.setAttribute('id', 'main-clock-' + this.city);
             canvas.width = diam;
             canvas.height = diam;
             element.append(canvas);
