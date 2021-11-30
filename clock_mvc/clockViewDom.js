@@ -108,7 +108,6 @@ class ClockViewDOM {
     this.secondsArrow = secondsArrow;
   }
 
-  // Получение минутной стрелки
   getMinutesArrow() {
     let clockContainer = document.querySelector(`.clock-${this.city}`);
     let minutesArrow = document.createElement('div');
@@ -127,7 +126,6 @@ class ClockViewDOM {
     this.minutesArrow = minutesArrow;
   }
 
-  // Получение часовой стрелки
   getHoursArrow() {
     let clockContainer = document.querySelector(`.clock-${this.city}`);
     let hoursArrow = document.createElement('div');
