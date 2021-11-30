@@ -168,5 +168,4 @@ class ClockViewSVG {
     this.minutesArrow.style.transform = `rotate(${minutesAngle}deg)`;
     this.secondsArrow.style.transform = `rotate(${secondsAngle}deg)`;
 }
-
 }
