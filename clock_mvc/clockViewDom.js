@@ -1,7 +1,6 @@
 "use strict";
 
 class ClockViewDOM {
-  
   hoursArrow;
   minutesArrow;
   secondsArrow;
