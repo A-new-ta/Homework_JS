@@ -1,7 +1,6 @@
 "use strict";
 
 class ClockControllerButtons {
-//   model;
 
   controlButtons(modelName, city) {
       this.modelName = modelName;
