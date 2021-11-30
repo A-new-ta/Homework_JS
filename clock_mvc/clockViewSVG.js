@@ -46,16 +46,16 @@ class ClockViewSVG {
       element.classList.add('main-clock-' + this.city);
       let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       svg.setAttribute('id', 'main-clock-' + this.city);
-      svg.setAttribute('width', String(this.clockDiameter));
-      svg.setAttribute('height', String(this.clockDiameter));
+      svg.setAttribute('width', this.clockDiameter + '');
+      svg.setAttribute('height', this.clockDiameter + '');
       element.append(svg);
       clockContainer.append(element);
       document.querySelector('.wrapper').append(clockContainer);
       let clockBody = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       clockBody.setAttribute('id', 'clock-' + this.city);
-      clockBody.setAttribute('cx', String(this.clockRad));
-      clockBody.setAttribute('cy', String(this.clockRad));
-      clockBody.setAttribute('r', String(this.clockDiameter / 2));
+      clockBody.setAttribute('cx', this.clockRad + '');
+      clockBody.setAttribute('cy', this.clockRad + '');
+      clockBody.setAttribute('r', (this.clockDiameter / 2) + '');
       clockBody.setAttribute('fill', '#fcca67');
       svg.append(clockBody);
     }

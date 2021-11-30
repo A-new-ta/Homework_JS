@@ -19,6 +19,7 @@ class ClockModel {
   getTime() {
       let date = new Date();
       let localeTime = date.toLocaleTimeString('ru', { timeZone: this.timezone }).split(':');
+     
       let hours = Number(localeTime[0]);
       let minutes = Number(localeTime[1]);
       let seconds = Number(localeTime[2]);

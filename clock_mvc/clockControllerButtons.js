@@ -3,7 +3,7 @@
 class ClockControllerButtons {
 //   model;
 
-  startStop(modelName, city) {
+  controlButtons(modelName, city) {
       this.modelName = modelName;
 
       let start = document.querySelector('.button-start-' + city);
