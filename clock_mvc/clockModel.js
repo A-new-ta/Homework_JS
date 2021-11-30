@@ -27,7 +27,7 @@ class ClockModel {
       this.hours = hours;
       this.seconds = seconds;
       this.view.updateTime();
-      this.timer = setTimeout(() => {this.getTime()}, 1020 - date.getMilliseconds());
+      this.timer = setTimeout(() => { this.getTime() }, 1020 - date.getMilliseconds());
   }
 
   startClock() {
@@ -36,5 +36,6 @@ class ClockModel {
 
   stopClock() {
       clearTimeout(this.timer);
+      this.timer = 0;
   }
 }
