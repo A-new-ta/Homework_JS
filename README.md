@@ -533,3 +533,23 @@ https://a-new-ta.github.io/Homework_JS/dyn_form_ajax/index.html
 https://fe.it-academy.by/Examples/dyn_form_ajax/formDef1.json
 https://fe.it-academy.by/Examples/dyn_form_ajax/formDef2.json
 Формы должны отобразиться на веб-странице строго в указанном порядке.
+
+    
+ ***CLOCK_MVC*** 
+    
+ https://a-new-ta.github.io/Homework_JS/clock_mvc/index.html
+    
+Создать проект CLOCK. Реализовать согласно концепции активного MVC:
+Model — часы, класс Clock в файле Clock.js, могут идти (отображая актуальное время) либо стоять (отображая время на момент остановки);
+View — реализовать три варианта:
+класс ClockViewDOM в файле ClockViewDOM.js
+для отображения часов средствами HTML/CSS/DOM;
+класс ClockViewSVG в файле ClockViewSVG.js
+для отображения средствами SVG и
+класс ClockViewCanvas в файле ClockViewCanvas.js
+для отображения средствами Canvas;
+Controller — реализовать вариант старта/остановки часов кнопками,
+класс ClockControllerButtons в файле ClockControllerButtons.js.
+Создать шесть объектов часов, для двух установить отображение в DOM, ещё для двух — в SVG, и ещё для двух — в Canvas, расположить их на одной странице.
+Каждые часы должны отображать текущее время в своём часовом поясе.
+Все шесть часов должны независимо управляться своими кнопками «стоп» и «старт» (при загрузке страницы часы должны идти; по нажатию кнопки «стоп» стрелки должны останавливаться; по нажатию «старт» — переводиться на текущее время и снова идти).
