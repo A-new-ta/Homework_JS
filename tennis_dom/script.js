@@ -196,7 +196,8 @@ function tick() {
             ball.speedY = ball.speedY * ball.accel;
         }
     }
-            
+    
+    
     //отскок от левой ракетки
     if (ball.posX <= (leftracket.posX + leftracket.width)) {
         if (ball.posY + ball.height >= leftracket.posY && ball.posY <= leftracket.posY + leftracket.height) {

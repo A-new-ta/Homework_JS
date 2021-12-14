@@ -19,6 +19,7 @@ class ClockModel {
   getTime() {
       let date = new Date();
       let localeTime = date.toLocaleTimeString('ru', { timeZone: this.timezone }).split(':');
+     
       let hours = Number(localeTime[0]);
       let minutes = Number(localeTime[1]);
       let seconds = Number(localeTime[2]);
@@ -26,7 +27,7 @@ class ClockModel {
       this.hours = hours;
       this.seconds = seconds;
       this.view.updateTime();
-      this.timer = setTimeout(() => {this.getTime()}, 1020 - date.getMilliseconds());
+      this.timer = setTimeout(() => { this.getTime() }, 1020 - date.getMilliseconds());
   }
 
   startClock() {
@@ -35,5 +36,6 @@ class ClockModel {
 
   stopClock() {
       clearTimeout(this.timer);
+      this.timer = 0;
   }
 }

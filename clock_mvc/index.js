@@ -8,7 +8,7 @@ const controllerNewYork = new ClockControllerButtons();
 viewNewYork.clockInit();
 clockNewYork.getView(viewNewYork);
 clockNewYork.getTime();
-controllerNewYork.startStop(clockNewYork, 'Нью-Йорк');
+controllerNewYork.controlButtons(clockNewYork, 'Нью-Йорк');
 
 // London clock
 
@@ -18,7 +18,7 @@ const controllerLondon = new ClockControllerButtons();
 viewLondon.clockInit();
 clockLondon.getView(viewLondon);
 clockLondon.getTime();
-controllerLondon.startStop(clockLondon, 'Лондон');
+controllerLondon.controlButtons(clockLondon, 'Лондон');
 
 //Berlin clock
 
@@ -28,7 +28,7 @@ const controllerBerlin = new ClockControllerButtons();
 viewBerlin.clockInit();
 clockBerlin.getView(viewBerlin);
 clockBerlin.getTime();
-controllerBerlin.startStop(clockBerlin, 'Берлин');
+controllerBerlin.controlButtons(clockBerlin, 'Берлин');
 
 // Minsk clock
 
@@ -38,7 +38,7 @@ const controllerMinsk = new ClockControllerButtons();
 clockMinsk.getView(viewMinsk);
 viewMinsk.clockInit();
 clockMinsk.getTime();
-controllerMinsk.startStop(clockMinsk, 'Минск')
+controllerMinsk.controlButtons(clockMinsk, 'Минск');
 
 // Tokyo clock
 
@@ -48,7 +48,7 @@ const controllerTokyo = new ClockControllerButtons();
 clockTokyo.getView(viewTokyo)
 viewTokyo.clockInit();
 clockTokyo.getTime();
-controllerTokyo.startStop(clockTokyo, 'Токио')
+controllerTokyo.controlButtons(clockTokyo, 'Токио');
 
 // Vladivostok clock
 
@@ -58,4 +58,4 @@ const controllerVladivostok = new ClockControllerButtons();
 clockVladivostok.getView(viewVladivostok);
 viewVladivostok.clockInit();
 clockVladivostok.getTime();
-controllerVladivostok.startStop(clockVladivostok, 'Владивосток');
+controllerVladivostok.controlButtons(clockVladivostok, 'Владивосток');

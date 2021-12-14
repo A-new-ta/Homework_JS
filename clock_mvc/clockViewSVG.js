@@ -5,9 +5,9 @@ class ClockViewSVG {
   minutesArrow;
   secondsArrow;
 
-  constructor(diam, selector, clock) {
+  constructor(diam, city, clock) {
     this.clock = clock;
-    this.selector = selector;
+    this.city = city;
     this.clockDiameter = diam;
     this.clockRad = this.clockDiameter / 2;
     this.childElemClock = this.clockDiameter / 9 ;
@@ -25,37 +25,37 @@ class ClockViewSVG {
     let element;
     let clockContainer = document.createElement('div');
     clockContainer.classList.add('container');
-    if (!document.querySelector(`.main-clock-${this.selector}`)) {
+    if (!document.querySelector(`.main-clock-${this.city}`)) {
       let buttonStart = document.createElement('button');
-      buttonStart.classList.add('button-start-' + this.selector);
+      buttonStart.classList.add('button-start-' + this.city);
       buttonStart.style.marginBottom = '20px';
       buttonStart.textContent = 'Старт'
         
       let buttonStop = document.createElement('button');
-      buttonStop.classList.add('button-stop-' + this.selector);
+      buttonStop.classList.add('button-stop-' + this.city);
       buttonStop.style.margin = '20px 5px';
       buttonStop.textContent = 'Стоп';
     
-      let city = document.createElement('b');
-      city.textContent = this.selector;
+      let city = document.createElement('span');
+      city.textContent = this.city;
       clockContainer.append(buttonStart);
       clockContainer.append(buttonStop);
       clockContainer.append(city);
 
       element = document.createElement('div');
-      element.classList.add('main-clock-' + this.selector);
+      element.classList.add('main-clock-' + this.city);
       let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('id', 'main-clock-' + this.selector);
-      svg.setAttribute('width', String(this.clockDiameter));
-      svg.setAttribute('height', String(this.clockDiameter));
+      svg.setAttribute('id', 'main-clock-' + this.city);
+      svg.setAttribute('width', this.clockDiameter + '');
+      svg.setAttribute('height', this.clockDiameter + '');
       element.append(svg);
       clockContainer.append(element);
       document.querySelector('.wrapper').append(clockContainer);
       let clockBody = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      clockBody.setAttribute('id', 'clock-' + this.selector);
-      clockBody.setAttribute('cx', String(this.clockRad));
-      clockBody.setAttribute('cy', String(this.clockRad));
-      clockBody.setAttribute('r', String(this.clockDiameter / 2));
+      clockBody.setAttribute('id', 'clock-' + this.city);
+      clockBody.setAttribute('cx', this.clockRad + '');
+      clockBody.setAttribute('cy', this.clockRad + '');
+      clockBody.setAttribute('r', (this.clockDiameter / 2) + '');
       clockBody.setAttribute('fill', '#fcca67');
       svg.append(clockBody);
     }
@@ -63,7 +63,7 @@ class ClockViewSVG {
 
   getAnalogClock() {
 
-    let svg = document.getElementById(`main-clock-${this.selector}`);
+    let svg = document.getElementById(`main-clock-${this.city}`);
     function createCircle(elemClock) {
       let circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttribute('r', elemClock + '');
@@ -98,7 +98,7 @@ class ClockViewSVG {
   }
 
   getSecondsArrow() {
-    let svg = document.getElementById(`main-clock-${this.selector}`);
+    let svg = document.getElementById(`main-clock-${this.city}`);
     let secondsArrow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     secondsArrow.setAttribute('x1', this.clockRad + '');
     secondsArrow.setAttribute('x2', this.clockRad + '');
@@ -116,7 +116,7 @@ class ClockViewSVG {
 
 // Получение минутной стрелки
   getMinutesArrow() {
-    let svg = document.getElementById(`main-clock-${this.selector}`);
+    let svg = document.getElementById(`main-clock-${this.city}`);
     let minutesArrow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     minutesArrow.setAttribute('x1', this.clockRad + '');
     minutesArrow.setAttribute('x2', this.clockRad + '');
@@ -134,7 +134,7 @@ class ClockViewSVG {
 
 // Получение часовой стрелки
   getHoursArrow() {
-    let svg = document.getElementById(`main-clock-${this.selector}`);
+    let svg = document.getElementById(`main-clock-${this.city}`);
     let hoursArrow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     hoursArrow.setAttribute('x1', this.clockRad + '');
     hoursArrow.setAttribute('x2', this.clockRad + '');
@@ -168,5 +168,4 @@ class ClockViewSVG {
     this.minutesArrow.style.transform = `rotate(${minutesAngle}deg)`;
     this.secondsArrow.style.transform = `rotate(${secondsAngle}deg)`;
 }
-
 }

@@ -1,14 +1,13 @@
 "use strict";
 
 class ClockViewDOM {
-  
   hoursArrow;
   minutesArrow;
   secondsArrow;
 
-  constructor(diam, selector, clock) {
+  constructor(diam, city, clock) {
     this.clock = clock;
-    this.selector = selector;
+    this.city = city;
     this.clockDiameter = diam;
     this.clockRad = this.clockDiameter / 2;
     this.childElemClock = this.clockDiameter / 9;
@@ -26,24 +25,24 @@ class ClockViewDOM {
     let element;
     let clockContainer = document.createElement('div');
     clockContainer.classList.add('container');
-    if (!document.querySelector(`.main-clock-${this.selector}`)) {
+    if (!document.querySelector(`.main-clock-${this.city}`)) {
       let buttonStart = document.createElement('button');
-      buttonStart.classList.add('button-start-' + this.selector);
+      buttonStart.classList.add('button-start-' + this.city);
       buttonStart.style.marginBottom = '20px';
       buttonStart.textContent = 'Старт'
         
       let buttonStop = document.createElement('button');
-      buttonStop.classList.add('button-stop-' + this.selector);
+      buttonStop.classList.add('button-stop-' + this.city);
       buttonStop.style.margin = '20px 5px';
       buttonStop.textContent = 'Стоп';
-      let city = document.createElement('b');
-      city.textContent = this.selector;
+      let city = document.createElement('span');
+      city.textContent = this.city;
       clockContainer.append(buttonStart);
       clockContainer.append(buttonStop);
       clockContainer.append(city);
 
       element = document.createElement('div');
-      element.classList.add('main-clock-' + this.selector);
+      element.classList.add('main-clock-' + this.city);
       element.style.width = this.clockDiameter + 'px';
       element.style.height = this.clockDiameter + 'px';
       element.style.position = 'relative';
@@ -51,7 +50,7 @@ class ClockViewDOM {
       document.querySelector('.wrapper').append(clockContainer);
 
       let clockBody = document.createElement('div');
-      clockBody.classList.add('clock-' + this.selector);
+      clockBody.classList.add('clock-' + this.city);
       clockBody.style.position = 'absolute';
       clockBody.style.width = this.clockDiameter + 'px';
       clockBody.style.height = this.clockDiameter + 'px';
@@ -62,7 +61,7 @@ class ClockViewDOM {
   }
 
   getAnalogClock() {
-    let clockContainer = document.querySelector(`.clock-${this.selector}`);
+    let clockContainer = document.querySelector(`.clock-${this.city}`);
     function createCircle(elemClock, diam) {
       let circle = document.createElement('div');
       circle.style.width = elemClock + 'px';
@@ -91,7 +90,7 @@ class ClockViewDOM {
   }
 
   getSecondsArrow() {
-    let clockContainer = document.querySelector(`.clock-${this.selector}`);
+    let clockContainer = document.querySelector(`.clock-${this.city}`);
     let secondsArrow = document.createElement('div');
     secondsArrow.classList.add('seconds');
     secondsArrow.style.width = this.secondsArrowHeight + 'px';
@@ -108,9 +107,8 @@ class ClockViewDOM {
     this.secondsArrow = secondsArrow;
   }
 
-  // Получение минутной стрелки
   getMinutesArrow() {
-    let clockContainer = document.querySelector(`.clock-${this.selector}`);
+    let clockContainer = document.querySelector(`.clock-${this.city}`);
     let minutesArrow = document.createElement('div');
     minutesArrow.classList.add('minutes');
     minutesArrow.style.width = this.minutesArrowHeight + 'px';
@@ -127,9 +125,8 @@ class ClockViewDOM {
     this.minutesArrow = minutesArrow;
   }
 
-  // Получение часовой стрелки
   getHoursArrow() {
-    let clockContainer = document.querySelector(`.clock-${this.selector}`);
+    let clockContainer = document.querySelector(`.clock-${this.city}`);
     let hoursArrow = document.createElement('div');
     hoursArrow.classList.add('minutes');
     hoursArrow.style.width = this.hoursArrowHeight + 'px';
