@@ -15,12 +15,13 @@
     let dict = ["ЛУЖА","МУЗА","ЛИРА","МЕХА","ЛИГА","ТАРА","ЛИПА","ТУРА","ПАРК","ЛОЖЬ","ЛУПА","ПЛОТ","МУРА","ПАУК","ПАУТ","ПЛУТ","ЛОЖА","СЛОТ","ПАРА"];
     let result = nextStep(word1, dict, word2);
     let str = result.join('-');
+    return str;
     }
     
-    function isDiffOne (word1, word2) {
+    function isDiffOne (s1, s2) {
         let diff = 0;
-        for (let i = 0; i < word1.length; i++) {
-            if (word1[i] !== word2[i]) diff++;
+        for (let i = 0; i < s1.length; i++) {
+            if (s1[i] !== s2[i]) diff++;
         };
         return diff;
     };
@@ -28,49 +29,53 @@
     function nextStep (word1, dict, word2) {
         let newArr = [];
         for (let i = 0; i < dict.length; i++) {
-            if (isDiffOne(word1, word2) === 1) {
-                newArr.push(word2);
+            if (isDiffOne(word1, dict[i]) === 1) {
+                newArr.push(dict[i]);
             }
-            if (newArr.length === 0) {
-                return null;
-            } else {
-                for (let j = 0; j < newArr.length; j++) {
-                    let res = newArr[j];
-                    if (res === word2) {
-                        return [word1, res];
+        }
+        if (isDiffOne(word1, word2) === 1) {
+            newArr.push(word2);
+        }
+        if (newArr.length === 0) {
+            return null;
+        } else {
+            for (let j = 0; j < newArr.length; j++) {
+                let res = newArr[j];
+                if (res === word2) {
+                    return [word1, res];
+                } else {
+                    let x = dict.indexOf(res);
+                    dict.splice(x,1);
+                    let result = nextStep(res, dict, word2);
+                    if (result === null) {
+                        continue;
                     } else {
-                        let x = dict.indexOf(res);
-                        dict.splice(x,1);
-                        let result = nextStep(res, dict, word2);
-                        if (result === null) {
-                            continue;
-                        } else {
-                            result.unshift(word1);
-                            return findBestResult(result);
-                        }
+                        result.unshift(word1);
+                        return findBestResult(result);
                     }
-                } 
+                }
+            } 
 
-            }
         }
     }
 
+
     function findBestResult(result) {
-        let a = 4;
-        for (let i = 0, j = 1; i < result.length; i++) {
-            let word1 = result[i];
-            let word2 = result[j];
-            for (let k = 0; k < word1.length; k++) {
-                if (word1[k] !== word2[k]) {
-                    if (a !== k) {
-                        let a = k;
+        let m = 4;
+        for (let i = 0, k = 1; i < result.length; i++) {
+            let s1 = result[i];
+            let s2 = result[k];
+            for (let j = 0; j < s1.length; j++) {
+                if (s1[j] !== s2[j]) {
+                    if (m !== j) {
+                        m = j;
                     } else {
                         result[i] = result[i -1];
                     }
                 }
             }
-            j++;
-            if (j === result.length) {
+            k++;
+            if (k === result.length) {
                 return Array.from(new Set(result));
             }
         }
@@ -78,7 +83,7 @@
     
 
 console.log(wordChain('ЛИСА', 'ЛОСЬ'));
-// console.log(wordChain('МУХА', 'СЛОН'));
+console.log(wordChain('МУХА', 'СЛОН'));
 
 
 </script>
